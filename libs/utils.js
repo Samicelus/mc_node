@@ -1,4 +1,5 @@
 var moment = require('moment');
+const crypto = require('crypto');
 var utils = {};
 
 utils.datetimeFormat = function (time) {
