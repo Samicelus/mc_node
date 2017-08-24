@@ -1,7 +1,7 @@
 {
     "host":"127.0.0.1",
     "port":"3306",
-    "db":"C:/sqlite/authme.db",
+    "db":"/root/spigot_server/Spigot-1.12/plugins/AuthMe/authme.db",
     "user":"authme",
     "pwd":"12345"
 }
