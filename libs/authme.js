@@ -13,7 +13,7 @@ function sha256(str){
 authme.comparePassword = function (password, hashedPassword, playerName) {
     let hash = authme.getHash(hashedPassword);
     let salt = authme.getSalt(hashedPassword);
-    return hash == authme.getHash(auth.computeHash(password, salt, ""));
+    return hash == authme.getHash(authme.computeHash(password, salt, ""));
 };
 
 authme.getHash = function (hashedPassword){
