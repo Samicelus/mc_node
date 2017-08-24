@@ -7,12 +7,14 @@ authme.computeHash = function (password, salt, name) {
 };
 
 function sha256(str){
-    return  crypto.createHash('sha256') .update(str).digest('hex');
+    return  crypto.createHash('sha256').update(str).digest('hex');
 }
 
 authme.comparePassword = function (password, hashedPassword, playerName) {
     let hash = authme.getHash(hashedPassword);
     let salt = authme.getSalt(hashedPassword);
+    console.log("hash:"+hash);
+    console.log("salt:"+salt);
     return hash == authme.getHash(authme.computeHash(password, salt, ""));
 };
 
