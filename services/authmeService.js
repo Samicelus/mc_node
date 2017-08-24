@@ -3,6 +3,7 @@ var fs = require('fs');
 var Promise = require('bluebird');
 var sqlitedb = require('../libs/sqlite.js');
 var utils = require('../libs/utils.js');
+var authme = require('../libs/authme.js');
 var service = new BaseService();
 const crypto = require('crypto');
 
@@ -29,8 +30,14 @@ service.testSHA256 = function(req, res){
 service.login = function(req, res){
     var name = req.body.name;
     var password = req.body.password;
-    sqlitedb.get('SELECT * FROM authme').then(function(user){
-        service.restSuccess(res, user);
+    sqlitedb.get('SELECT * FROM authme WHERE username = ?', name).then(function(user){
+        var hashedPassword = user.password;
+        var auth = authme.comparePassword(password, hashedPassword, name);
+        if(auth){
+            service.restSuccess(res, "login succeseed!");
+        }else{
+            throw new Error("login failed!")
+        }
     }).catch(function (e) {
         console.error(e.stack || e);
         service.restError(res, -1, e.toString());
