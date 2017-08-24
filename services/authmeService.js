@@ -31,12 +31,12 @@ service.login = function(req, res){
     var name = req.body.name;
     var password = req.body.password;
     sqlitedb.get('SELECT * FROM authme WHERE username = ?', name).then(function(user){
+        if(!user){
+            throw new Error("user not found!");
+        }
         var hashedPassword = user.password;
         if(!password){
             throw new Error("no password entered!")
-        }
-        if(!user){
-            throw new Error("user not found!");
         }
         var auth = authme.comparePassword(password, hashedPassword, name);
         if(auth){
