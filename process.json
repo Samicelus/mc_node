@@ -1,11 +1,11 @@
 {
   "apps": [
     {
-      "name": "ysq-api",
+      "name": "mc_node",
       "script": "./bin/api",
       "watch": false,
-      "error_file": "/data/logs/nodes/ysq-api-error.log",
-      "out_file": "/data/logs/nodes/ysq-api-out.log",
+      "error_file": "/data/logs/nodes/mc_node-error.log",
+      "out_file": "/data/logs/nodes/mc_node-out.log",
       "env": "dev"
     }
   ]
