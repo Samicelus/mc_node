@@ -61,7 +61,7 @@ service.changePassword = function(req, res){
         }
         var auth = authme.comparePassword(old_password, hashedPassword, username);
         if(auth){
-            let salt = authme.generate16salt();
+            let salt = authme.generate16salt(username);
             let password = authme.computeHash(new_password, salt, username);
             return sqlitedb.set("UPDATE authme SET password = '"+ password +"' WHERE username = ?", username);
         }else{
