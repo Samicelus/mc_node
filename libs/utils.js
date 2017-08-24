@@ -31,7 +31,7 @@ utils.authorize = function(req, res, next){
     let ip = decrypt_str.split("$")[2];
     if(user_tokens[username] && user_tokens[username].token == token && user_tokens[username].expire_timestamp > nowTimestamp){
         req.body.user = {};
-        req.body.username = username;
+        req.body.user.username = username;
         req.body.user.ip = ip;
         return next();
     }else{
