@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "name": "ysq-api",
+      "script": "./bin/api",
+      "watch": false,
+      "error_file": "/data/logs/nodes/ysq-api-error.log",
+      "out_file": "/data/logs/nodes/ysq-api-out.log",
+      "env": "dev"
+    }
+  ]
+}
