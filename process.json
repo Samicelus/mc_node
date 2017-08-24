@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "mc_node",
-      "script": "./bin/api",
+      "script": "./bin/api.js",
       "watch": false,
       "error_file": "/data/logs/nodes/mc_node-error.log",
       "out_file": "/data/logs/nodes/mc_node-out.log",
