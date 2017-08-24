@@ -1,0 +1,22 @@
+{
+  "dataServer":{
+    "replication":"rsTestServer",
+    "servers":[
+      {
+        "host":"121.40.190.5",
+        "port":"27017"
+      },
+      {
+        "host":"121.40.190.5",
+        "port":"27018"
+      },
+      {
+        "host":"121.40.190.5",
+        "port":"27019"
+      }
+    ],
+    "db":"HuaXi",
+    "user":"test",
+    "pwd":"test"
+  }
+}
