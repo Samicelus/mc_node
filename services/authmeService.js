@@ -45,6 +45,35 @@ service.login = function(req, res){
         console.error(e.stack || e);
         service.restError(res, -1, e.toString());
     })
-}
+};
+
+service.changePassword = function(req, res){
+    var username = req.body.user.username;
+    var old_password = req.body.old_password;
+    var new_password = req.body.new_password;
+    sqlitedb.get('SELECT * FROM authme WHERE username = ?', username).then(function(user){
+        if(!user){
+            throw new Error("user not found!");
+        }
+        var hashedPassword = user.password;
+        if(!old_password){
+            throw new Error("no old_password entered!")
+        }
+        var auth = authme.comparePassword(old_password, hashedPassword, username);
+        if(auth){
+            let salt = authme.generate16salt();
+            let password = authme.computeHash(new_password, salt, username);
+            return sqlitedb.set("UPDATE authme SET password = '"+ password +"' WHERE username = ?", username);
+        }else{
+            throw new Error("old_password incorrect!");
+        }
+    }).then(function(result){
+        console.log(result);
+        service.restSuccess(res, result);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.toString());
+    })
+};
 
 module.exports = service;

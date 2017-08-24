@@ -3,6 +3,11 @@ var utils = require('./utils.js');
 var serverConfig = require(utils.configDir + '/serverConfig.json');
 var authme = {};
 
+authme.generate16salt = function(username){
+    let nowTimestamp = new Date().getTime();
+    return crypto.createHash('md5').update(username+nowTimestamp).digest('hex').slice(0, 16);
+};
+
 authme.computeHash = function (password, salt, name) {
     return "$SHA$" + salt + "$" + sha256(sha256(password) + salt)
 };
@@ -16,13 +21,6 @@ function encrypt_token(str){
     let encrypted = cipher.update(str,'utf8','hex');
     encrypted += cipher.final('hex');
     return encrypted;
-}
-
-function decrypt_token(str){
-    let decipher = crypto.createDecipher('aes192', 'a password');
-    let decrypted = decipher.update(str,'hex','utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted;
 }
 
 authme.comparePassword = function (password, hashedPassword, playerName) {
