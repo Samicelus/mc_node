@@ -1,4 +1,5 @@
 {
 	"port":8030,
-	"use_mongo": false
+	"use_mongo": false,
+	"token_expire_time": 7200000
 }

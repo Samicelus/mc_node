@@ -7,29 +7,11 @@ var authme = require('../libs/authme.js');
 var service = new BaseService();
 const crypto = require('crypto');
 
-
-service.listAll = function(req, res){
-    sqlitedb.all('SELECT * FROM authme').then(function(user){
-        console.log(user);
-        service.restSuccess(res, user);
-	}).catch(function (e) {
-        console.error(e.stack || e);
-        service.restError(res, -1, e.toString());
-    })
-}
-
-service.testSHA256 = function(req, res){
-    var str = req.query.str;
-    const secret = 'abcdefg';
-    const hash = crypto.createHmac('sha256', secret)
-        .update('I love cupcakes')
-        .digest('hex');
-    console.log(hash);
-}
-
 service.login = function(req, res){
     var name = req.body.name;
     var password = req.body.password;
+    var retToken = "";
+    var expire_timestamp = "";
     sqlitedb.get('SELECT * FROM authme WHERE username = ?', name).then(function(user){
         if(!user){
             throw new Error("user not found!");
@@ -40,7 +22,22 @@ service.login = function(req, res){
         }
         var auth = authme.comparePassword(password, hashedPassword, name);
         if(auth){
-            service.restSuccess(res, "login succeseed!");
+            if(!user_tokens[user.username]){
+                var newTokenInfo = authme.generateToken(user.username, user.ip);
+                retToken = newTokenInfo.token;
+                expire_timestamp = newTokenInfo.expire_timestamp;
+            }else{
+                let nowTimestamp = new Date().getTime();
+                if(user_tokens[user.username].expire_timestamp > nowTimestamp){
+                    retToken = user_tokens[user.username].token;
+                    expire_timestamp = user_tokens[user.username].expire_timestamp;
+                }else{
+                    var newTokenInfo = authme.generateToken(user.username, user.ip);
+                    retToken = newTokenInfo.token;
+                    expire_timestamp = newTokenInfo.expire_timestamp;
+                }
+            }
+            service.restSuccess(res, {token:retToken, expire_timestamp:expire_timestamp});
         }else{
             throw new Error("login failed!")
         }
