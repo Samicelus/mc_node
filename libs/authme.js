@@ -15,6 +15,7 @@ authme.comparePassword = function (password, hashedPassword, playerName) {
     let salt = authme.getSalt(hashedPassword);
     console.log("hash:"+hash);
     console.log("salt:"+salt);
+    console.log("password:"+password);
     return hash == authme.getHash(authme.computeHash(password, salt, ""));
 };
 
