@@ -4,6 +4,7 @@ Promise.promisifyAll(mongoose);
 var utils = require('./utils.js');
 var mongoConfig = require(utils.configDir + '/mongodbConfig.json').dataServer;
 var isReconn = false;
+var serverConfig = require(utils.configDir + '/serverConfig.json');
 
 var connectStr = 'mongodb://';
 if (mongoConfig.replication) {
@@ -56,6 +57,8 @@ function connect2db(times) {
     });
 }
 
+if(serverConfig.use_mongo){
+    connect2db(1);
+}
 
-connect2db(1);
 module.exports = mongoose;
