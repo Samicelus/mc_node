@@ -69,7 +69,7 @@ service.changePassword = function(req, res){
         }
     }).then(function(result){
         console.log(result);
-        service.restSuccess(res, result);
+        service.restSuccess(res, "修改成功！");
     }).catch(function (e) {
         console.error(e.stack || e);
         service.restError(res, -1, e.toString());
