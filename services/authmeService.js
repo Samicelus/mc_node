@@ -4,11 +4,11 @@ var Promise = require('bluebird');
 var sqlitedb = require('../libs/sqlite.js');
 var utils = require('../libs/utils.js');
 var service = new BaseService();
+const crypto = require('crypto');
 
-service.testdb = function(req, res){
-    var id = req.query.id;
-    console.log("search for id:"+id);
-    sqlitedb.all('SELECT * FROM USER').then(function(user){
+
+service.listAll = function(req, res){
+    sqlitedb.all('SELECT * FROM authme').then(function(user){
         console.log(user);
         service.restSuccess(res, user);
 	}).catch(function (e) {
@@ -17,8 +17,24 @@ service.testdb = function(req, res){
     })
 }
 
-service.test = function(req, res){
-	service.restSuccess(res, "测试");
+service.testSHA256 = function(req, res){
+    var str = req.query.str;
+    const secret = 'abcdefg';
+    const hash = crypto.createHmac('sha256', secret)
+        .update('I love cupcakes')
+        .digest('hex');
+    console.log(hash);
+}
+
+service.login = function(req, res){
+    var name = req.body.name;
+    var password = req.body.password;
+    sqlitedb.get('SELECT * FROM authme').then(function(user){
+        service.restSuccess(res, user);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.toString());
+    })
 }
 
 module.exports = service;
