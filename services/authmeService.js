@@ -53,7 +53,7 @@ service.changePassword = function(req, res){
     var new_password = req.body.new_password;
     sqlitedb.get('SELECT * FROM authme WHERE username = ?', username).then(function(user){
         if(!user){
-            throw new Error("user not found!");
+            throw new Error("user: "+username+" not found!");
         }
         var hashedPassword = user.password;
         if(!old_password){
