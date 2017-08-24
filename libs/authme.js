@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+var utils = require('./utils.js');
 var serverConfig = require(utils.configDir + '/serverConfig.json');
 var authme = {};
 
