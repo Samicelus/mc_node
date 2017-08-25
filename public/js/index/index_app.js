@@ -8,6 +8,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
     $scope.password = "";
     $scope.new_password = "";
     $scope.old_password = "";
+    $scope.verify_password = "";
     $http({
         method: 'GET',
         url: 'http://119.23.73.86:8030/checkLogin'
@@ -62,6 +63,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
                 if (response.data.result == "TRUE") {
                     $scope.new_password = "";
                     $scope.old_password = "";
+                    $scope.verify_password = "";
                     alert(response.data.msg);
                 } else {
                     alert("修改失败！");
