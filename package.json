@@ -1,7 +1,7 @@
 {
-  "name": "template_project",
+  "name": "mc_node",
   "version": "1.0.0",
-  "description": "a template project",
+  "description": "a project for mc management",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,7 @@
     "cookie-parser": "^1.4.3",
     "cron": "^1.2.1",
     "express": "^4.15.3",
+    "express-session": "^1.15.5",
     "moment": "^2.18.1",
     "mongoose": "^4.11.0",
     "morgan": "^1.8.2",
