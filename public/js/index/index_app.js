@@ -67,7 +67,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
                     $scope.new_password = "";
                     $scope.old_password = "";
                     $scope.verify_password = "";
-                    alert(response.data.msg);
+                    alert(response.data.data);
                 } else {
                     alert("修改失败！");
                 }
