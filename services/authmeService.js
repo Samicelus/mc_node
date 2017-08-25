@@ -48,7 +48,7 @@ service.login = function(req, res){
     })
 };
 
-service.login = function(req, res) {
+service.checkLogin = function(req, res) {
     const username = req.body.user.username;
     service.restSuccess(res, username);
 }

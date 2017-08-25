@@ -5,6 +5,6 @@ var handler = require('../services/authmeService.js');
 
 module.exports = function(app){
 	app.route('/login').post(handler.login);
-    app.route('/checkLogin').post(utils.authorize, handler.checkLogin);
-    app.route('/changePassword').get(utils.authorize, handler.changePassword);
+    app.route('/checkLogin').get(utils.authorize, handler.checkLogin);
+    app.route('/changePassword').post(utils.authorize, handler.changePassword);
 }
