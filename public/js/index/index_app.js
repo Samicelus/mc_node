@@ -5,6 +5,9 @@ var indexApp = angular.module('indexApp', []);
 
 indexApp.controller('mainCtrl', function ($scope, $http) {
     $scope.no_log = true;
+    $scope.logged = false;
+    $scope.username = "";
+    $scope.password = "";
     $scope.new_password = "";
     $scope.old_password = "";
     $scope.login = function(){
@@ -12,12 +15,13 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
             method: 'POST',
             url: 'http://119.23.73.86:8030/login',
             data: {
-                name: "samicelus",
-                password: "123edsaqw"
+                name: $scope.username,
+                password: $scope.password
                 }
         }).then(function successCallback(response){
             if(response.data.result == "TRUE"){
                 $scope.no_log = false;
+                $scope.logged = true;
             }
         },function errorCallback(response){
             console.log(response.data);

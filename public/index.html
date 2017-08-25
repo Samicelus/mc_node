@@ -9,10 +9,17 @@
 </head>
 <body>
     <div id="app" ng-app="indexApp" class="indexApp" ng-controller="mainCtrl">
-        <button style="width:auto;" ng-click="login()" ng-show="no_log">登录</button>
+        <div  ng-show="no_log">
+            <input ng-model="username" placeholder="用户名"></input>
+            <input ng-model="password" placeholder="密码"></input>
+            <button style="width:auto;" ng-click="login()">登录</button>
+        </div>
+        <div ng-show="logged">
+            <p>欢迎你 {{username}}</p>
+        </div>
         </br>
-        <input ng-bind="old_password" placeholder="旧密码"></input>
-        <input ng-bind="new_password" placeholder="新密码"></input>
+        <input ng-model="old_password" placeholder="旧密码"></input>
+        <input ng-model="new_password" placeholder="新密码"></input>
         <button style="width:auto;" ng-click="chgPwd()">修改密码</button>
     </div>
 </body>

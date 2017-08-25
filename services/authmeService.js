@@ -23,22 +23,22 @@ service.login = function(req, res){
         }
         let auth = authme.comparePassword(password, hashedPassword, name);
         if(auth){
-            if(!user_tokens[user.username]){
+            if(!req.session.user_token){
                 const newTokenInfo = authme.generateToken(user.username, user.ip, req);
                 retToken = newTokenInfo.token;
                 expire_timestamp = newTokenInfo.expire_timestamp;
             }else{
                 let nowTimestamp = new Date().getTime();
-                if(user_tokens[user.username].expire_timestamp > nowTimestamp){
-                    retToken = user_tokens[user.username].token;
-                    expire_timestamp = user_tokens[user.username].expire_timestamp;
+                if(req.session.user_token_expire_timestamp > nowTimestamp){
+                    retToken = req.session.user_token;
+                    expire_timestamp = req.session.user_token_expire_timestamp;
                 }else{
                     let newTokenInfo = authme.generateToken(user.username, user.ip, req);
                     retToken = newTokenInfo.token;
                     expire_timestamp = newTokenInfo.expire_timestamp;
                 }
             }
-            service.restSuccess(res, {token:retToken, expire_timestamp:expire_timestamp});
+            service.restSuccess(res, {token:retToken, expire_timestamp:expire_timestamp, username:user.username});
         }else{
             throw new Error("login failed!")
         }

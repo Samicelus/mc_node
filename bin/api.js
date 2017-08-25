@@ -9,7 +9,6 @@ var utils = require('../libs/utils.js');
 var serverPort = require(utils.configDir + '/serverConfig.json').port;
 
 global.Cron = require('../services/cron.js')();
-global.user_tokens = {};
 /**
  * Get port from environment and store in Express.
  */
