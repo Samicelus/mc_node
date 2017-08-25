@@ -1,29 +1,29 @@
-var BaseService = require('../libs/baseService.js');
-var fs = require('fs');
-var Promise = require('bluebird');
-var sqlitedb = require('../libs/sqlite.js');
-var utils = require('../libs/utils.js');
-var authme = require('../libs/authme.js');
-var service = new BaseService();
+const BaseService = require('../libs/baseService.js');
+const fs = require('fs');
+const Promise = require('bluebird');
+const sqlitedb = require('../libs/sqlite.js');
+const utils = require('../libs/utils.js');
+const authme = require('../libs/authme.js');
+const service = new BaseService();
 const crypto = require('crypto');
 
 service.login = function(req, res){
-    var name = req.body.name;
-    var password = req.body.password;
-    var retToken = "";
-    var expire_timestamp = "";
+    const name = req.body.name;
+    const password = req.body.password;
+    let retToken = "";
+    let expire_timestamp = "";
     sqlitedb.get('SELECT * FROM authme WHERE username = ?', name).then(function(user){
         if(!user){
             throw new Error("user not found!");
         }
-        var hashedPassword = user.password;
+        let hashedPassword = user.password;
         if(!password){
             throw new Error("no password entered!")
         }
-        var auth = authme.comparePassword(password, hashedPassword, name);
+        let auth = authme.comparePassword(password, hashedPassword, name);
         if(auth){
             if(!user_tokens[user.username]){
-                var newTokenInfo = authme.generateToken(user.username, user.ip);
+                const newTokenInfo = authme.generateToken(user.username, user.ip);
                 retToken = newTokenInfo.token;
                 expire_timestamp = newTokenInfo.expire_timestamp;
             }else{
@@ -32,7 +32,7 @@ service.login = function(req, res){
                     retToken = user_tokens[user.username].token;
                     expire_timestamp = user_tokens[user.username].expire_timestamp;
                 }else{
-                    var newTokenInfo = authme.generateToken(user.username, user.ip);
+                    let newTokenInfo = authme.generateToken(user.username, user.ip);
                     retToken = newTokenInfo.token;
                     expire_timestamp = newTokenInfo.expire_timestamp;
                 }
@@ -48,21 +48,21 @@ service.login = function(req, res){
 };
 
 service.changePassword = function(req, res){
-    var username = req.body.user.username;
-    var old_password = req.body.old_password;
-    var new_password = req.body.new_password;
+    const username = req.body.user.username;
+    const old_password = req.body.old_password;
+    const new_password = req.body.new_password;
     sqlitedb.get('SELECT * FROM authme WHERE username = ?', username).then(function(user){
         if(!user){
             throw new Error("user: "+username+" not found!");
         }
-        var hashedPassword = user.password;
+        const hashedPassword = user.password;
         if(!old_password){
             throw new Error("no old_password entered!")
         }
-        var auth = authme.comparePassword(old_password, hashedPassword, username);
+        let auth = authme.comparePassword(old_password, hashedPassword, username);
         if(auth){
-            let salt = authme.generate16salt(username);
-            let password = authme.computeHash(new_password, salt, username);
+            const salt = authme.generate16salt(username);
+            const password = authme.computeHash(new_password, salt, username);
             return sqlitedb.run("UPDATE authme SET password = '"+ password +"' WHERE username = ?", username);
         }else{
             throw new Error("old_password incorrect!");
