@@ -4,12 +4,25 @@
 var indexApp = angular.module('indexApp', []);
 
 indexApp.controller('mainCtrl', function ($scope, $http) {
-    $scope.no_log = true;
-    $scope.logged = false;
     $scope.username = "";
     $scope.password = "";
     $scope.new_password = "";
     $scope.old_password = "";
+    $http({
+        method: 'GET',
+        url: 'http://119.23.73.86:8030/checkLogin'
+    }).then(function successCallback(response){
+        if(response.data.result == "TRUE"){
+            $scope.username = response.data.data;
+            $scope.no_log = false;
+            $scope.logged = true;
+        }
+    },function errorCallback(response){
+        $scope.no_log = true;
+        $scope.logged = false;
+        console.log(response.data);
+    });
+
     $scope.login = function(){
         $http({
             method: 'POST',
@@ -20,6 +33,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
                 }
         }).then(function successCallback(response){
             if(response.data.result == "TRUE"){
+                $scope.username = response.data.data.username;
                 $scope.no_log = false;
                 $scope.logged = true;
             }

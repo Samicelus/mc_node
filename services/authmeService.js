@@ -48,6 +48,11 @@ service.login = function(req, res){
     })
 };
 
+service.login = function(req, res) {
+    const username = req.body.user.username;
+    service.restSuccess(res, username);
+}
+
 service.changePassword = function(req, res){
     const username = req.body.user.username;
     const ip = req.body.user.ip;

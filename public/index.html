@@ -10,12 +10,12 @@
 <body>
     <div id="app" ng-app="indexApp" class="indexApp" ng-controller="mainCtrl">
         <div  ng-show="no_log">
-            <input ng-model="username" placeholder="用户名"></input>
-            <input ng-model="password" placeholder="密码"></input>
+            <input type="text" ng-model="username" placeholder="用户名"></input>
+            <input type="password" ng-model="password" placeholder="密码"></input>
             <button style="width:auto;" ng-click="login()">登录</button>
         </div>
         <div ng-show="logged">
-            <p>欢迎你 {{username}}</p>
+            <p>欢迎你 {{username}} !</p>
         </div>
         </br>
         <input ng-model="old_password" placeholder="旧密码"></input>
