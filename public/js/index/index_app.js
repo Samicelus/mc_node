@@ -45,18 +45,30 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
         });
     }
     $scope.chgPwd = function(){
-        var that = this;
-        $http({
-            method: 'POST',
-            url: 'http://119.23.73.86:8030/changePassword',
-            data: {
-                old_password: that.old_password,
-                new_password: that.new_password
-            }
-        }).then(function successCallback(response){
-            console.log(response.data);
-        },function errorCallback(response){
-            console.log(response.data);
-        });
+        if($scope.new_password != $scope.verify_password){
+            alert("两次输入的密码不一致！");
+        }else if(!$scope.old_password){
+            alert("请输入旧密码");
+        }else {
+            $http({
+                method: 'POST',
+                url: 'http://119.23.73.86:8030/changePassword',
+                data: {
+                    old_password: $scope.old_password,
+                    new_password: $scope.new_password
+                }
+            }).then(function successCallback(response) {
+                console.log(response.data);
+                if (response.data.result == "TRUE") {
+                    $scope.new_password = "";
+                    $scope.old_password = "";
+                    alert(response.data.msg);
+                } else {
+                    alert("修改失败！");
+                }
+            }, function errorCallback(response) {
+                console.log(response.data);
+            });
+        }
     }
 });
