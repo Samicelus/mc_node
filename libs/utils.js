@@ -1,5 +1,6 @@
-let moment = require('moment');
+const moment = require('moment');
 const crypto = require('crypto');
+const serverConfig = require(utils.configDir + '/serverConfig.json');
 let utils = {};
 
 utils.datetimeFormat = function (time) {
