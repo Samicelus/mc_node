@@ -40,6 +40,9 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
                 $scope.username = response.data.data.username;
                 $scope.no_log = false;
                 $scope.logged = true;
+            }else{
+                console.log(response.data);
+                alert("登录失败！");
             }
         },function errorCallback(response){
             console.log(response.data);
