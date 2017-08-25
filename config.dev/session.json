@@ -1,0 +1,6 @@
+{
+    "comments" : "临时文件或使用redis，临时文件重启会导致用户被弹出登录状态。store值为: tmp_file 或 redis",
+    "store": "redis",
+    "secret": "@#$TYHBVGHJIY^TWEYKJHNBGFDWGHJKUYTWE#$%^&*&^%$#",
+    "maxAge": 17280000000
+}

@@ -6,6 +6,7 @@ const utils = require('../libs/utils.js');
 const authme = require('../libs/authme.js');
 const service = new BaseService();
 const crypto = require('crypto');
+const redis = require('../libs/redis.js').redisClient;
 
 service.login = function(req, res){
     const name = req.body.name;
@@ -23,7 +24,7 @@ service.login = function(req, res){
         let auth = authme.comparePassword(password, hashedPassword, name);
         if(auth){
             if(!user_tokens[user.username]){
-                const newTokenInfo = authme.generateToken(user.username, user.ip);
+                const newTokenInfo = authme.generateToken(user.username, user.ip, req);
                 retToken = newTokenInfo.token;
                 expire_timestamp = newTokenInfo.expire_timestamp;
             }else{
@@ -32,7 +33,7 @@ service.login = function(req, res){
                     retToken = user_tokens[user.username].token;
                     expire_timestamp = user_tokens[user.username].expire_timestamp;
                 }else{
-                    let newTokenInfo = authme.generateToken(user.username, user.ip);
+                    let newTokenInfo = authme.generateToken(user.username, user.ip, req);
                     retToken = newTokenInfo.token;
                     expire_timestamp = newTokenInfo.expire_timestamp;
                 }
@@ -59,7 +60,7 @@ service.changePassword = function(req, res){
         if(!old_password){
             throw new Error("no old_password entered!")
         }
-        let auth = authme.comparePassword(old_password, hashedPassword, username);
+        const auth = authme.comparePassword(old_password, hashedPassword, username);
         if(auth){
             const salt = authme.generate16salt(username);
             const password = authme.computeHash(new_password, salt, username);
@@ -67,8 +68,7 @@ service.changePassword = function(req, res){
         }else{
             throw new Error("old_password incorrect!");
         }
-    }).then(function(result){
-        console.log(result);
+    }).then(function(){
         service.restSuccess(res, "修改成功！");
     }).catch(function (e) {
         console.error(e.stack || e);

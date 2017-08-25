@@ -1,10 +1,11 @@
 const crypto = require('crypto');
-var utils = require('./utils.js');
-var serverConfig = require(utils.configDir + '/serverConfig.json');
-var authme = {};
+const utils = require('./utils.js');
+const serverConfig = require(utils.configDir + '/serverConfig.json');
+const redis = require('../libs/redis.js').redisClient;
+let authme = {};
 
 authme.generate16salt = function(username){
-    let nowTimestamp = new Date().getTime();
+    const nowTimestamp = new Date().getTime();
     return crypto.createHash('md5').update(username+nowTimestamp).digest('hex').slice(0, 16);
 };
 
@@ -17,7 +18,7 @@ function sha256(str){
 }
 
 function encrypt_token(str){
-    let cipher = crypto.createCipher('aes192', 'a password');
+    let cipher = crypto.createCipher('aes192', serverConfig.cipher_secret);
     let encrypted = cipher.update(str,'utf8','hex');
     encrypted += cipher.final('hex');
     return encrypted;
@@ -37,21 +38,26 @@ authme.getSalt = function (hashedPassword){
     return hashedPassword.split("$")[2];
 };
 
-authme.generateToken = function(username, ip){
+authme.generateToken = function(username, ip, req){
     let nowTimestamp = new Date().getTime();
     let origin_str = username+"$"+nowTimestamp+"$"+ip;
     let token = encrypt_token(origin_str);
     let expire_timestamp = nowTimestamp + serverConfig.token_expire_time;
-    renew_user_token(username, token, expire_timestamp);
+    renew_user_token(username, token, expire_timestamp, req);
     return {token:token, expire_timestamp:expire_timestamp};
 };
 
-function renew_user_token(username, token, expire_timestamp){
+function renew_user_token_bis(username, token, expire_timestamp){
     if(!user_tokens.hasOwnProperty('username')){
         user_tokens[username] = {};
     }
     user_tokens[username].token = token;
     user_tokens[username].expire_timestamp = expire_timestamp;
+}
+
+function renew_user_token(username, token, expire_timestamp, req){
+    req.session.user.user_token = token;
+    req.session.user.user_token_expire_timestamp = expire_timestamp;
 }
 
 module.exports = authme;

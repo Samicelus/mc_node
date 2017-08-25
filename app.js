@@ -1,7 +1,8 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var session = require('express-session');
+//var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var utils = require('./libs/utils.js');
 var compression = require('compression');
@@ -19,7 +20,7 @@ app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -29,6 +30,32 @@ app.use(function(req, res, next) {
     console.log(utils.datetimeFormat() + ' [headers]:' + JSON.stringify(req.headers) + ' [params]:' + JSON.stringify(req.params) + '[body]:' + JSON.stringify(req.body));
     next();
 });
+
+const sessionConfig = require(utils.configDir + '/session.json');
+const redisConfig = require(utils.configDir + '/redisConfig.json');
+
+if (sessionConfig && sessionConfig.store && sessionConfig.store == 'redis') {
+    console.log("---session store in redis---");
+    app.use(session({
+        secret: sessionConfig.secret,
+        store: new RedisStore({
+            host: redisConfig.ip,
+            port: redisConfig.port,
+            ttl: redisConfig.ttl
+        }),
+        cookie: {maxAge: sessionConfig.maxAge, secure: false},
+        resave: false,
+        saveUninitialized: true
+    }));
+} else {//tmp file
+    console.log("---session store in tmp_file---");
+    app.use(session({
+        secret: sessionConfig.secret,
+        cookie: {maxAge: sessionConfig.maxAge, secure: false},
+        resave: false,
+        saveUninitialized: true
+    }));
+}
 
 require('./routes/route.js')(app);
 
