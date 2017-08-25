@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 //var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var utils = require('./libs/utils.js');
