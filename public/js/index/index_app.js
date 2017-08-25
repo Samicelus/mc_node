@@ -12,6 +12,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
         method: 'GET',
         url: 'http://119.23.73.86:8030/checkLogin'
     }).then(function successCallback(response){
+        console.log(response.data);
         if(response.data.result == "TRUE"){
             $scope.username = response.data.data;
             $scope.no_log = false;
