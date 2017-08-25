@@ -26,7 +26,9 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
         $scope.logged = false;
         console.log(response.data);
     });
-
+    $scope.test = function(){
+        console.log(document.cookie);
+    }
     $scope.login = function(){
         $http({
             method: 'POST',
