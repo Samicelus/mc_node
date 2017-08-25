@@ -56,8 +56,10 @@ function renew_user_token_bis(username, token, expire_timestamp){
 }
 
 function renew_user_token(username, token, expire_timestamp, req){
-    req.session.user.user_token = token;
-    req.session.user.user_token_expire_timestamp = expire_timestamp;
+    console.log("req.session:");
+    console.log(req.session);
+    //req.session.user.user_token = token;
+    //req.session.user.user_token_expire_timestamp = expire_timestamp;
 }
 
 module.exports = authme;
