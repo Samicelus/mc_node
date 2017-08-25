@@ -17,6 +17,7 @@ process.setMaxListeners(0);
 //app.use(partials());
 
 // uncomment after placing your favicon in /public
+app.use(favicon(__dirname + '/public/images/runningdoctor.ico'));
 app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
