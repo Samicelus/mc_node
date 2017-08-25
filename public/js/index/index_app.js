@@ -4,6 +4,9 @@
 var indexApp = angular.module('indexApp', []);
 
 indexApp.controller('mainCtrl', function ($scope, $http) {
+    $scope.no_log = true;
+    $scope.new_password = "";
+    $scope.old_password = "";
     $scope.login = function(){
         $http({
             method: 'POST',
@@ -13,9 +16,11 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
                 password: "123edsaqw"
                 }
         }).then(function successCallback(response){
-            console.log(response.data)
+            if(response.data.result == "TRUE"){
+                $scope.no_log = false;
+            }
         },function errorCallback(response){
-            console.log(response.data)
+            console.log(response.data);
         });
     }
     $scope.chgPwd = function(){
@@ -23,13 +28,13 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
             method: 'POST',
             url: 'http://119.23.73.86:8030/changePassword',
             data: {
-                old_password: "123edsaqw",
-                new_password: "123edsaqw"
+                old_password: $scope.old_password,
+                new_password: $scope.new_password
             }
         }).then(function successCallback(response){
-            console.log(response.data)
+            console.log(response.data);
         },function errorCallback(response){
-            console.log(response.data)
+            console.log(response.data);
         });
     }
 });
