@@ -50,7 +50,7 @@ service.login = function(req, res){
 
 service.changePassword = function(req, res){
     const username = req.body.user.username;
-    const ip = req,body.user.ip;
+    const ip = req.body.user.ip;
     const old_password = req.body.old_password;
     const new_password = req.body.new_password;
     console.log("username:"+username);
