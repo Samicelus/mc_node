@@ -17,14 +17,17 @@
         <div ng-show="logged">
             <p>欢迎你 {{username}} !</p>
         </div>
-        </br>
-        <input ng-model="old_password" placeholder="旧密码"></input>
-        </br>
-        <input ng-model="new_password" placeholder="新密码"></input>
-        </br>
-        <input ng-model="verify_password" placeholder="重复输入新密码"></input>
-        </br>
-        <button style="width:auto;" ng-click="chgPwd()">修改密码</button>
+        <div ng-show="logged">
+            </br>
+            <input ng-model="old_password" placeholder="旧密码"></input>
+            </br>
+            <input ng-model="new_password" placeholder="新密码"></input>
+            </br>
+            <input ng-model="verify_password" placeholder="重复输入新密码"></input>
+            </br>
+            <button style="width:auto;" ng-click="chgPwd()">修改密码</button>
+        </div>
+
     </div>
 </body>
 </html>
