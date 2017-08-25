@@ -1,6 +1,5 @@
 const moment = require('moment');
 const crypto = require('crypto');
-const serverConfig = require(utils.configDir + '/serverConfig.json');
 let utils = {};
 
 utils.datetimeFormat = function (time) {
@@ -16,6 +15,8 @@ utils.configDir = (function () {
     }
     return path;
 })();
+
+const serverConfig = require(utils.configDir + '/serverConfig.json');
 
 function decrypt_token(str){
     let decipher = crypto.createDecipher('aes192', serverConfig.cipher_secret);
