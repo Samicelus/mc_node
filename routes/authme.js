@@ -8,4 +8,5 @@ module.exports = function(app){
     app.route('/checkLogin').get(utils.authorize, handler.checkLogin);
     app.route('/changePassword').post(utils.authorize, handler.changePassword);
     app.route('/getEmail').get(utils.authorize, handler.getEmail);
+    app.route('/getUserInfo').get(utils.authorize, handler.getUserInfo);
 }

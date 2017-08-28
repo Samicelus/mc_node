@@ -99,4 +99,15 @@ service.getEmail = function(req, res){
     })
 };
 
+service.getUserInfo = function(req, res){
+    const username = req.body.user.username;
+    const ip = req.body.user.ip;
+    sqlitedb.get('SELECT * FROM authme WHERE username = ?', username).then(function(user){
+        service.restSuccess(res, user);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.toString());
+    })
+};
+
 module.exports = service;

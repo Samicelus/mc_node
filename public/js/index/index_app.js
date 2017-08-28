@@ -41,6 +41,21 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
             console.log(response.data);
         });
     };
+    $scope.getUserInfo = function(){
+        $http({
+            method: 'GET',
+            url: 'http://119.23.73.86:8030/getUserInfo'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            if (response.data.result == "TRUE") {
+                alert(response.data.data);
+            } else {
+                alert("获取Email失败！");
+            }
+        }, function errorCallback(response) {
+            console.log(response.data);
+        });
+    };
     $scope.login = function(){
         $http({
             method: 'POST',
