@@ -27,7 +27,19 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
         console.log(response.data);
     });
     $scope.test = function(){
-        console.log(document.cookie.split(';'));
+        $http({
+            method: 'GET',
+            url: 'http://119.23.73.86:8030/getEmail'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            if (response.data.result == "TRUE") {
+                alert(response.data.data);
+            } else {
+                alert("获取Email失败！");
+            }
+        }, function errorCallback(response) {
+            console.log(response.data);
+        });
     };
     $scope.login = function(){
         $http({
