@@ -84,4 +84,19 @@ service.changePassword = function(req, res){
     })
 };
 
+service.getEmail = function(req, res){
+    const username = req.body.user.username;
+    const ip = req.body.user.ip;
+    sqlitedb.get('SELECT * FROM authme WHERE username = ?', username).then(function(user){
+        if(!user){
+            throw new Error("user: "+username+" not found!");
+        }
+        const email = user.email;
+        service.restSuccess(res, email);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.toString());
+    })
+};
+
 module.exports = service;
