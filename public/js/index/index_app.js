@@ -56,6 +56,21 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
             console.log(response.data);
         });
     };
+    $scope.createTable = function(){
+        $http({
+            method: 'POST',
+            url: 'http://119.23.73.86:8030/createTable'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            if (response.data.result == "TRUE") {
+                alert(response.data.data);
+            } else {
+                alert("创建表失败！");
+            }
+        }, function errorCallback(response) {
+            console.log(response.data);
+        });
+    };
     $scope.login = function(){
         $http({
             method: 'POST',

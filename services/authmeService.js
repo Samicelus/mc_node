@@ -110,4 +110,27 @@ service.getUserInfo = function(req, res){
     })
 };
 
+service.createTable = function(req, res){
+    const username = req.body.user.username;
+    const ip = req.body.user.ip;
+    sqlitedb.run("CREATE TABLE user( ID INT PRIMARY KEY NOT NULL, username TEXT NOT NULL, phone TEXT, code TEXT, expire TEXT)").then(function(result){
+        service.restSuccess(res, result);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.toString());
+    })
+};
+
+service.bindPhone = function(req, res){
+    const username = req.body.user.username;
+    const ip = req.body.user.ip;
+    const phone = req.body.phone;
+    sqlitedb.run("UPDATE authme SET password = '"+ phone +"' WHERE username = ?", username).then(function(user){
+        service.restSuccess(res, user);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.toString());
+    })
+};
+
 module.exports = service;
