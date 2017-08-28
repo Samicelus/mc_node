@@ -26,7 +26,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
         $scope.logged = false;
         console.log(response.data);
     });
-    $scope.test = function(){
+    $scope.getEmail = function(){
         $http({
             method: 'GET',
             url: 'http://119.23.73.86:8030/getEmail'
