@@ -110,10 +110,22 @@ service.getUserInfo = function(req, res){
     })
 };
 
-service.createTable = function(req, res){
+// service.createTable = function(req, res){
+//     const username = req.body.user.username;
+//     const ip = req.body.user.ip;
+//     sqlitedb.run("CREATE TABLE user( ID INT PRIMARY KEY NOT NULL, username TEXT NOT NULL, phone TEXT, code TEXT, expire TEXT)").then(function(result){
+//         service.restSuccess(res, result);
+//     }).catch(function (e) {
+//         console.error(e.stack || e);
+//         service.restError(res, -1, e.toString());
+//     })
+// };
+
+service.preBindPhone = function(req, res){
     const username = req.body.user.username;
     const ip = req.body.user.ip;
-    sqlitedb.run("CREATE TABLE user( ID INT PRIMARY KEY NOT NULL, username TEXT NOT NULL, phone TEXT, code TEXT, expire TEXT)").then(function(result){
+
+    sqlitedb.run("INSERT INTO user(username, code) VALUES ('"+ username +"','" + code + "')").then(function(result){
         service.restSuccess(res, result);
     }).catch(function (e) {
         console.error(e.stack || e);
@@ -121,12 +133,20 @@ service.createTable = function(req, res){
     })
 };
 
+function generate_code(){
+    let random = Math.round(Math.random()*1000000).toString();
+}
+
+function zero_padding(str, length){
+
+}
+
 service.bindPhone = function(req, res){
     const username = req.body.user.username;
     const ip = req.body.user.ip;
     const phone = req.body.phone;
-    sqlitedb.run("UPDATE authme SET password = '"+ phone +"' WHERE username = ?", username).then(function(user){
-        service.restSuccess(res, user);
+    sqlitedb.run("INSERT INTO user(username, phone) VALUES ('"+ username +"','" + phone + "')").then(function(result){
+        service.restSuccess(res, result);
     }).catch(function (e) {
         console.error(e.stack || e);
         service.restError(res, -1, e.toString());

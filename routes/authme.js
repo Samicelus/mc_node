@@ -9,5 +9,5 @@ module.exports = function(app){
     app.route('/changePassword').post(utils.authorize, handler.changePassword);
     app.route('/getEmail').get(utils.authorize, handler.getEmail);
     app.route('/getUserInfo').get(utils.authorize, handler.getUserInfo);
-    app.route('/createTable').post(utils.authorize, handler.createTable);
+    //app.route('/createTable').post(utils.authorize, handler.createTable);
 }
