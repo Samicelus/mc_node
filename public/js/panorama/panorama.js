@@ -21,7 +21,7 @@ function init() {
      * 添加一个渲染器
      * @type {THREE.CSS3DRenderer}
      */
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.CSS3DRenderer();
     renderer.setClearColor(0x000000, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
