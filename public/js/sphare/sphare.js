@@ -3,7 +3,7 @@ var scene = new THREE.Scene();
 var mat = new THREE.MeshBasicMaterial({
     color: 0x60f60f
 });//材质
-var gem = new Geometry(40, 40, 40);//几何结构
+var gem = new THREE.BoxGeometry(40, 40, 40);//几何结构
 var obj = new THREE.Mesh(gem, mat);//物体
 scene.add(obj);
 //添加自然光源
