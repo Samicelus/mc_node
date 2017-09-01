@@ -23,7 +23,7 @@ var renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 renderer.setClearColor(0xEEEEEE, 1.0);
 renderer.setSize(width, height);
 //渲染
-container.appendChild();
+container.appendChild(renderer.domElement);
 renderer.render(scene, camera);
 
 /**
