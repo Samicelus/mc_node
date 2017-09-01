@@ -10,7 +10,7 @@ scene.add(obj);
 var light = new THREE.AmbientLight(0xffffff);
 scene.add(light);
 //基本场景数据
-var container = document.getElementsById("container");
+var container = document.getElementById("container");
 var width = container.clientWidth;
 var height = container.clientHeight;
 var fov = 70;
