@@ -23,5 +23,65 @@ var renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 renderer.setClearColor(0xEEEEEE, 1.0);
 renderer.setSize(width, height);
 //渲染
-container.appendChild(renderer.domElement);
+container.appendChild();
 renderer.render(scene, camera);
+
+/**
+ * 注册监听
+ */
+document.addEventListener('mousedown', onDocumentMouseDown, false);
+document.addEventListener('mousewheel', onDocumentMouseWheel, false);
+document.addEventListener('touchstart', onDocumentTouchStart, false);
+document.addEventListener('touchmove', onDocumentTouchMove, false);
+window.addEventListener('resize', onWindowResize, false);
+
+/**
+ * 窗体大小改变
+ */
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function onDocumentMouseDown(event) {
+    event.preventDefault();
+    document.addEventListener('mousemove', onDocumentMouseMove, false);
+    document.addEventListener('mouseup', onDocumentMouseUp, false);
+}
+
+function onDocumentMouseMove(event) {
+    var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+    var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+    lon -= movementX * 0.1;
+    lat += movementY * 0.1;
+}
+
+function onDocumentMouseUp(event) {
+    document.removeEventListener('mousemove', onDocumentMouseMove);
+    document.removeEventListener('mouseup', onDocumentMouseUp);
+}
+
+/**
+ * 鼠标滚轮改变相机焦距
+ */
+function onDocumentMouseWheel(event) {
+    camera.fov -= event.wheelDeltaY * 0.05;
+    camera.updateProjectionMatrix();
+}
+
+function onDocumentTouchStart(event) {
+    event.preventDefault();
+    var touch = event.touches[0];
+    touchX = touch.screenX;
+    touchY = touch.screenY;
+}
+
+function onDocumentTouchMove(event) {
+    event.preventDefault();
+    var touch = event.touches[0];
+    lon -= (touch.screenX - touchX) * 0.1;
+    lat += (touch.screenY - touchY) * 0.1;
+    touchX = touch.screenX;
+    touchY = touch.screenY;
+}
