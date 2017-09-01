@@ -24,4 +24,4 @@ renderer.setClearColor(0xEEEEEE, 1.0);
 renderer.setSize(width, height);
 //渲染
 container.appendChild(renderer.domElement);
-render.render(scene, camera);
+renderer.render(scene, camera);
