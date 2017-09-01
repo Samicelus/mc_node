@@ -19,7 +19,7 @@ var camera = new THREE.PerspectiveCamera(fov, width / height, 1, 1000);
 var camera_dir = new THREE.Vector3(0, 0, 0)
 camera.lookAt(camera_dir);
 //创建渲染器
-var renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: ture});
+var renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 renderer.setClearColor(0xEEEEEE, 1.0);
 renderer.setSize(width, height);
 //渲染
