@@ -21,7 +21,7 @@ function loadingAllImg(){
     var div = document.getElementById('container');
     var PSV = new PhotoSphereViewer({
         // 全景图的完整路径
-        panorama: 'images/360img03.jpg',
+        panorama: '../images/tutorial.jpg',
 
         // 放全景图的元素
         container: div,
