@@ -27,10 +27,10 @@ function loadingAllImg(){
         container: div,
 
         // 可选，默认值为2000，全景图在time_anim毫秒后会自动进行动画。（设置为false禁用它）
-        time_anim: false,
+        time_anim: true,
 
         // 可选值，默认为false。显示导航条。
-        navbar: true,
+        navbar: false,
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
