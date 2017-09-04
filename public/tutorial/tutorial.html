@@ -10,12 +10,20 @@
     <link rel="stylesheet" href="../css/libs/photo-sphere-viewer.min.css">
 </head>
 <body>
-<canvas id="c1"></canvas>
+<div id="c1"></div>
+<script/>
+    var viewer = PhotoSphereViewer({
+    container: 'c1',
+    panorama: '../images/tutorial.jpg'
+    });
+</script>
 <script src="../js/libs/three.min.js"></script>
 <script src="../js/libs/D.min.js"></script>
 <script src="../js/libs/uevent.min.js"></script>
 <script src="../js/libs/doT.min.js"></script>
 <script src="../js/libs/photo-sphere-viewer.min.js"></script>
+<!--
 <script src="../js/tutorial/tutorial.js"></script>
+-->
 </body>
 </html>
