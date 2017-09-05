@@ -43,7 +43,7 @@ service.removeMarker = function(req, res){
         "marker.id": req.body.id
     };
     console.log(query);
-    Marker.schema.remove(query,{"multi":true}).execAsync().then(function(result){
+    Marker.schema.removeAsync(query).then(function(result){
         service.restSuccess(res, result);
     }).catch(function (e) {
         console.error(e.stack || e);
