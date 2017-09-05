@@ -30,7 +30,7 @@ function loadingAllImg(){
         time_anim: true,
 
         // 可选值，默认为false。显示导航条。
-        navbar: false,
+        navbar: true,
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {

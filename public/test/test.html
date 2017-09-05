@@ -1,6 +1,7 @@
 <!DOCTYPE html>
+<!-- saved from url=(0071)https://wjf444128852.github.io/sumDemos/aboutImg/360img/demo/index.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+    
     <title>360全景图</title>
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
@@ -12,23 +13,18 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta name="applicable-device" content="mobile">
     <!-- 页面关键词-->
-    <link rel="stylesheet" href="../css/test/demo01.css">
-    <script src="../js/libs/three.min.js"></script>
+    <link rel="stylesheet" href="../css/tutorial/tutorial.css">
+    <script src="../js/libs/three-old.min.js"></script>
+    <script src="../js/libs/D.min.js"></script>
     <script src="../js/libs/uevent.min.js"></script>
     <script src="../js/libs/doT.min.js"></script>
-    <script src="../js/libs/D.js"></script>
-    <!--
-    <script src="../js/libs/DeviceOrientationControls.js"></script>
-    <script src="../js/libs/Projector.js"></script>
-    -->
-    <script src="../js/libs/photo-sphere-viewer.js"></script>
-    <!---->
-    <script src="../js/test/demo01.js"></script>
+    <script src="../js/libs/photo-sphere-viewer-old.min.js"></script>
+    <script src="../js/tutorial/tutorial.js"></script>
 </head>
 <body>
-<div class="main">
-    <h3 id="title">滑动查看效果</h3>
-    <div id="container" style="width: 100%; height: 497.333px;"><div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><div style="position: absolute; z-index: 0;"><canvas width="640" height="497" style="width: 640px; height: 497px; display: block;"></canvas></div><div style="background-color: rgba(61, 61, 61, 0.5); position: absolute; z-index: 10; bottom: 0px; width: 100%; box-sizing: content-box; transition: bottom 0.4s ease-out;"><div style="float: left; padding: 10px; width: 20px; height: 20px; background-color: transparent; position: relative; cursor: pointer;"><div style="width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.7);"></div><div style="width: 18px; height: 1.8px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.7); position: absolute; top: 50%; margin-top: -1.9px;"></div></div><div style="float: left;"><div style="float: left; padding: 10px; height: 20px; background-color: transparent; line-height: 20px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">-</div><div style="float: left; padding: 19.5px 5px; background-color: transparent; cursor: pointer;"><div style="width: 50px; height: 1px; background-color: rgba(255, 255, 255, 0.7); position: relative;"><div style="position: absolute; top: -3px; left: -3.5px; width: 7px; height: 7px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.7);"></div></div></div><div style="float: left; padding: 10px; height: 20px; background-color: transparent; line-height: 20px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">+</div></div><div style="float: right; padding: 10px; width: 26.6667px; height: 20px; background-color: transparent; cursor: pointer;"><div style="float: left; width: 2px; height: 6px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 7px 0px;"></div><div style="float: left; width: 7.33333px; height: 16px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 2px 0px;"></div><div style="float: left; margin-left: 8px; width: 7.33333px; height: 16px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 2px 0px;"></div><div style="float: left; width: 2px; height: 6px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 7px 0px;"></div><div style="clear: left;"></div></div></div></div></div>
-</div>
+    <div class="main">
+        <h3 id="title">滑动查看效果</h3>
+        <div id="container" style="width: 100%; height: 497.333px;"><div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><div style="position: absolute; z-index: 0;"><canvas width="100%" height="100%" style="width: 640px; height: 497px; display: block;"></canvas></div><div style="background-color: rgba(61, 61, 61, 0.5); position: absolute; z-index: 10; bottom: 0px; width: 100%; box-sizing: content-box; transition: bottom 0.4s ease-out;"><div style="float: left; padding: 10px; width: 20px; height: 20px; background-color: transparent; position: relative; cursor: pointer;"><div style="width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.7);"></div><div style="width: 18px; height: 1.8px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.7); position: absolute; top: 50%; margin-top: -1.9px;"></div></div><div style="float: left;"><div style="float: left; padding: 10px; height: 20px; background-color: transparent; line-height: 20px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">-</div><div style="float: left; padding: 19.5px 5px; background-color: transparent; cursor: pointer;"><div style="width: 50px; height: 1px; background-color: rgba(255, 255, 255, 0.7); position: relative;"><div style="position: absolute; top: -3px; left: -3.5px; width: 7px; height: 7px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.7);"></div></div></div><div style="float: left; padding: 10px; height: 20px; background-color: transparent; line-height: 20px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">+</div></div><div style="float: right; padding: 10px; width: 26.6667px; height: 20px; background-color: transparent; cursor: pointer;"><div style="float: left; width: 2px; height: 6px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 7px 0px;"></div><div style="float: left; width: 7.33333px; height: 16px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 2px 0px;"></div><div style="float: left; margin-left: 8px; width: 7.33333px; height: 16px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 2px 0px;"></div><div style="float: left; width: 2px; height: 6px; border-style: solid; border-color: rgba(255, 255, 255, 0.7) transparent; border-width: 7px 0px;"></div><div style="clear: left;"></div></div></div></div></div>
+    </div>
 
 <script>function insertElement(element){tinyMCE.execCommand('mceInsertContent', false, element);}</script></body></html>
