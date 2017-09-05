@@ -44,18 +44,8 @@ function loadingAllImg(){
 
         // 可选值，默认为false。显示导航条。
         navbar: [
-            'autorotate',
             'zoom',
             'markers',
-            {
-                id: 'my-button',
-                title: 'Hello world',
-                className: 'custom-button',
-                content: 'Custom',
-                onClick: function() {
-                    alert('Hello from custom button');
-                }
-            },
             'caption',
             'fullscreen'
         ],
