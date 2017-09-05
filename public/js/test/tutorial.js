@@ -12,7 +12,7 @@ window.onload=function(){
 }
 
 //
-function renew_markers(page_name,cb){
+function renew_markers(page_name, callback){
     $.get("/getMarker?page_name="+page_name,function(data,status){
         var ret_date = data.data;
         var temp_markers = [];
@@ -20,7 +20,7 @@ function renew_markers(page_name,cb){
             temp_markers.push(markerObj.marker);
         })
         window.markers = temp_markers;
-        callback(cb);
+        callback();
     });
 }
 
