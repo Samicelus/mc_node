@@ -5,7 +5,7 @@ window.markers = [];
 // 获取弹窗
 var modal = document.getElementById('myModal');
 // 获取 <span> 元素，用于关闭弹窗
-var span = document.querySelector('.close');
+var span = document.getElementById('close');
 
 // 点击 <span> (x), 关闭弹窗
 span.onclick = function() {
