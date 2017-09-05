@@ -21,7 +21,7 @@ function loadingAllImg(){
     var div = document.getElementById('container');
     var PSV = new PhotoSphereViewer({
         // 全景图的完整路径
-        panorama: 'images/360img03.jpg',
+        panorama: '../images/tutorial.jpg',
 
         // 放全景图的元素
         container: div,
@@ -30,7 +30,7 @@ function loadingAllImg(){
         time_anim: false,
 
         // 可选值，默认为false。显示导航条。
-        navbar: true,
+        navbar: false,
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
