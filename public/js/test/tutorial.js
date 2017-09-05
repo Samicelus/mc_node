@@ -24,6 +24,17 @@ function renew_markers(page_name, callback){
     });
 }
 
+function add_marker(page_name,panorama_id, marker,callback){
+    var sendData = {};
+    sendData.page_name = page_name;
+    sendData.panorama_id = panorama_id;
+    sendData.marker = marker;
+    $.post("/addMarker",sendData,function(data,status){
+        renew_markers(page_name, callback);
+    });
+}
+
+
 //让全景图刚好撑满屏幕
 var canvasHeight;
 function getTitleHeight(){
@@ -67,19 +78,12 @@ function loadingAllImg(){
      * Create a new marker when the user clicks somewhere
      */
     PSV.on('click', function(e) {
-        PSV.addMarker({
+        var marker = {
             id: '#' + Math.random(),
             longitude: e.longitude,
             latitude: e.latitude,
-            image: rootURL + '/assets/pin-red.png',
-            width: 32,
-            height: 32,
-            anchor: 'bottom center',
-            tooltip: 'Generated pin',
-            data: {
-                generated: true
-            }
-        });
+            circle: 20,
+            tooltip: 'customer added marker'
+        }
     });
-
 }
