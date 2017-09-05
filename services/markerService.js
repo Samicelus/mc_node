@@ -17,7 +17,7 @@ service.addMarker = function(req, res){
         page_name: page_name,
         panorama_id: panorama_id
     }
-    Marker.schema(temp_obj).then(function(markerObj){
+    Marker.schema(temp_obj).saveAsync().then(function(markerObj){
         service.restSuccess(res, markerObj);
     }).catch(function (e) {
         console.error(e.stack || e);
@@ -29,7 +29,7 @@ service.getMarker = function(req, res){
     var query = {
         page_name: req.query.page_name
     }
-    Marker.schema.find(query).saveAsync().then(function(bars){
+    Marker.schema.find(query).execAsync().then(function(bars){
         service.restSuccess(res, bars);
     }).catch(function (e) {
         console.error(e.stack || e);
