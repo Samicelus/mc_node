@@ -56,7 +56,7 @@ function loadingAllImg(){
         container: div,
 
         // 可选，默认值为2000，全景图在time_anim毫秒后会自动进行动画。（设置为false禁用它）
-        time_anim: 1000,
+        time_anim: false,
 
         // 可选值，默认为false。显示导航条。
         navbar: [
