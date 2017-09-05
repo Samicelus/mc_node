@@ -21,13 +21,12 @@ function loadingAllImg(){
     var markers = [];
     var marker_1 = {
         id: "sun",
-        image: "../images/tutorial.jpg",
         circle: 10,
         width: 20,
         height: 20,
-        latitude : 5,
-        longitude: 5,
-        content: "sun"
+        latitude : 5.69810,
+        longitude: -0.13770,
+        tooltip: "sun"
     };
     markers.push(marker_1);
     var div = document.getElementById('container');
