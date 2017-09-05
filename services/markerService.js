@@ -29,7 +29,7 @@ service.getMarker = function(req, res){
     var query = {
         page_name: req.query.page_name
     }
-    Marker.schema.find(query).then(function(bars){
+    Marker.schema.find(query).saveAsync().then(function(bars){
         service.restSuccess(res, bars);
     }).catch(function (e) {
         console.error(e.stack || e);
