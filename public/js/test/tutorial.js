@@ -43,7 +43,22 @@ function loadingAllImg(){
         time_anim: true,
 
         // 可选值，默认为false。显示导航条。
-        navbar: true,
+        navbar: [
+            'autorotate',
+            'zoom',
+            'markers',
+            {
+                id: 'my-button',
+                title: 'Hello world',
+                className: 'custom-button',
+                content: 'Custom',
+                onClick: function() {
+                    alert('Hello from custom button');
+                }
+            },
+            'caption',
+            'fullscreen'
+        ],
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
