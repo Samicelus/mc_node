@@ -85,5 +85,6 @@ function loadingAllImg(){
             circle: 20,
             tooltip: 'customer added marker'
         }
+        add_marker(page_name,panorama_id, marker);
     });
 }
