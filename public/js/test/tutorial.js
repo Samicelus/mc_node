@@ -96,6 +96,7 @@ function loadingAllImg(){
             circle: 20,
             tooltip: 'customer added marker'
         };
+        PSV.showPanel("<p>this is a panael</p>>")
         console.log(JSON.stringify(marker));
         add_marker("test","tutorial", JSON.stringify(marker),function(){
             PSV.clearMarkers();
