@@ -37,4 +37,17 @@ service.getMarker = function(req, res){
     })
 };
 
+service.removeMarker = function(req, res){
+    var query = {
+        "page_name": req.body.page_name,
+        "marker.id": req.body.id
+    }
+    Marker.schema.remove(query,{"multi":true}).execAsync().then(function(result){
+        service.restSuccess(res, result);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
+    })
+};
+
 module.exports = service;

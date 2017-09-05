@@ -36,6 +36,15 @@ function add_marker(page_name,panorama_id, marker,callback){
     });
 }
 
+function remove_marker(page_name, id,callback){
+    var sendData = {};
+    sendData.page_name = page_name;
+    sendData.id = id;
+    $.post("/removeMarker",sendData,function(data,status){
+        renew_markers(page_name, callback);
+    });
+}
+
 
 //让全景图刚好撑满屏幕
 var canvasHeight;
@@ -96,4 +105,15 @@ function loadingAllImg(){
             });
         });
     });
+
+    PSV.on('select-marker', function(marker) {
+        remove_marker("test", marker.id, function(){
+            PSV.clearMarkers();
+            var markers = window.markers;
+            markers.forEach(function(marker){
+                PSV.addMarker(marker);
+            });
+        })
+    });
+
 }
