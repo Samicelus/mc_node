@@ -20,7 +20,9 @@ function renew_markers(page_name, callback){
             temp_markers.push(markerObj.marker);
         })
         window.markers = temp_markers;
-        callback();
+        if(callback){
+            callback();
+        }
     });
 }
 
