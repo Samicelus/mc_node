@@ -78,6 +78,9 @@ function loadingAllImg(){
             'fullscreen'
         ],
 
+        //陀螺仪
+        gyroscope:true,
+
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
             width: '100%',
