@@ -1,13 +1,27 @@
 /**
  * Created by Administrator on 2016/11/29.
  */
-
+window.markers = [];
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
     getTitleHeight();
     loadingAllImg();
+    renew_markers("test");
 }
+
+//
+function renew_markers(page_name){
+    $.get("/getMarker?page_name="+page_name,function(data,status){
+        var ret_date = data.data;
+        var temp_markers = [];
+        data.forEach(function(markerObj){
+            temp_markers.push(markerObj.marker);
+        })
+        window.markers = temp_markers;
+    });
+}
+
 //让全景图刚好撑满屏幕
 var canvasHeight;
 function getTitleHeight(){
@@ -23,13 +37,7 @@ function loadingAllImg(){
         // 全景图的完整路径
         panorama: '../images/tutorial.jpg',
 
-        markers: [{
-            id: 'circle',
-            circle: 20,
-            x: 2500,
-            y: 1000,
-            tooltip: 'A circle marker'
-        }],
+        markers: window.markers,
 
         // 放全景图的元素
         container: div,
@@ -52,4 +60,24 @@ function loadingAllImg(){
             height: canvasHeight
         }
     });
+
+    /**
+     * Create a new marker when the user clicks somewhere
+     */
+    PSV.on('click', function(e) {
+        PSV.addMarker({
+            id: '#' + Math.random(),
+            longitude: e.longitude,
+            latitude: e.latitude,
+            image: rootURL + '/assets/pin-red.png',
+            width: 32,
+            height: 32,
+            anchor: 'bottom center',
+            tooltip: 'Generated pin',
+            data: {
+                generated: true
+            }
+        });
+    });
+
 }
