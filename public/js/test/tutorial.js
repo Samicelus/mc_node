@@ -75,6 +75,7 @@ function loadingAllImg(){
             'zoom',
             'markers',
             'caption',
+            'gyroscope',
             'fullscreen'
         ],
 
