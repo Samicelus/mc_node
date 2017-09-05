@@ -28,7 +28,7 @@ function add_marker(page_name,panorama_id, marker,callback){
     var sendData = {};
     sendData.page_name = page_name;
     sendData.panorama_id = panorama_id;
-    sendData.marker = marker;
+    sendData.marker = JSON.stringify(marker);
     $.post("/addMarker",sendData,function(data,status){
         renew_markers(page_name, callback);
     });
