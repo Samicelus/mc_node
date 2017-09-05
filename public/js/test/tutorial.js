@@ -28,7 +28,7 @@ function add_marker(page_name,panorama_id, marker,callback){
     var sendData = {};
     sendData.page_name = page_name;
     sendData.panorama_id = panorama_id;
-    sendData.marker = JSON.stringify(marker);
+    sendData.marker = marker;
     $.post("/addMarker",sendData,function(data,status){
         renew_markers(page_name, callback);
     });
@@ -84,7 +84,8 @@ function loadingAllImg(){
             latitude: e.latitude,
             circle: 20,
             tooltip: 'customer added marker'
-        }
-        add_marker("test","tutorial", marker);
+        };
+        console.log(JSON.stringify(marker));
+        add_marker("test","tutorial", JSON.stringify(marker));
     });
 }
