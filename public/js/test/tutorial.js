@@ -18,23 +18,18 @@ function getTitleHeight(){
 }
 //全景图参数配置函数
 function loadingAllImg(){
-    var markers = [];
-    var marker_1 = {
-        id: "sun",
-        circle: 10,
-        width: 20,
-        height: 20,
-        latitude : 5.69810,
-        longitude: -0.13770,
-        tooltip: "sun"
-    };
-    markers.push(marker_1);
     var div = document.getElementById('container');
     var PSV = new PhotoSphereViewer({
         // 全景图的完整路径
         panorama: '../images/tutorial.jpg',
 
-        marker: markers,
+        marker: [{
+            id: 'circle',
+            circle: 20,
+            x: 2500,
+            y: 1000,
+            tooltip: 'A circle marker'
+        }],
 
         // 放全景图的元素
         container: div,
