@@ -2,6 +2,22 @@
  * Created by Administrator on 2016/11/29.
  */
 window.markers = [];
+// 获取弹窗
+var modal = document.getElementById('myModal');
+// 获取 <span> 元素，用于关闭弹窗
+var span = document.querySelector('.close');
+
+// 点击 <span> (x), 关闭弹窗
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// 在用户点击其他地方时，关闭弹窗
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -96,13 +112,7 @@ function loadingAllImg(){
             circle: 20,
             tooltip: 'customer added marker'
         };
-        var config = {
-            content:"this is a tooltip",
-            top: 200,
-            left: 450,
-            position: 'center bottom'
-        }
-        PSV.showTooltip(config)
+        modal.style.display = "block";
         console.log(JSON.stringify(marker));
         add_marker("test","tutorial", JSON.stringify(marker),function(){
             PSV.clearMarkers();
