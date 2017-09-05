@@ -5,13 +5,14 @@ window.markers = [];
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
-    getTitleHeight();
-    loadingAllImg();
-    renew_markers("test");
+    renew_markers("test",function(){
+        getTitleHeight();
+        loadingAllImg();
+    });
 }
 
 //
-function renew_markers(page_name){
+function renew_markers(page_name,cb){
     $.get("/getMarker?page_name="+page_name,function(data,status){
         var ret_date = data.data;
         var temp_markers = [];
@@ -19,6 +20,7 @@ function renew_markers(page_name){
             temp_markers.push(markerObj.marker);
         })
         window.markers = temp_markers;
+        callback(cb);
     });
 }
 
