@@ -23,7 +23,7 @@ function loadingAllImg(){
         // 全景图的完整路径
         panorama: '../images/tutorial.jpg',
 
-        marker: [{
+        markers: [{
             id: 'circle',
             circle: 20,
             x: 2500,
