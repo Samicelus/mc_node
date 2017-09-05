@@ -15,7 +15,7 @@ function renew_markers(page_name){
     $.get("/getMarker?page_name="+page_name,function(data,status){
         var ret_date = data.data;
         var temp_markers = [];
-        data.forEach(function(markerObj){
+        ret_date.forEach(function(markerObj){
             temp_markers.push(markerObj.marker);
         })
         window.markers = temp_markers;
