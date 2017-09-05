@@ -34,9 +34,6 @@ function loadingAllImg(){
         // 全景图的完整路径
         panorama: '../images/tutorial.jpg',
 
-        //截图按钮上文字
-        caption: "截图",
-
         marker: markers,
 
         // 放全景图的元素
