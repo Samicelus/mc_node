@@ -72,10 +72,7 @@ function loadingAllImg(){
         // 可选值，默认为false。显示导航条。
         navbar: [
             'autorotate',
-            'zoom',
             'markers',
-            'caption',
-            'gyroscope',
             {
                 id: 'field',
                 title: 'marker_text',
