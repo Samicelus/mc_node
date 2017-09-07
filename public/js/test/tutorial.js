@@ -101,7 +101,6 @@ function loadingAllImg(){
             circle: 10,
             tooltip: marker_name
         };
-        console.log(JSON.stringify(marker));
         add_marker("test","tutorial", JSON.stringify(marker),function(){
             PSV.clearMarkers();
             var markers = window.markers;
