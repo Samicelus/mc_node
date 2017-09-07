@@ -93,7 +93,7 @@ function loadingAllImg(){
      * Create a new marker when the user clicks somewhere
      */
     PSV.on('click', function(e) {
-        var marker_name = document.getElementsById("marker_name").val();
+        var marker_name = document.getElementById("marker_name").val();
         var marker = {
             id: '#' + Math.random(),
             longitude: e.longitude,
