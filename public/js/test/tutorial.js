@@ -94,7 +94,7 @@ function loadingAllImg(){
      */
     PSV.on('click', function(e) {
         var marker_name = document.getElementById("marker_name");
-        console.log();
+        console.log(marker_name);
         var marker = {
             id: '#' + Math.random(),
             longitude: e.longitude,
