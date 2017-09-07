@@ -93,12 +93,13 @@ function loadingAllImg(){
      * Create a new marker when the user clicks somewhere
      */
     PSV.on('click', function(e) {
+        var marker_name = document.getElementsById("marker_name").val();
         var marker = {
             id: '#' + Math.random(),
             longitude: e.longitude,
             latitude: e.latitude,
-            circle: 20,
-            tooltip: 'customer added marker'
+            circle: 10,
+            tooltip: marker_name
         };
         console.log(JSON.stringify(marker));
         add_marker("test","tutorial", JSON.stringify(marker),function(){
