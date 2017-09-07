@@ -94,13 +94,12 @@ function loadingAllImg(){
      */
     PSV.on('click', function(e) {
         var marker_name = document.getElementById("marker_name").value;
-        console.log(marker_name);
         var marker = {
             id: '#' + Math.random(),
             longitude: e.longitude,
             latitude: e.latitude,
             circle: 10,
-            tooltip: 'temp'
+            tooltip: marker_name
         };
         console.log(JSON.stringify(marker));
         add_marker("test","tutorial", JSON.stringify(marker),function(){
