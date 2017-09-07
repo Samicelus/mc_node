@@ -54,3 +54,9 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.marker_text{
+    background-color: #fefefe;
+    width: 56px;
+    height: 24px;
+}

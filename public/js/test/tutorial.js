@@ -76,6 +76,15 @@ function loadingAllImg(){
             'markers',
             'caption',
             'gyroscope',
+            {
+                id: 'field',
+                title: 'marker_text',
+                className: 'marker_text',
+                content: 'Custom',
+                onClick: function() {
+                    alert('Hello from custom button');
+                }
+            },
             'fullscreen'
         ],
 
