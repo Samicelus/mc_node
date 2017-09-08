@@ -70,6 +70,7 @@ function setMaskHeight(){
     });
     $("#confirm").click(function(){
         var marker_name = $("#marker_name").val();
+        $("#marker_name").val("");
         $("#mask").hide();
         $("#dialog").hide();
         var marker = {
