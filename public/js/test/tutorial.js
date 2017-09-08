@@ -103,7 +103,7 @@ function loadingAllImg(){
     PSV.on('click', function(e) {
         var marker_name = document.getElementById("marker_name").value;
         console.log("set mask z-index");
-        $("mask").show();
+        $("#mask").show();
         // var marker = {
         //     id: '#' + Math.random(),
         //     longitude: e.longitude,
