@@ -60,3 +60,11 @@
     width: 56px;
     height: 24px;
 }
+
+#mask{
+    width: 720px;
+    height: auto;
+    z-index: 0;
+    background-color: #000000;
+    opacity: 0.5;
+}

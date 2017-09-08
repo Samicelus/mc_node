@@ -6,8 +6,9 @@ window.markers = [];
 //必须在服务器上才能看到效果！
 window.onload=function(){
     renew_markers("test",function(){
-        getTitleHeight();
+        //getTitleHeight();
         loadingAllImg();
+        setMaskHeight();
     });
 }
 
@@ -46,14 +47,21 @@ function remove_marker(page_name, id,callback){
 }
 
 
-//让全景图刚好撑满屏幕
-var canvasHeight;
-function getTitleHeight(){
-    var title=document.getElementById('title');
-    var titleHeight=parseFloat(getComputedStyle(title).height);
-    var maxHeight=window.innerHeight;
-    canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
+// //让全景图刚好撑满屏幕
+// var canvasHeight;
+// function getTitleHeight(){
+//     var title=document.getElementById('title');
+//     var titleHeight=parseFloat(getComputedStyle(title).height);
+//     var maxHeight=window.innerHeight;
+//     canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
+// }
+function setMaskHeight(){
+    $("#mask").css("height",$("#container").css("height"));
+    $("#mask").onclick(function(){
+        $("#mask").css("z-index",0);
+    })
 }
+
 //全景图参数配置函数
 function loadingAllImg(){
     var div = document.getElementById('container');
@@ -85,7 +93,7 @@ function loadingAllImg(){
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
             width: '100%',
-            height: canvasHeight
+            height: 720
         }
     });
 
@@ -94,20 +102,21 @@ function loadingAllImg(){
      */
     PSV.on('click', function(e) {
         var marker_name = document.getElementById("marker_name").value;
-        var marker = {
-            id: '#' + Math.random(),
-            longitude: e.longitude,
-            latitude: e.latitude,
-            circle: 10,
-            tooltip: marker_name
-        };
-        add_marker("test","tutorial", JSON.stringify(marker),function(){
-            PSV.clearMarkers();
-            var markers = window.markers;
-            markers.forEach(function(marker){
-                PSV.addMarker(marker);
-            });
-        });
+        $("mask").css("z-index",99);
+        // var marker = {
+        //     id: '#' + Math.random(),
+        //     longitude: e.longitude,
+        //     latitude: e.latitude,
+        //     circle: 10,
+        //     tooltip: marker_name
+        // };
+        // add_marker("test","tutorial", JSON.stringify(marker),function(){
+        //     PSV.clearMarkers();
+        //     var markers = window.markers;
+        //     markers.forEach(function(marker){
+        //         PSV.addMarker(marker);
+        //     });
+        // });
     });
 
     PSV.on('select-marker', function(marker) {
