@@ -53,16 +53,22 @@
     display: none; /* 默认隐藏 */
     position:fixed;
     width:200px;
-    height:100px;
+    height:56px;
     background-color: #efefef;
     opacity: 1;
     z-index: 100;
     text-align: center;
     margin:0 auto;
+    border-radius: 5px;
+    border-style: outset;
+    border-width: thick;
 }
 
 #marker_name{
     margin-top: 5px;
+    border-radius: 1px;
+    border-style: inset;
+    border-width: thin;
 }
 
 .dialog-button{
@@ -74,4 +80,11 @@
     margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
+    border-radius: 3px;
+    border-style: groove;
+    border-width: thin;
+}
+
+.dialog-button:hover{
+    border-style: inset;
 }
