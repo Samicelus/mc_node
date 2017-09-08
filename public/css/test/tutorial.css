@@ -61,9 +61,17 @@
     margin:0 auto;
 }
 
+#marker_name{
+    margin-top: 5px;
+}
+
 .dialog-button{
     width: 64px;
     height: 24px;
     background-color: #dcdcdc;
     border: #0365ff;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
