@@ -2,6 +2,9 @@
  * Created by Administrator on 2016/11/29.
  */
 window.markers = [];
+window.longitude = 0;
+window.latitude = 0;
+window.PSV = {};
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -64,11 +67,26 @@ function setMaskHeight(){
     $("#cancel").click(function(){
         $("#mask").hide();
         $("#dialog").hide();
-    })
+    });
     $("#confirm").click(function(){
+        var marker_name = $("#marker_name").val();
         $("#mask").hide();
         $("#dialog").hide();
-    })
+        var marker = {
+            id: '#' + Math.random(),
+            longitude: window.longitude,
+            latitude: window.latitude,
+            circle: 10,
+            tooltip: marker_name
+        };
+        add_marker("test","tutorial", JSON.stringify(marker),function(){
+            window.PSV.clearMarkers();
+            var markers = window.markers;
+            markers.forEach(function(marker){
+                window.PSV.addMarker(marker);
+            });
+        });
+    });
 }
 
 function setDialogPosition(){
@@ -91,7 +109,7 @@ function getCenter(out_id, inner_id){
 //全景图参数配置函数
 function loadingAllImg(){
     var div = document.getElementById('container');
-    var PSV = new PhotoSphereViewer({
+    window.PSV = new PhotoSphereViewer({
         // 全景图的完整路径
         panorama: '../images/tutorial.jpg',
 
@@ -126,34 +144,22 @@ function loadingAllImg(){
     /**
      * Create a new marker when the user clicks somewhere
      */
-    PSV.on('click', function(e) {
+    window.PSV.on('click', function(e) {
         $("#mask").show();
         setDialogPosition();
         $("#dialog").show();
-        // var marker = {
-        //     id: '#' + Math.random(),
-        //     longitude: e.longitude,
-        //     latitude: e.latitude,
-        //     circle: 10,
-        //     tooltip: marker_name
-        // };
-        // add_marker("test","tutorial", JSON.stringify(marker),function(){
-        //     PSV.clearMarkers();
-        //     var markers = window.markers;
-        //     markers.forEach(function(marker){
-        //         PSV.addMarker(marker);
-        //     });
-        // });
+        window.longitude = e.longitude;
+        window.latitude = e.latitude;
     });
 
 
 
-    PSV.on('select-marker', function(marker) {
+    window.PSV.on('select-marker', function(marker) {
         remove_marker("test", marker.id, function(){
-            PSV.clearMarkers();
+            window.PSV.clearMarkers();
             var markers = window.markers;
             markers.forEach(function(marker){
-                PSV.addMarker(marker);
+                window.PSV.addMarker(marker);
             });
         })
     });
