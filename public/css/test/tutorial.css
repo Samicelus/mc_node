@@ -47,4 +47,18 @@
     position:fixed;
     top:0;
     left:0;
+    text-align: center;
+    margin:0 auto;
+}
+
+#dialog{
+    position:relative;
+    background-color: #efefef;
+    opacity: 1;
+}
+
+.dialog-button{
+    position:relative;
+    width: 64px;
+    height: 24px;
 }
