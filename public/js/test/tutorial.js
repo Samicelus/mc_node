@@ -62,6 +62,7 @@ function setMaskHeight(){
         var marker_name = $("#marker_name").val();
         var marker_content = $("#marker_content").val();
         $("#marker_name").val("");
+        $("#marker_content").val("");
         $("#mask").hide();
         $("#dialog").hide();
         var marker = {
