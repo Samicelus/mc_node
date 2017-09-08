@@ -116,8 +116,6 @@ function loadingAllImg(){
         panorama: '../images/tutorial.jpg',
 
         markers: window.markers,
-        min_fov:1,
-        max_fov:179,
         // 放全景图的元素
         container: div,
 
