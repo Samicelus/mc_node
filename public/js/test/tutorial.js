@@ -58,7 +58,7 @@ function remove_marker(page_name, id,callback){
 function setMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
     $("#mask").click(function(){
-        $("#mask").css("display","none");
+        $("#mask").hide();
     })
 }
 
@@ -103,7 +103,7 @@ function loadingAllImg(){
     PSV.on('click', function(e) {
         var marker_name = document.getElementById("marker_name").value;
         console.log("set mask z-index");
-        $("mask").css("display","display");
+        $("mask").show();
         // var marker = {
         //     id: '#' + Math.random(),
         //     longitude: e.longitude,
