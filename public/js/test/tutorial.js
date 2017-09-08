@@ -57,7 +57,7 @@ function remove_marker(page_name, id,callback){
 // }
 function setMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
-    $("#mask").onclick(function(){
+    $("#mask").click(function(){
         $("#mask").css("z-index",0);
     })
 }
