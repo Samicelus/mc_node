@@ -59,7 +59,25 @@ function setMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
     $("#mask").click(function(){
         $("#mask").hide();
+        $("#dialog").hide();
     })
+}
+
+function setDialogPosition(){
+    $("#dialog").css("top", getCenter("#mask","#dialog").top+"px");
+    $("#dialog").css("left", getCenter("#mask","#dialog").left+"px");
+}
+
+function getCenter(out_id, inner_id){
+    var out_width = parseFloat($(out_id).css("width"));
+    var out_height = parseFloat($(out_id).css("height"));
+    var out_top = parseFloat($(out_id).css("top"));
+    var out_left = parseFloat($(out_id).css("left"));
+    var inner_width = parseFloat($(inner_id).css("width"));
+    var inner_height = parseFloat($(inner_id).css("height"));
+    var top = out_top + out_height/2 - inner_height/2;
+    var left = out_left + out_width/2 - inner_width/2;
+    return {top:top, left:left};
 }
 
 //全景图参数配置函数
@@ -104,6 +122,8 @@ function loadingAllImg(){
         var marker_name = document.getElementById("marker_name").value;
         console.log("set mask z-index");
         $("#mask").show();
+        setDialogPosition();
+        $("#dialog").show();
         // var marker = {
         //     id: '#' + Math.random(),
         //     longitude: e.longitude,
