@@ -9,7 +9,6 @@ window.PSV = {};
 //必须在服务器上才能看到效果！
 window.onload=function(){
     renew_markers("test",function(){
-        //getTitleHeight();
         loadingAllImg();
         setMaskHeight();
     });
@@ -49,15 +48,6 @@ function remove_marker(page_name, id,callback){
     });
 }
 
-
-// //让全景图刚好撑满屏幕
-// var canvasHeight;
-// function getTitleHeight(){
-//     var title=document.getElementById('title');
-//     var titleHeight=parseFloat(getComputedStyle(title).height);
-//     var maxHeight=window.innerHeight;
-//     canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
-// }
 function setMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
     $("#mask").click(function(){
@@ -70,15 +60,25 @@ function setMaskHeight(){
     });
     $("#confirm").click(function(){
         var marker_name = $("#marker_name").val();
+        var marker_content = $("#marker_content").val();
         $("#marker_name").val("");
         $("#mask").hide();
         $("#dialog").hide();
         var marker = {
-            id: '#' + Math.random(),
+            id: marker_name + '#' + Math.random(),
             longitude: window.longitude,
             latitude: window.latitude,
-            circle: 10,
-            tooltip: marker_name
+            html: marker_name,
+            style: {
+                maxWidth: '100px',
+                color: '#efefef',
+                fontSize: '20px',
+                fontFamily: 'Helvetica, sans-serif',
+                textAlign: 'center'
+            },
+            tooltip: {
+                content: marker_content,
+            }
         };
         add_marker("test","tutorial", JSON.stringify(marker),function(){
             window.PSV.clearMarkers();
