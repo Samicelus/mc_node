@@ -60,6 +60,14 @@ function setMaskHeight(){
     $("#mask").click(function(){
         $("#mask").hide();
         $("#dialog").hide();
+    });
+    $("#cancel").click(function(){
+        $("#mask").hide();
+        $("#dialog").hide();
+    })
+    $("#confirm").click(function(){
+        $("#mask").hide();
+        $("#dialog").hide();
     })
 }
 
@@ -119,8 +127,6 @@ function loadingAllImg(){
      * Create a new marker when the user clicks somewhere
      */
     PSV.on('click', function(e) {
-        var marker_name = document.getElementById("marker_name").value;
-        console.log("set mask z-index");
         $("#mask").show();
         setDialogPosition();
         $("#dialog").show();
@@ -139,6 +145,8 @@ function loadingAllImg(){
         //     });
         // });
     });
+
+
 
     PSV.on('select-marker', function(marker) {
         remove_marker("test", marker.id, function(){
