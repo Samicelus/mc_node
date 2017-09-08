@@ -52,7 +52,9 @@
 }
 
 #dialog{
-    position:relative;
+    position:absolute;
+    width:200px;
+    height:100px;
     background-color: #efefef;
     opacity: 1;
 }
