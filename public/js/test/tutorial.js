@@ -188,9 +188,8 @@ function loadingAllImg(){
     });
 
     $("#change").click(function(){
-        console.log("click change");
         window.PSV.change("panorama",'../images/360img03.jpg');
-        console.log(window.PSV);
+        window.PSV.load();
     });
 
 }
