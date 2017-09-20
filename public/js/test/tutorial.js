@@ -14,6 +14,13 @@ window.onload=function(){
     });
 }
 
+$(".marker_input").blur(function(){
+   var that = this;
+    if(!that.val()){
+       that.css("background-color","#D6D6FF");
+   }
+});
+
 //
 function renew_markers(page_name, callback){
     $.get("/panorama/getMarker?page_name="+page_name,function(data,status){
@@ -82,13 +89,17 @@ function setMaskHeight(){
                 content: marker_content,
             }
         };
-        add_marker("test","tutorial", JSON.stringify(marker),function(){
-            window.PSV.clearMarkers();
-            var markers = window.markers;
-            markers.forEach(function(marker){
-                window.PSV.addMarker(marker);
+        if((!marker_name)||(!marker_content)){
+            alert("输入内容不能为空")
+        }else{
+            add_marker("test","tutorial", JSON.stringify(marker),function(){
+                window.PSV.clearMarkers();
+                var markers = window.markers;
+                markers.forEach(function(marker){
+                    window.PSV.addMarker(marker);
+                });
             });
-        });
+        }
     });
 }
 
