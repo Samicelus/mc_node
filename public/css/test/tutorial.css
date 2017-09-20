@@ -89,3 +89,10 @@
     border-style: inset;
     border-width: thin;
 }
+
+#control_pad{
+    background-color: #efefef;
+    border-radius: 5px;
+    border-style: outset;
+    border-width: thick;
+}
