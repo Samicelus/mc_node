@@ -13,7 +13,8 @@ window.onload=function(){
         setMaskHeight();
     });
 }
-
+debugger
+var a = $(".marker_input");
 $(".marker_input").blur(function(){
     console.log(this);
     var that = this;
