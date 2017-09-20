@@ -163,7 +163,7 @@ function loadingAllImg(){
             height: 480
         }
     });
-
+    console.log(window.PSV);
     /**
      * Create a new marker when the user clicks somewhere
      */
@@ -189,7 +189,8 @@ function loadingAllImg(){
 
     $("#change").click(function(){
         console.log("click change");
-        window.PSV.change("panorama",'../images/360img03.jpg')
+        window.PSV.change("panorama",'../images/360img03.jpg');
+        console.log(window.PSV);
     });
 
 }
