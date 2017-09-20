@@ -58,26 +58,29 @@ function remove_marker(page_name, id,callback){
     });
 }
 
+function clear_marker_input(){
+    $(".marker_input").val("");
+    $(".marker_input").css("background-color","white");
+}
+
 function setMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
     $("#mask").click(function(){
         $("#mask").hide();
         $("#dialog").hide();
-        $(".marker_input").val("");
-        $(".marker_input").css("background-color","white");
+        clear_marker_input()
     });
     $("#cancel").click(function(){
         $("#mask").hide();
         $("#dialog").hide();
-        $(".marker_input").css("background-color","white");
+        clear_marker_input()
     });
     $("#confirm").click(function(){
         var marker_name = $("#marker_name").val();
         var marker_content = $("#marker_content").val();
-        $(".marker_input").val("");
         $("#mask").hide();
         $("#dialog").hide();
-        $(".marker_input").css("background-color","white");
+        clear_marker_input()
         var marker = {
             id: marker_name + '#' + Math.random(),
             longitude: window.longitude,
