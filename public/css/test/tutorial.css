@@ -113,3 +113,8 @@
     border-style: groove;
     border-width: thin;
 }
+
+.pad-button:hover{
+    border-style: inset;
+    border-width: thin;
+}
