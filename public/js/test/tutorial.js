@@ -17,9 +17,10 @@ window.onload=function(){
 //
 function renew_markers(page_name, callback){
     $.get("/panorama/getMarker?page_name="+page_name,function(data,status){
-        var ret_date = data.data;
+        var ret_data = data.data;
         var temp_markers = [];
-        ret_date.forEach(function(markerObj){
+        console.log(ret_data);
+        ret_data.forEach(function(markerObj){
             temp_markers.push(markerObj.marker);
         })
         window.markers = temp_markers;
