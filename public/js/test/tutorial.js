@@ -157,8 +157,8 @@ function loadingAllImg(){
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
-            width: '100%',
-            height: 720
+            width: '80%',
+            height: '70%'
         }
     });
 
