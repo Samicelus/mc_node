@@ -95,5 +95,19 @@
     background-color: #efefef;
     border-radius: 5px;
     border-style: outset;
-    border-width: thick;
+    border-width: thin;
+}
+
+.pad-button{
+    width: 80%;
+    height: 24px;
+    color: #535353;
+    text-align: center;
+    background-color: #dcdcdc;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 8%;
+    border-radius: 3px;
+    border-style: groove;
+    border-width: thin;
 }
