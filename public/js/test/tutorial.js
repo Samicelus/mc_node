@@ -34,7 +34,7 @@ function add_marker(page_name,panorama_id, marker,callback){
     sendData.page_name = page_name;
     sendData.panorama_id = panorama_id;
     sendData.marker = marker;
-    $.post("/addMarker",sendData,function(data,status){
+    $.post("/panorama/addMarker",sendData,function(data,status){
         renew_markers(page_name, callback);
     });
 }
@@ -43,7 +43,7 @@ function remove_marker(page_name, id,callback){
     var sendData = {};
     sendData.page_name = page_name;
     sendData.id = id;
-    $.post("/removeMarker",sendData,function(data,status){
+    $.post("/panorama/removeMarker",sendData,function(data,status){
         renew_markers(page_name, callback);
     });
 }
