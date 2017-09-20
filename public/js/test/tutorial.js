@@ -65,6 +65,7 @@ function clear_marker_input(){
 
 function setMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
+    $("#mask").css("top",$("#title").css("height"));
     $("#mask").click(function(){
         $("#mask").hide();
         $("#dialog").hide();
