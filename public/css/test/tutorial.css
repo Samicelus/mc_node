@@ -91,6 +91,7 @@
 }
 
 #control_pad{
+    display: inline-block;
     background-color: #efefef;
     border-radius: 5px;
     border-style: outset;
