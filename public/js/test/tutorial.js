@@ -18,9 +18,10 @@ var a = $(".marker_input");
 $(".marker_input").blur(function(){
     console.log(this);
     var that = this;
+
     console.log("失焦了");
-    if(!that.val()){
-       that.css("background-color","#D6D6FF");
+    if(!$(that).val()){
+       $(that).css("background-color","#D6D6FF");
    }
 });
 
