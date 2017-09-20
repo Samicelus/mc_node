@@ -187,4 +187,8 @@ function loadingAllImg(){
         })
     });
 
+    $("#change").click(function(){
+        window.PSV.change("panorama",'../images/360img03.jpg')
+    });
+
 }
