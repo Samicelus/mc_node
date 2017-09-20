@@ -96,6 +96,8 @@
     border-radius: 5px;
     border-style: outset;
     border-width: thin;
+    float:right;
+    margin-right:10px;
 }
 
 .pad-button{
