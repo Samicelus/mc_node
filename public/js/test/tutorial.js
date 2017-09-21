@@ -14,6 +14,7 @@ window.onload=function(){
     };
     $.post("/panorama/getPanorama",sendData,function(data,status){
         var ret_env = data.data;
+        changeTitle(ret_env);
         renew_markers(ret_env.origin._id,function(){
             loadingAllImg(ret_env);
         });
@@ -280,14 +281,30 @@ function loadingAllImg(ret_env){
 function changeTitle(ret_env){
     if(ret_env.front.title){
         $("#front").html("前:"+ret_env.front.title);
+        $("#front").css("background-color","#dcdcdc");
+    }else{
+        $("#front").html("前");
+        $("#front").css("background-color","#4c4c4c");
     }
     if(ret_env.back.title){
         $("#back").html("后:"+ret_env.back.title);
+        $("#back").css("background-color","#dcdcdc");
+    }else{
+        $("#back").html("后");
+        $("#back").css("background-color","#4c4c4c");
     }
     if(ret_env.left.title){
         $("#left").html("左:"+ret_env.left.title);
+        $("#left").css("background-color","#dcdcdc");
+    }else{
+        $("#left").html("左");
+        $("#left").css("background-color","#4c4c4c");
     }
     if(ret_env.right.title){
         $("#right").html("右:"+ret_env.right.title);
+        $("#front").css("background-color","#dcdcdc");
+    }else{
+        $("#right").html("右");
+        $("#front").css("background-color","#4c4c4c");
     }
 }
