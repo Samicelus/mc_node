@@ -123,8 +123,8 @@ service.getPanorama = function(req, res){
             var up_condition = {
                 page_id: page_id,
                 x: ret_env.origin.x,
-                y: ret_env.origin.y+1,
-                z: ret_env.origin.z
+                y: ret_env.origin.y,
+                z: ret_env.origin.z+1
             };
             return PanoramaSerie.schema.findOne(up_condition).execAsync();
         }else{
@@ -140,8 +140,8 @@ service.getPanorama = function(req, res){
         var down_condition = {
             page_id: page_id,
             x: ret_env.origin.x,
-            y: ret_env.origin.y-1,
-            z: ret_env.origin.z
+            y: ret_env.origin.y,
+            z: ret_env.origin.z-1
         };
         return PanoramaSerie.schema.findOne(down_condition).execAsync();
     }).then(function(panoramaObj){
@@ -179,8 +179,8 @@ service.getPanorama = function(req, res){
         var front_condition = {
             page_id: page_id,
             x: ret_env.origin.x,
-            y: ret_env.origin.y,
-            z: ret_env.origin.z+1
+            y: ret_env.origin.y+1,
+            z: ret_env.origin.z
         };
         return PanoramaSerie.schema.findOne(front_condition).execAsync();
     }).then(function(panoramaObj){
@@ -192,8 +192,8 @@ service.getPanorama = function(req, res){
         var back_condition = {
             page_id: page_id,
             x: ret_env.origin.x,
-            y: ret_env.origin.y,
-            z: ret_env.origin.z-1
+            y: ret_env.origin.y-1,
+            z: ret_env.origin.z
         };
         return PanoramaSerie.schema.findOne(back_condition).execAsync();
     }).then(function(panoramaObj){

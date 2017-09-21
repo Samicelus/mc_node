@@ -200,4 +200,86 @@ function loadingAllImg(ret_env){
             });
         });
 
+        $("#front").click(function(){
+            console.log("click front");
+            var sendData = {
+                page_id: "59c333a2fd52da73a0c32383",
+                current_position:JSON.stringify(window.position),
+                move: "front"
+            };
+            $.post("/panorama/getPanorama",sendData,function(data,status){
+                var ret_env = data.data;
+                changeTitle(ret_env);
+                renew_markers(ret_env.origin._id,function(){
+                    window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                        window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                        console.log("new panorama loaded");
+                    });
+                });
+            });
+        });
+
+        $("#back").click(function(){
+            console.log("click front");
+            var sendData = {
+                page_id: "59c333a2fd52da73a0c32383",
+                current_position:JSON.stringify(window.position),
+                move: "back"
+            };
+            $.post("/panorama/getPanorama",sendData,function(data,status){
+                var ret_env = data.data;
+                changeTitle(ret_env);
+                renew_markers(ret_env.origin._id,function(){
+                    window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                        window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                        console.log("new panorama loaded");
+                    });
+                });
+            });
+        });
+
+        $("#left").click(function(){
+            console.log("click front");
+            var sendData = {
+                page_id: "59c333a2fd52da73a0c32383",
+                current_position:JSON.stringify(window.position),
+                move: "left"
+            };
+            $.post("/panorama/getPanorama",sendData,function(data,status){
+                var ret_env = data.data;
+                changeTitle(ret_env);
+                renew_markers(ret_env.origin._id,function(){
+                    window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                        window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                        console.log("new panorama loaded");
+                    });
+                });
+            });
+        });
+
+        $("#right").click(function(){
+            console.log("click front");
+            var sendData = {
+                page_id: "59c333a2fd52da73a0c32383",
+                current_position:JSON.stringify(window.position),
+                move: "right"
+            };
+            $.post("/panorama/getPanorama",sendData,function(data,status){
+                var ret_env = data.data;
+                changeTitle(ret_env);
+                renew_markers(ret_env.origin._id,function(){
+                    window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                        window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                        console.log("new panorama loaded");
+                    });
+                });
+            });
+        });
+}
+
+function changeTitle(ret_env){
+    $("#front").html("前"+ret_env.front.title);
+    $("#back").html("后"+ret_env.back.title);
+    $("#left").html("左"+ret_env.left.title);
+    $("#right").html("右"+ret_env.right.title);
 }
