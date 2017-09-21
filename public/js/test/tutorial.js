@@ -278,8 +278,16 @@ function loadingAllImg(ret_env){
 }
 
 function changeTitle(ret_env){
-    $("#front").html("前"+ret_env.front.title);
-    $("#back").html("后"+ret_env.back.title);
-    $("#left").html("左"+ret_env.left.title);
-    $("#right").html("右"+ret_env.right.title);
+    if(ret_env.front.title){
+        $("#front").html("前:"+ret_env.front.title);
+    }
+    if(ret_env.back.title){
+        $("#back").html("后:"+ret_env.back.title);
+    }
+    if(ret_env.left.title){
+        $("#left").html("左:"+ret_env.left.title);
+    }
+    if(ret_env.right.title){
+        $("#right").html("右:"+ret_env.right.title);
+    }
 }
