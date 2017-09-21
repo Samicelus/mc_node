@@ -111,6 +111,7 @@ service.getPanorama = function(req, res){
             break;
     }
     var ret_env = {};
+    console.log("now_condition:"+JSON.stringify(now_condition));
     PanoramaSerie.schema.find(now_condition).execAsync().then(function(panoramaObj) {
         if (panoramaObj) {
             return panoramaObj;
