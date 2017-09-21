@@ -2,12 +2,13 @@ var BaseModel = require('../libs/baseModel.js');
 var model  = new BaseModel();
 
 var _Schema = new model.Schema({
-    up: String,
-    down: String,
-    left: String,
-    right: String,
+    x: Number,
+    y: Number,
+    z: Number,
+    page_id: String,
     panorama_url: String,
-    panorama_id: String
+    title: String,
+    content: String
 },{versionKey: false});
 
 model.schema =  model.mongoose.model('panoram_series', _Schema);	//collection名
