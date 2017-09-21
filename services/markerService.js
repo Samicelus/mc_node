@@ -10,11 +10,9 @@ const Marker = require('../models/marker.js');
 
 service.addMarker = function(req, res){
     var marker = JSON.parse(req.body.marker);
-    var page_name = req.body.page_name;
     var panorama_id = req.body.panorama_id;
     var temp_obj = {
         marker: marker,
-        page_name: page_name,
         panorama_id: panorama_id
     }
     Marker.schema(temp_obj).saveAsync().then(function(markerObj){
@@ -27,7 +25,7 @@ service.addMarker = function(req, res){
 
 service.getMarker = function(req, res){
     var query = {
-        page_name: req.query.page_name
+        panorama_id: req.query.panorama_id
     }
     Marker.schema.find(query).execAsync().then(function(bars){
         service.restSuccess(res, bars);
@@ -39,10 +37,9 @@ service.getMarker = function(req, res){
 
 service.removeMarker = function(req, res){
     var query = {
-        "page_name": req.body.page_name,
+        "panoram_id": req.body.panoram_id,
         "marker.id": req.body.id
     };
-    console.log(query);
     Marker.schema.removeAsync(query).then(function(result){
         service.restSuccess(res, result);
     }).catch(function (e) {

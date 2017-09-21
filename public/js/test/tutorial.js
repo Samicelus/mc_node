@@ -5,14 +5,20 @@ window.markers = [];
 window.longitude = 0;
 window.latitude = 0;
 window.PSV = {};
+window.position = {x:0, y:0, z:0};
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
-    renew_markers("test",function(){
-        loadingAllImg();
-        setMaskHeight();
+    var sendData = {
+        page_id:"59c333a2fd52da73a0c32383"
+    };
+    $.post("/panorama/getPanorama",sendData,function(data,status){
+        var ret_env = data.data;
+        renew_markers(ret_env.origin._id,function(){
+            loadingAllImg(ret_env);
+        });
     });
-}
+};
 
 $(".marker_input").blur(function(){
     var that = $(this);
@@ -24,8 +30,8 @@ $(".marker_input").blur(function(){
 });
 
 //
-function renew_markers(page_name, callback){
-    $.get("/panorama/getMarker?page_name="+page_name,function(data,status){
+function renew_markers(panorama_id, callback){
+    $.get("/panorama/getMarker?panorama_id="+panorama_id,function(data,status){
         var ret_data = data.data;
         var temp_markers = [];
         console.log(ret_data);
@@ -39,22 +45,21 @@ function renew_markers(page_name, callback){
     });
 }
 
-function add_marker(page_name,panorama_id, marker,callback){
+function add_marker(panorama_id, marker,callback){
     var sendData = {};
-    sendData.page_name = page_name;
     sendData.panorama_id = panorama_id;
     sendData.marker = marker;
     $.post("/panorama/addMarker",sendData,function(data,status){
-        renew_markers(page_name, callback);
+        renew_markers(panorama_id, callback);
     });
 }
 
-function remove_marker(page_name, id,callback){
+function remove_marker(panorama_id, id,callback){
     var sendData = {};
-    sendData.page_name = page_name;
+    sendData.panorama_id = panorama_id;
     sendData.id = id;
     $.post("/panorama/removeMarker",sendData,function(data,status){
-        renew_markers(page_name, callback);
+        renew_markers(panorama_id, callback);
     });
 }
 
@@ -63,7 +68,7 @@ function clear_marker_input(){
     $(".marker_input").css("background-color","white");
 }
 
-function setMaskHeight(){
+function setMaskHeight(panorama_id){
     $("#mask").css("height",$("#container").css("height"));
     $("#mask").css("width",$("#container").css("width"));
     $("#mask").css("top",$("#title").css("height"));
@@ -102,7 +107,7 @@ function setMaskHeight(){
         if((!marker_name)||(!marker_content)){
             alert("输入内容不能为空")
         }else{
-            add_marker("test","tutorial", JSON.stringify(marker),function(){
+            add_marker(panorama_id, JSON.stringify(marker),function(){
                 window.PSV.clearMarkers();
                 var markers = window.markers;
                 markers.forEach(function(marker){
@@ -131,67 +136,68 @@ function getCenter(out_id, inner_id){
 }
 
 //全景图参数配置函数
-function loadingAllImg(){
+function loadingAllImg(ret_env){
     var div = document.getElementById('container');
-    window.PSV = new PhotoSphereViewer({
-        // 全景图的完整路径
-        panorama: '../images/tutorial.jpg',
+        setMaskHeight(ret_env.origin._id);
+        window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+        window.PSV = new PhotoSphereViewer({
+            // 全景图的完整路径
+            panorama: ret_env.origin.panorama_url,
 
-        markers: window.markers,
-        // 放全景图的元素
-        container: div,
+            markers: window.markers,
+            // 放全景图的元素
+            container: div,
 
-        // 可选，默认值为2000，全景图在time_anim毫秒后会自动进行动画。（设置为false禁用它）
-        time_anim: false,
+            // 可选，默认值为2000，全景图在time_anim毫秒后会自动进行动画。（设置为false禁用它）
+            time_anim: false,
 
-        // 可选值，默认为false。显示导航条。
-        navbar: [
-            'autorotate',
-            'markers',
-            'download',
-            'caption',
-            'gyroscope',
-            'fullscreen'
-        ],
+            // 可选值，默认为false。显示导航条。
+            navbar: [
+                'autorotate',
+                'markers',
+                'download',
+                'caption',
+                'gyroscope',
+                'fullscreen'
+            ],
 
-        //陀螺仪
-        gyroscope:true,
+            //陀螺仪
+            gyroscope:true,
 
-        // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
-        size: {
-            width: '80%',
-            height: 480
-        }
-    });
-    console.log(window.PSV);
-    /**
-     * Create a new marker when the user clicks somewhere
-     */
-    window.PSV.on('click', function(e) {
-        $("#mask").show();
-        setDialogPosition();
-        $("#dialog").show();
-        window.longitude = e.longitude;
-        window.latitude = e.latitude;
-    });
-
-
-
-    window.PSV.on('select-marker', function(marker) {
-        remove_marker("test", marker.id, function(){
-            window.PSV.clearMarkers();
-            var markers = window.markers;
-            markers.forEach(function(marker){
-                window.PSV.addMarker(marker);
-            });
-        })
-    });
-
-    $("#change").click(function(){
-        console.log("click change");
-        window.PSV.setPanorama("../images/360img03.jpg", window.PSV.ExtendedPosition,true).then(function(){
-            console.log("new panorama loaded");
+            // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
+            size: {
+                width: '80%',
+                height: 480
+            }
         });
-    });
+        /**
+         * Create a new marker when the user clicks somewhere
+         */
+        window.PSV.on('click', function(e) {
+            $("#mask").show();
+            setDialogPosition();
+            $("#dialog").show();
+            window.longitude = e.longitude;
+            window.latitude = e.latitude;
+        });
+
+
+
+        window.PSV.on('select-marker', function(marker) {
+            remove_marker(ret_env.origin._id, marker.id, function(){
+                window.PSV.clearMarkers();
+                var markers = window.markers;
+                markers.forEach(function(marker){
+                    window.PSV.addMarker(marker);
+                });
+            })
+        });
+
+        $("#change").click(function(){
+            console.log("click change");
+            window.PSV.setPanorama("../images/360img03.jpg", window.PSV.ExtendedPosition,true).then(function(){
+                console.log("new panorama loaded");
+            });
+        });
 
 }

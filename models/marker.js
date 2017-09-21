@@ -3,7 +3,6 @@ var model  = new BaseModel();
 
 var _Schema = new model.Schema({
     marker: Object,
-    page_name: String,
     panorama_id: String
 },{versionKey: false});
 
