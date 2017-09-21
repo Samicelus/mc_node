@@ -111,18 +111,14 @@ service.getPanorama = function(req, res){
             break;
     }
     var ret_env = {};
-    console.log("now_condition:"+JSON.stringify(now_condition));
-    PanoramaSerie.schema.find(now_condition).execAsync().then(function(panoramaObj) {
+    PanoramaSerie.schema.findOne(now_condition).execAsync().then(function(panoramaObj) {
         if (panoramaObj) {
             return panoramaObj;
         } else {
-            console.log("current_condition:"+JSON.stringify(current_condition));
-            return PanoramaSerie.schema.find(current_condition).execAsync();
+            return PanoramaSerie.schema.findOne(current_condition).execAsync();
         }
     }).then(function(panoramaObj){
         if(panoramaObj){
-            console.log("panoramaObj:");
-            console.log(panoramaObj);
             ret_env.origin = panoramaObj;
             var up_condition = {
                 page_id: page_id,
@@ -130,8 +126,7 @@ service.getPanorama = function(req, res){
                 y: ret_env.origin.y+1,
                 z: ret_env.origin.z
             };
-            console.log("up_condition:"+JSON.stringify(up_condition));
-            return PanoramaSerie.schema.find(up_condition).execAsync();
+            return PanoramaSerie.schema.findOne(up_condition).execAsync();
         }else{
             throw new Error("尚未设置原点");
         }
@@ -148,8 +143,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y-1,
             z: ret_env.origin.z
         };
-        console.log("down_condition:"+JSON.stringify(down_condition));
-        return PanoramaSerie.schema.find(down_condition).execAsync();
+        return PanoramaSerie.schema.findOne(down_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
             ret_env.down = panoramaObj;
@@ -162,8 +156,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z
         };
-        console.log("left_condition:"+JSON.stringify(left_condition));
-        return PanoramaSerie.schema.find(left_condition).execAsync();
+        return PanoramaSerie.schema.findOne(left_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
             ret_env.left = panoramaObj;
@@ -176,8 +169,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z
         };
-        console.log("right_condition:"+JSON.stringify(right_condition));
-        return PanoramaSerie.schema.find(right_condition).execAsync();
+        return PanoramaSerie.schema.findOne(right_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
             ret_env.right = panoramaObj;
@@ -190,8 +182,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z+1
         };
-        console.log("front_condition:"+JSON.stringify(front_condition));
-        return PanoramaSerie.schema.find(front_condition).execAsync();
+        return PanoramaSerie.schema.findOne(front_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
             ret_env.front = panoramaObj;
@@ -204,8 +195,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z-1
         };
-        console.log("back_condition:"+JSON.stringify(back_condition));
-        return PanoramaSerie.schema.find(back_condition).execAsync();
+        return PanoramaSerie.schema.findOne(back_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
             ret_env.back = panoramaObj;
