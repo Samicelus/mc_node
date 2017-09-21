@@ -194,13 +194,6 @@ function loadingAllImg(ret_env){
             })
         });
 
-        $("#change").click(function(){
-            console.log("click change");
-            window.PSV.setPanorama("../images/360img03.jpg", window.PSV.ExtendedPosition,true).then(function(){
-                console.log("new panorama loaded");
-            });
-        });
-
         $("#front").click(function(){
             console.log("click front");
             var sendData = {
@@ -279,6 +272,7 @@ function loadingAllImg(ret_env){
 }
 
 function changeTitle(ret_env){
+    console.log(ret_env);
     if(ret_env.front.title){
         $("#front").html("前:"+ret_env.front.title);
         $("#front").css("background-color","#dcdcdc");
