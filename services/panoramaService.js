@@ -121,6 +121,8 @@ service.getPanorama = function(req, res){
         }
     }).then(function(panoramaObj){
         if(panoramaObj){
+            console.log("panoramaObj:");
+            console.log(panoramaObj);
             ret_env.origin = panoramaObj;
             var up_condition = {
                 page_id: page_id,
