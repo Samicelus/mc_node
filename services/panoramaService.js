@@ -116,6 +116,7 @@ service.getPanorama = function(req, res){
         if (panoramaObj) {
             return panoramaObj;
         } else {
+            console.log("current_condition:"+JSON.stringify(current_condition));
             return PanoramaSerie.schema.find(current_condition).execAsync();
         }
     }).then(function(panoramaObj){
@@ -127,6 +128,7 @@ service.getPanorama = function(req, res){
                 y: ret_env.origin.y+1,
                 z: ret_env.origin.z
             };
+            console.log("up_condition:"+JSON.stringify(up_condition));
             return PanoramaSerie.schema.find(up_condition).execAsync();
         }else{
             throw new Error("尚未设置原点");
@@ -144,6 +146,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y-1,
             z: ret_env.origin.z
         };
+        console.log("down_condition:"+JSON.stringify(down_condition));
         return PanoramaSerie.schema.find(down_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
@@ -157,6 +160,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z
         };
+        console.log("left_condition:"+JSON.stringify(left_condition));
         return PanoramaSerie.schema.find(left_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
@@ -170,6 +174,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z
         };
+        console.log("right_condition:"+JSON.stringify(right_condition));
         return PanoramaSerie.schema.find(right_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
@@ -183,6 +188,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z+1
         };
+        console.log("front_condition:"+JSON.stringify(front_condition));
         return PanoramaSerie.schema.find(front_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
@@ -196,6 +202,7 @@ service.getPanorama = function(req, res){
             y: ret_env.origin.y,
             z: ret_env.origin.z-1
         };
+        console.log("back_condition:"+JSON.stringify(back_condition));
         return PanoramaSerie.schema.find(back_condition).execAsync();
     }).then(function(panoramaObj){
         if(panoramaObj){
