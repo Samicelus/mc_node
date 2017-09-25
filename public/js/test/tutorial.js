@@ -208,13 +208,11 @@ function loadingAllImg(ret_env){
                 disable_button_color("control-button");
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data;
-                    changeTitle(ret_env);
-                    disable_button_color("control-button");
                     renew_markers(ret_env.origin._id,function(){
                         window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
                             window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                             window.enable_control_button = "enable";
-                            enable_button_color("control-button");
+                            changeTitle(ret_env);
                         });
                     });
                 });
