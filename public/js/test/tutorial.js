@@ -74,7 +74,7 @@ function resetMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
     $("#mask").css("width",$("#container").css("width"));
     $("#mask").css("top",$("#title").css("height"));
-    $("#mask").css("left",$("#titlecontainer").css("left"));
+    $("#mask").css("margin",$("#main").css("margin"));
 }
 
 function setMaskHeight(panorama_id){
