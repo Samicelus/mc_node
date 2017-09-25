@@ -130,3 +130,15 @@
     border-style: inset;
     border-width: thin;
 }
+
+.separator{
+    width: 100%;
+    height: 5px;
+    color: #535353;
+    text-align: center;
+    background-color: #dcdcdc;
+    display: inline-block;
+    border-radius: 3px;
+    border-style: groove;
+    border-width: thin;
+}
