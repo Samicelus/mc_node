@@ -203,7 +203,6 @@ function loadingAllImg(ret_env){
 
         $(".control-button").click(function(){
             console.log("click "+ this.id);
-            console.log("value "+ window.enable_control_button);
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
@@ -223,11 +222,10 @@ function loadingAllImg(ret_env){
                     });
                 });
             }
+            if(this.value == "null"){
+                console.log("this pic is null");
+            }
         });
-}
-
-function enable_button_color(className){
-    $("."+className).css("background-color","#dcdcdc")
 }
 
 function disable_button_color(className){
@@ -240,7 +238,6 @@ function changeTitle(ret_env){
     if(ret_env.front.title){
         $("#front").html("↑");
         $("#front").css("background-color","#dcdcdc");
-        $("#front").val("enable");
     }else{
         $("#front").html("前");
         $("#front").css("background-color","#6c6c6c");
@@ -249,7 +246,6 @@ function changeTitle(ret_env){
     if(ret_env.back.title){
         $("#back").html("↓");
         $("#back").css("background-color","#dcdcdc");
-        $("#back").val("enable");
     }else{
         $("#back").html("后");
         $("#back").css("background-color","#6c6c6c");
@@ -258,7 +254,6 @@ function changeTitle(ret_env){
     if(ret_env.left.title){
         $("#left").html("←");
         $("#left").css("background-color","#dcdcdc");
-        $("#left").val("enable");
     }else{
         $("#left").html("左");
         $("#left").css("background-color","#6c6c6c");
@@ -267,7 +262,6 @@ function changeTitle(ret_env){
     if(ret_env.right.title){
         $("#right").html("→");
         $("#right").css("background-color","#dcdcdc");
-        $("#right").val("enable");
     }else{
         $("#right").html("右");
         $("#right").css("background-color","#6c6c6c");
@@ -276,7 +270,6 @@ function changeTitle(ret_env){
     if(ret_env.up.title){
         $("#up").html("▲");
         $("#up").css("background-color","#dcdcdc");
-        $("#up").val("enable");
     }else{
         $("#up").html("上");
         $("#up").css("background-color","#6c6c6c");
@@ -285,7 +278,6 @@ function changeTitle(ret_env){
     if(ret_env.down.title){
         $("#down").html("▼");
         $("#down").css("background-color","#dcdcdc");
-        $("#down").val("enable");
     }else{
         $("#down").html("下");
         $("#down").css("background-color","#6c6c6c");
