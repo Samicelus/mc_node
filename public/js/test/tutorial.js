@@ -219,6 +219,14 @@ function loadingAllImg(ret_env){
         });
 }
 
+function enable_button_color(className){
+    $("."+className).style("background-color","#dcdcdc")
+}
+
+function disable_button_color(className){
+    $("."+className).style("background-color","#6c6c6c")
+}
+
 
 function changeTitle(ret_env){
     console.log(ret_env);
