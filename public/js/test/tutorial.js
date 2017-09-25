@@ -84,11 +84,13 @@ function setMaskHeight(panorama_id){
         $("#dialog").hide();
         clear_marker_input()
     });
+
     $("#cancel").click(function(){
         $("#mask").hide();
         $("#dialog").hide();
         clear_marker_input()
     });
+
     $("#confirm").click(function(){
         var marker_name = $("#marker_name").val();
         var marker_content = $("#marker_content").val();
@@ -121,6 +123,44 @@ function setMaskHeight(panorama_id){
                     window.PSV.addMarker(marker);
                 });
             });
+        }
+    });
+
+    $("#insert_mask").click(function(){
+        $("#insert_mask").hide();
+        $("#insert_dialog").hide();
+        clear_marker_input();
+    });
+
+    $("#cancel_add").click(function(){
+        $("#insert_mask").hide();
+        $("#insert_dialog").hide();
+        clear_marker_input()
+    });
+
+    $("#confirm").click(function(){
+        var insert_title = $("#insert_title").val();
+        var insert_content = $("#insert_content").val();
+        var insert_position = JSON.parse($("#insert_position").val());
+        var x = insert_position.x;
+        var y = insert_position.y;
+        var z = insert_position.z;
+        var page_id = "59c333a2fd52da73a0c32383";
+        $("#insert_mask").hide();
+        $("#insert_dialog").hide();
+        if((!insert_title)||(!insert_content)||(!x)||(!y)||(!z)||(!page_id)){
+            alert("输入内容不能为空");
+        }else{
+            var sendData = {
+                title: insert_title,
+                content: insert_content,
+                page_id: page_id,
+                x: x,
+                y: y,
+                z: z
+            };
+            console.log("insert_file:");
+            console.log($("#insert_file"));
         }
     });
 }
@@ -223,9 +263,16 @@ function loadingAllImg(ret_env){
                 });
             }
             if(this.value == "null"){
-                console.log("this pic is null");
+                $("#insert_mask").css("display","inline-block");
+                setInsertPosition();
+                $("#insert_dialog").show();
             }
         });
+}
+
+function setInsertPosition(){
+    $("#insert_dialog").css("top", getCenter("#insert_mask","#insert_dialog").top+"px");
+    $("#insert_dialog").css("left", getCenter("#insert_mask","#insert_dialog").left+"px");
 }
 
 function disable_button_color(className){
