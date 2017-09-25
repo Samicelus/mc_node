@@ -234,22 +234,30 @@ function changeTitle(ret_env){
     console.log(ret_env);
     if(ret_env.front.title){
         $("#front").html("↑");
+        $("#front").css("background-color","#dcdcdc")
     }else{
         $("#front").html("前");
+        $("#front").css("background-color","#6c6c6c")
     }
     if(ret_env.back.title){
         $("#back").html("↓");
+        $("#back").css("background-color","#dcdcdc")
     }else{
         $("#back").html("后");
+        $("#back").css("background-color","#6c6c6c")
     }
     if(ret_env.left.title){
         $("#left").html("←");
+        $("#left").css("background-color","#dcdcdc")
     }else{
         $("#left").html("左");
+        $("#left").css("background-color","#6c6c6c")
     }
     if(ret_env.right.title){
         $("#right").html("→");
+        $("#right").css("background-color","#dcdcdc")
     }else{
         $("#right").html("右");
+        $("#right").css("background-color","#6c6c6c")
     }
 }
