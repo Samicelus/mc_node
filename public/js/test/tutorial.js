@@ -196,13 +196,14 @@ function loadingAllImg(ret_env){
 
         $(".control-button").click(function(){
             console.log("click "+ this.id);
+            console.log("value "+ this.value);
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
                 move: this.id
             };
             var that = this;
-            if(this.value == "enable"){
+            if(this.value != "disable"){
                 that.value = "disable";
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data;
