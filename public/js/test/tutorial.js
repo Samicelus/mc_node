@@ -260,4 +260,18 @@ function changeTitle(ret_env){
         $("#right").html("右");
         $("#right").css("background-color","#6c6c6c")
     }
+    if(ret_env.up.title){
+        $("#up").html("▲");
+        $("#up").css("background-color","#dcdcdc")
+    }else{
+        $("#up").html("上");
+        $("#up").css("background-color","#6c6c6c")
+    }
+    if(ret_env.down.title){
+        $("#down").html("▼");
+        $("#down").css("background-color","#dcdcdc")
+    }else{
+        $("#down").html("下");
+        $("#down").css("background-color","#6c6c6c")
+    }
 }
