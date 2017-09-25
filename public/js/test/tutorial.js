@@ -196,7 +196,7 @@ function loadingAllImg(ret_env){
 
         $("#front").click(function(){
             console.log("click front");
-            console.log(this)
+            console.log(this.id);
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
