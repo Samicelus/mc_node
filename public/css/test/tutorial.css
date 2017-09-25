@@ -114,6 +114,20 @@
     border-width: thin;
 }
 
+.control-button{
+    width: 24px;
+    height: 24px;
+    color: #535353;
+    text-align: center;
+    background-color: #dcdcdc;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 8%;
+    border-radius: 3px;
+    border-style: groove;
+    border-width: thin;
+}
+
 .pad-button:hover{
     border-style: inset;
     border-width: thin;
