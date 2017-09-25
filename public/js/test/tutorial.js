@@ -182,7 +182,7 @@ function loadingAllImg(ret_env){
          */
         window.PSV.on('click', function(e) {
             resetMaskHeight();
-            $("#mask").show();
+            $("#mask").css("display","inline-block");
             setDialogPosition();
             $("#dialog").show();
             window.longitude = e.longitude;
