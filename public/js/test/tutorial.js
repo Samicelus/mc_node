@@ -138,7 +138,7 @@ function setMaskHeight(panorama_id){
         clear_marker_input()
     });
 
-    $("#confirm").click(function(){
+    $("#addPanorama").click(function(){
         var insert_title = $("#insert_title").val();
         var insert_content = $("#insert_content").val();
         var insert_position = JSON.parse($("#insert_position").val());
@@ -266,8 +266,36 @@ function loadingAllImg(ret_env){
                 $("#insert_mask").css("display","inline-block");
                 setInsertPosition();
                 $("#insert_dialog").show();
+                var new_position = getRelativePosition(window.position, this.id);
+                $("#insert_position").val(JSON.stringify(new_position));
             }
         });
+}
+
+function getRelativePosition(position, direction){
+    switch(direction){
+        case "up":
+            return {x:position.x, y:position.y, z:position.z+1};
+            break;
+        case "down":
+            return {x:position.x, y:position.y, z:position.z-1};
+            break;
+        case "front":
+            return {x:position.x, y:position.y+1, z:position.z};
+            break;
+        case "back":
+            return {x:position.x, y:position.y-1, z:position.z};
+            break;
+        case "left":
+            return {x:position.x-1, y:position.y, z:position.z};
+            break;
+        case "right":
+            return {x:position.x+1, y:position.y, z:position.z};
+            break;
+        default:
+            return position;
+            break;
+    }
 }
 
 function setInsertPosition(){
