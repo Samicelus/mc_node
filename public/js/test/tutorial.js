@@ -222,11 +222,11 @@ function loadingAllImg(ret_env){
 }
 
 function enable_button_color(className){
-    $("."+className).style("background-color","#dcdcdc")
+    $("."+className).css("background-color","#dcdcdc")
 }
 
 function disable_button_color(className){
-    $("."+className).style("background-color","#6c6c6c")
+    $("."+className).css("background-color","#6c6c6c")
 }
 
 
