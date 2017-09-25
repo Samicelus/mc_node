@@ -70,10 +70,15 @@ function clear_marker_input(){
     $(".marker_input").css("background-color","white");
 }
 
-function setMaskHeight(panorama_id){
+function resetMaskHeight(){
     $("#mask").css("height",$("#container").css("height"));
     $("#mask").css("width",$("#container").css("width"));
     $("#mask").css("top",$("#title").css("height"));
+    $("#mask").css("left",$("#titlecontainer").css("left"));
+}
+
+function setMaskHeight(panorama_id){
+    resetMaskHeight();
     $("#mask").click(function(){
         $("#mask").hide();
         $("#dialog").hide();
@@ -176,6 +181,7 @@ function loadingAllImg(ret_env){
          * Create a new marker when the user clicks somewhere
          */
         window.PSV.on('click', function(e) {
+            resetMaskHeight();
             $("#mask").show();
             setDialogPosition();
             $("#dialog").show();
