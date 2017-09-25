@@ -101,7 +101,7 @@
 }
 
 .pad-button{
-    width: 80%;
+    width: auto;
     height: 24px;
     color: #535353;
     text-align: center;

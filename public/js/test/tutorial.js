@@ -274,24 +274,22 @@ function loadingAllImg(ret_env){
 function changeTitle(ret_env){
     console.log(ret_env);
     if(ret_env.front.title){
-        $("#front").html("前:"+ret_env.front.title);
-        $("#front").css("background-color","#dcdcdc");
+        $("#front").html("↑");
     }else{
         $("#front").html("前");
-        $("#front").css("background-color","#4c4c4c");
     }
     if(ret_env.back.title){
-        $("#back").html("后:"+ret_env.back.title);
+        $("#back").html("↓");
     }else{
         $("#back").html("后");
     }
     if(ret_env.left.title){
-        $("#left").html("左:"+ret_env.left.title);
+        $("#left").html("←");
     }else{
         $("#left").html("左");
     }
     if(ret_env.right.title){
-        $("#right").html("右:"+ret_env.right.title);
+        $("#right").html("→");
     }else{
         $("#right").html("右");
     }
