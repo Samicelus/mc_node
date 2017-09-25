@@ -91,7 +91,7 @@
 }
 
 #control_pad{
-    width: 96px;
+    width: 72px;
     height: 480px;
     display: inline-block;
     background-color: #efefef;
@@ -117,21 +117,8 @@
 }
 
 .control-button{
-    width: 24px;
-    height: 24px;
-    color: #535353;
-    text-align: center;
-    background-color: #dcdcdc;
-    display: inline-block;
-    border-radius: 3px;
-    border-style: groove;
-    border-width: thin;
-    margin:2px;
-}
-
-.control-button-bis{
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     color: #535353;
     text-align: center;
     background-color: #dcdcdc;
