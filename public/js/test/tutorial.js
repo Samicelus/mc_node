@@ -203,7 +203,7 @@ function loadingAllImg(ret_env){
                 current_position:JSON.stringify(window.position),
                 move: this.id
             };
-            if(window.enable_control_button != "disable"){
+            if(window.enable_control_button == "enable"){
                 window.enable_control_button = "disable";
                 disable_button_color("control-button");
                 $.post("/panorama/getPanorama",sendData,function(data,status){
@@ -233,44 +233,56 @@ function changeTitle(ret_env){
     console.log(ret_env);
     if(ret_env.front.title){
         $("#front").html("↑");
-        $("#front").css("background-color","#dcdcdc")
+        $("#front").css("background-color","#dcdcdc");
+        $("#front").val("enable");
     }else{
         $("#front").html("前");
-        $("#front").css("background-color","#6c6c6c")
+        $("#front").css("background-color","#6c6c6c");
+        $("#front").val("null");
     }
     if(ret_env.back.title){
         $("#back").html("↓");
-        $("#back").css("background-color","#dcdcdc")
+        $("#back").css("background-color","#dcdcdc");
+        $("#back").val("enable");
     }else{
         $("#back").html("后");
-        $("#back").css("background-color","#6c6c6c")
+        $("#back").css("background-color","#6c6c6c");
+        $("#back").val("null");
     }
     if(ret_env.left.title){
         $("#left").html("←");
-        $("#left").css("background-color","#dcdcdc")
+        $("#left").css("background-color","#dcdcdc");
+        $("#left").val("enable");
     }else{
         $("#left").html("左");
-        $("#left").css("background-color","#6c6c6c")
+        $("#left").css("background-color","#6c6c6c");
+        $("#left").val("null");
     }
     if(ret_env.right.title){
         $("#right").html("→");
-        $("#right").css("background-color","#dcdcdc")
+        $("#right").css("background-color","#dcdcdc");
+        $("#right").val("enable");
     }else{
         $("#right").html("右");
-        $("#right").css("background-color","#6c6c6c")
+        $("#right").css("background-color","#6c6c6c");
+        $("#right").val("null");
     }
     if(ret_env.up.title){
         $("#up").html("▲");
-        $("#up").css("background-color","#dcdcdc")
+        $("#up").css("background-color","#dcdcdc");
+        $("#up").val("enable");
     }else{
         $("#up").html("上");
-        $("#up").css("background-color","#6c6c6c")
+        $("#up").css("background-color","#6c6c6c");
+        $("#up").val("null");
     }
     if(ret_env.down.title){
         $("#down").html("▼");
-        $("#down").css("background-color","#dcdcdc")
+        $("#down").css("background-color","#dcdcdc");
+        $("#down").val("enable");
     }else{
         $("#down").html("下");
-        $("#down").css("background-color","#6c6c6c")
+        $("#down").css("background-color","#6c6c6c");
+        $("#down").val("null");
     }
 }
