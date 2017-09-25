@@ -209,6 +209,7 @@ function loadingAllImg(ret_env){
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data;
                     changeTitle(ret_env);
+                    disable_button_color("control-button");
                     renew_markers(ret_env.origin._id,function(){
                         window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
                             window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
