@@ -6,6 +6,7 @@ window.longitude = 0;
 window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
+window.enable_control_button = "enable";
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -196,29 +197,28 @@ function loadingAllImg(ret_env){
 
         $(".control-button").click(function(){
             console.log("click "+ this.id);
-            console.log("value "+ this.value);
+            console.log("value "+ window.enable_control_button);
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
                 move: this.id
             };
-            var that = this;
-            if(this.value != "disable"){
-                that.value = "disable";
+            if(window.enable_control_button != "disable"){
+                window.enable_control_button = "disable";
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data;
                     changeTitle(ret_env);
                     renew_markers(ret_env.origin._id,function(){
                         window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
                             window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
-                            that.value = "enable";
+                            window.enable_control_button = "enable";
                         });
                     });
                 });
             }
         });
-
 }
+
 
 function changeTitle(ret_env){
     console.log(ret_env);
