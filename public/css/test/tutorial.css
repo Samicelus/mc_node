@@ -91,6 +91,8 @@
 }
 
 #control_pad{
+    width: 120px;
+    height: 480px;
     display: inline-block;
     background-color: #efefef;
     border-radius: 5px;
@@ -124,6 +126,7 @@
     border-radius: 3px;
     border-style: groove;
     border-width: thin;
+    margin:2px;
 }
 
 .pad-button:hover{
@@ -132,12 +135,14 @@
 }
 
 .separator{
-    width: 100%;
+    width: 96%;
     height: 5px;
     color: #535353;
     text-align: center;
     background-color: #dcdcdc;
     display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
     border-radius: 3px;
     border-style: groove;
     border-width: thin;
