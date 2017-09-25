@@ -196,6 +196,7 @@ function loadingAllImg(ret_env){
 
         $("#front").click(function(){
             console.log("click front");
+            console.log(this)
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
@@ -214,7 +215,7 @@ function loadingAllImg(ret_env){
         });
 
         $("#back").click(function(){
-            console.log("click front");
+            console.log("click back");
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
@@ -233,7 +234,7 @@ function loadingAllImg(ret_env){
         });
 
         $("#left").click(function(){
-            console.log("click front");
+            console.log("click left");
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
@@ -252,7 +253,7 @@ function loadingAllImg(ret_env){
         });
 
         $("#right").click(function(){
-            console.log("click front");
+            console.log("click right");
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
@@ -271,7 +272,7 @@ function loadingAllImg(ret_env){
         });
 
     $("#up").click(function(){
-        console.log("click front");
+        console.log("click up");
         var sendData = {
             page_id: "59c333a2fd52da73a0c32383",
             current_position:JSON.stringify(window.position),
@@ -290,7 +291,7 @@ function loadingAllImg(ret_env){
     });
 
     $("#down").click(function(){
-        console.log("click front");
+        console.log("click down");
         var sendData = {
             page_id: "59c333a2fd52da73a0c32383",
             current_position:JSON.stringify(window.position),
