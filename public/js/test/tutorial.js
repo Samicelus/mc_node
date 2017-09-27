@@ -57,6 +57,7 @@ function add_marker(panorama_id, marker,callback){
 }
 
 function remove_marker(panorama_id, id,callback){
+    console.log("触发removeMarker")
     var sendData = {};
     sendData.panorama_id = panorama_id;
     sendData.id = id;
