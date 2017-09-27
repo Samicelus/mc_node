@@ -159,8 +159,10 @@ function setMaskHeight(panorama_id){
                 y: y,
                 z: z
             };
-            console.log("insert_file:");
-            console.log($("#insert_file"));
+            var fd = new FormData();
+            fd.append("panorama_pic",$("#insert_file").get(0).files[0]);
+            fd.append("title",$("#insert_file").get(0).files[0]);
+            fd.append("panorama_pic",$("#insert_file").get(0).files[0]);
         // }
     });
 }
