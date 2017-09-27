@@ -332,6 +332,7 @@ function changeTitle(ret_env){
     if(ret_env.front.title){
         $("#front").html("↑");
         $("#front").css("background-color","#dcdcdc");
+        $("#front").val("true");
     }else{
         $("#front").html("前");
         $("#front").css("background-color","#6c6c6c");
@@ -340,6 +341,7 @@ function changeTitle(ret_env){
     if(ret_env.back.title){
         $("#back").html("↓");
         $("#back").css("background-color","#dcdcdc");
+        $("#back").val("true");
     }else{
         $("#back").html("后");
         $("#back").css("background-color","#6c6c6c");
@@ -348,6 +350,7 @@ function changeTitle(ret_env){
     if(ret_env.left.title){
         $("#left").html("←");
         $("#left").css("background-color","#dcdcdc");
+        $("#left").val("true");
     }else{
         $("#left").html("左");
         $("#left").css("background-color","#6c6c6c");
@@ -356,6 +359,7 @@ function changeTitle(ret_env){
     if(ret_env.right.title){
         $("#right").html("→");
         $("#right").css("background-color","#dcdcdc");
+        $("#right").val("true");
     }else{
         $("#right").html("右");
         $("#right").css("background-color","#6c6c6c");
@@ -364,6 +368,7 @@ function changeTitle(ret_env){
     if(ret_env.up.title){
         $("#up").html("▲");
         $("#up").css("background-color","#dcdcdc");
+        $("#up").val("true");
     }else{
         $("#up").html("上");
         $("#up").css("background-color","#6c6c6c");
@@ -372,6 +377,7 @@ function changeTitle(ret_env){
     if(ret_env.down.title){
         $("#down").html("▼");
         $("#down").css("background-color","#dcdcdc");
+        $("#down").val("true");
     }else{
         $("#down").html("下");
         $("#down").css("background-color","#6c6c6c");
