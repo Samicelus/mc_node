@@ -164,13 +164,13 @@ function setMaskHeight(panorama_id){
             console.log("z:"+z);
 
             var fd = new FormData();
-            fd.append("panorama_pic",$("#insert_file").get(0).files[0]);
+            fd.append("panorama_pic",$("#insert_file")[0].files[0]);
             fd.append("title",insert_title);
             fd.append("content",insert_content);
             fd.append("title",insert_title);
-            fd.append("x",insert_content);
-            fd.append("y",insert_title);
-            fd.append("z",insert_content);
+            fd.append("x",x.toString());
+            fd.append("y",y.toString());
+            fd.append("z",z.toString());
             $.ajax({
                 type: 'post',
                 url: '/panorama/addPanorama',
