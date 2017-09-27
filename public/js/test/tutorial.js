@@ -149,13 +149,11 @@ function setMaskHeight(panorama_id){
         var page_id = "59c333a2fd52da73a0c32383";
         $("#insert_mask").hide();
         $("#insert_dialog").hide();
-        if((!insert_title)||(!insert_content)||(!x)||(!y)||(!z)||(!page_id)){
-            console.log(!insert_title);
-            console.log(!insert_content);
-            console.log(!x);
-            console.log(!y);
-            console.log(!z);
-            console.log(!page_id);
+        if((!insert_title)||(!insert_content)||(!insert_position)||(!page_id)){
+            console.log(insert_title,!insert_title);
+            console.log(insert_content,!insert_content);
+            console.log(insert_position,!insert_position);
+            console.log(page_id,!page_id);
             alert("输入内容不能为空");
         }else{
             console.log("insert_title:"+insert_title);
