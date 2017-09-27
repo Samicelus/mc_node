@@ -167,7 +167,7 @@ function setMaskHeight(panorama_id){
             fd.append("panorama_pic",$("#insert_file")[0].files[0]);
             fd.append("title",insert_title);
             fd.append("content",insert_content);
-            fd.append("title",insert_title);
+            fd.append("page_id",page_id);
             fd.append("x",x.toString());
             fd.append("y",y.toString());
             fd.append("z",z.toString());
