@@ -149,9 +149,9 @@ function setMaskHeight(panorama_id){
         var page_id = "59c333a2fd52da73a0c32383";
         $("#insert_mask").hide();
         $("#insert_dialog").hide();
-        // if((!insert_title)||(!insert_content)||(!x)||(!y)||(!z)||(!page_id)){
-        //     alert("输入内容不能为空");
-        // }else{
+        if((!insert_title)||(!insert_content)||(!x)||(!y)||(!z)||(!page_id)){
+            alert("输入内容不能为空");
+        }else{
             console.log("insert_title:"+insert_title);
             console.log("insert_content:"+insert_content);
             console.log("page_id:"+page_id);
@@ -169,7 +169,7 @@ function setMaskHeight(panorama_id){
             fd.append("z",insert_content);
             $.ajax({
                 type: 'post',
-                url: '/panorama/removeMarker',
+                url: '/panorama/addPanorama',
                 data: fd,
                 cache: false,
                 contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
@@ -180,7 +180,7 @@ function setMaskHeight(panorama_id){
                     console.log("上传完成")
                 }
             });
-        // }
+        }
     });
 }
 
