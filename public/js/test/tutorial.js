@@ -172,9 +172,6 @@ function setMaskHeight(panorama_id){
                 data: fd,
                 contentType: "multipart/form-data",// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
                 processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
-                xhr: xhrOnProgress(function(e){// (详见：#3)
-                    var percent=e.loaded / e.total;//计算百分比
-                }),
                 success: function(data) {
                     console.log("data:");
                     console.log(data);
