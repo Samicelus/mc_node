@@ -151,18 +151,34 @@ function setMaskHeight(panorama_id){
         // if((!insert_title)||(!insert_content)||(!x)||(!y)||(!z)||(!page_id)){
         //     alert("输入内容不能为空");
         // }else{
-            var sendData = {
-                title: insert_title,
-                content: insert_content,
-                page_id: page_id,
-                x: x,
-                y: y,
-                z: z
-            };
+            console.log("insert_title:"+insert_title);
+            console.log("insert_content:"+insert_content);
+            console.log("page_id:"+page_id);
+            console.log("x:"+x);
+            console.log("y:"+y);
+            console.log("z:"+z);
+
             var fd = new FormData();
             fd.append("panorama_pic",$("#insert_file").get(0).files[0]);
-            fd.append("title",$("#insert_file").get(0).files[0]);
-            fd.append("panorama_pic",$("#insert_file").get(0).files[0]);
+            fd.append("title",insert_title);
+            fd.append("content",insert_content);
+            fd.append("title",insert_title);
+            fd.append("x",insert_content);
+            fd.append("y",insert_title);
+            fd.append("z",insert_content);
+            // $.ajax({
+            //     type: 'post',
+            //     url: '/panorama/removeMarker',
+            //     data: fd,
+            //     contentType: "multipart/form-data",// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
+            //     processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
+            //     xhr: xhrOnProgress(function(e){// (详见：#3)
+            //         var percent=e.loaded / e.total;//计算百分比
+            //     }),
+            //     success: function(data) {
+            //         $('body').append('完成');
+            //     }
+            // });
         // }
     });
 }
