@@ -150,6 +150,12 @@ function setMaskHeight(panorama_id){
         $("#insert_mask").hide();
         $("#insert_dialog").hide();
         if((!insert_title)||(!insert_content)||(!x)||(!y)||(!z)||(!page_id)){
+            console.log(!insert_title);
+            console.log(!insert_content);
+            console.log(!x);
+            console.log(!y);
+            console.log(!z);
+            console.log(!page_id);
             alert("输入内容不能为空");
         }else{
             console.log("insert_title:"+insert_title);
