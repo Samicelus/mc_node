@@ -279,6 +279,8 @@ function loadingAllImg(ret_env){
                     });
                 });
             }
+            console.log("this.value:");
+            console.log(this.value);
             if(this.value == "null"){
                 $("#insert_mask").css("display","inline-block");
                 setInsertPosition();
