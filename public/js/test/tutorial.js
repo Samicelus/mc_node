@@ -164,8 +164,6 @@ function setMaskHeight(panorama_id){
             console.log("z:"+z);
 
             var fd = new FormData();
-            var files = $("#insert_file")[0].files[0];
-            debugger
             fd.append("panorama_pic",$("#insert_file")[0].files[0]);
             fd.append("title",insert_title);
             fd.append("content",insert_content);
