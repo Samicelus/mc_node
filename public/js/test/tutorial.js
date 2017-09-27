@@ -265,7 +265,7 @@ function loadingAllImg(ret_env){
                 current_position:JSON.stringify(window.position),
                 move: this.id
             };
-            if(window.enable_control_button == "enable"){
+            if(window.enable_control_button == "enable" && this.value == "true"){
                 window.enable_control_button = "disable";
                 disable_button_color("control-button");
                 $.post("/panorama/getPanorama",sendData,function(data,status){
