@@ -129,6 +129,19 @@
     margin:2px;
 }
 
+.control-button{
+    width: 72px;
+    height: 24px;
+    color: #535353;
+    text-align: center;
+    background-color: #dcdcdc;
+    display: inline-block;
+    border-radius: 3px;
+    border-style: groove;
+    border-width: thin;
+    margin:2px;
+}
+
 .pad-button:hover{
     border-style: inset;
     border-width: thin;

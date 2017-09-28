@@ -53,9 +53,9 @@ service.addPanorama = function(req, res){
             service.restError(res, -1, err.toString());
         }else {
             var temp_pano = {
-                x: x,
-                y: y,
-                z: z,
+                x: Number(x),
+                y: Number(y),
+                z: Number(z),
                 page_id: page_id,
                 panorama_url: panorama_url,
                 title: title,

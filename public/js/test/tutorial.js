@@ -155,6 +155,18 @@ function setMaskHeight(panorama_id){
         clear_marker_input()
     });
 
+    $("#addPage_mask").click(function(){
+        $("#addPage_mask").hide();
+        $("#addPage_dialog").hide();
+        clear_marker_input();
+    });
+
+    $("#cancel_addPage").click(function(){
+        $("#addPage_mask").hide();
+        $("#addPage_dialog").hide();
+        clear_marker_input()
+    });
+
     $("#addPanorama").click(function(){
         var insert_title = $("#insert_title").val();
         var insert_content = $("#insert_content").val();
@@ -203,6 +215,46 @@ function setMaskHeight(panorama_id){
     });
 }
 
+$("#addPage").click(function(){
+    var page_name = $("#addPage_title").val();
+    var initial_title = $("#initial_title").val();
+    var initial_content = $("#initial_content").val();
+    $("#addPage_mask").hide();
+    $("#addPage_dialog").hide();
+    var sendData = {
+        page: page_name
+    };
+    $.post("/panorama/addPage",sendData,function(data,status){
+        var pageObj = data.data;
+        var page_id = pageObj._id;
+        console.log("page_id:"+page_id);
+        var fd = new FormData();
+        fd.append("panorama_pic",$("#addPage_file")[0].files[0]);
+        fd.append("title",initial_title);
+        fd.append("content",initial_content);
+        fd.append("page_id",page_id);
+        fd.append("x",x.toString());
+        fd.append("y",y.toString());
+        fd.append("z",z.toString());
+        $.ajax({
+            type: 'post',
+            url: '/panorama/addPanorama',
+            data: fd,
+            cache: false,
+            contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
+            processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
+            success: function(data) {
+                $.get("/panorama/getPages",function(data, status){
+                    var pages = data.data;
+                    $("#select_page option").remove();
+                    pages.map(function(page){
+                        $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='page_option'>"+page.page_name+"</option>");
+                    });
+                });
+            }
+        });
+    });
+});
 
 function getCenter(out_id, inner_id){
     var out_width = parseFloat($(out_id).css("width"));
