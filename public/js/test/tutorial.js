@@ -156,13 +156,7 @@ function setMaskHeight(panorama_id){
             console.log(page_id,!page_id);
             alert("输入内容不能为空");
         }else{
-            console.log("insert_title:"+insert_title);
-            console.log("insert_content:"+insert_content);
-            console.log("page_id:"+page_id);
-            console.log("x:"+x);
-            console.log("y:"+y);
-            console.log("z:"+z);
-
+            disable_button_color("control-button");
             var fd = new FormData();
             fd.append("panorama_pic",$("#insert_file")[0].files[0]);
             fd.append("title",insert_title);
@@ -179,9 +173,20 @@ function setMaskHeight(panorama_id){
                 contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
                 processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
                 success: function(data) {
-                    console.log("data:");
-                    console.log(data);
-                    console.log("上传完成")
+                    var sendData = {
+                        page_id: "59c333a2fd52da73a0c32383",
+                        current_position:JSON.stringify(window.position)
+                    };
+                    $.post("/panorama/getPanorama",sendData,function(data,status){
+                        var ret_env = data.data;
+                        renew_markers(ret_env.origin._id,function(){
+                            window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                                window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                                window.enable_control_button = "enable";
+                                changeTitle(ret_env);
+                            });
+                        });
+                    });
                 }
             });
         }
@@ -265,7 +270,6 @@ function loadingAllImg(ret_env){
         });
 
         $(".control-button").click(function(){
-            console.log("click "+ this.id);
             var sendData = {
                 page_id: "59c333a2fd52da73a0c32383",
                 current_position:JSON.stringify(window.position),
@@ -285,8 +289,6 @@ function loadingAllImg(ret_env){
                     });
                 });
             }
-            console.log("this.value:");
-            console.log(this.value);
             if(this.value == "null"){
                 $("#insert_mask").css("display","inline-block");
                 setInsertPosition();
