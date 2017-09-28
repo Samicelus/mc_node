@@ -7,17 +7,25 @@ window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
 window.enable_control_button = "enable";
+window.page_id = "59c333a2fd52da73a0c32383";
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
     var sendData = {
-        page_id:"59c333a2fd52da73a0c32383"
+        page_id: window.page_id
     };
     $.post("/panorama/getPanorama",sendData,function(data,status){
         var ret_env = data.data;
         changeTitle(ret_env);
         renew_markers(ret_env.origin._id,function(){
             loadingAllImg(ret_env);
+        });
+    });
+    $.get("/panorama/getPages",function(data, status){
+        var pages = data.data;
+        $("#select_page option").remove();
+        pages.map(function(page){
+            $("#select_page").append("<option value='"+page._id+"'>"+page.page_name+"</option>");
         });
     });
 };
@@ -146,7 +154,7 @@ function setMaskHeight(panorama_id){
         var x = insert_position.x;
         var y = insert_position.y;
         var z = insert_position.z;
-        var page_id = "59c333a2fd52da73a0c32383";
+        var page_id = window.page_id;
         $("#insert_mask").hide();
         $("#insert_dialog").hide();
         if((!insert_title)||(!insert_content)||(!insert_position)||(!page_id)){
@@ -174,7 +182,7 @@ function setMaskHeight(panorama_id){
                 processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
                 success: function(data) {
                     var sendData = {
-                        page_id: "59c333a2fd52da73a0c32383",
+                        page_id: window.page_id,
                         current_position:JSON.stringify(window.position)
                     };
                     $.post("/panorama/getPanorama",sendData,function(data,status){
@@ -271,7 +279,7 @@ function loadingAllImg(ret_env){
 
         $(".control-button").click(function(){
             var sendData = {
-                page_id: "59c333a2fd52da73a0c32383",
+                page_id: window.page_id,
                 current_position:JSON.stringify(window.position),
                 move: this.id
             };
