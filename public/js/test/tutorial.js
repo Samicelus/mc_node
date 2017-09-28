@@ -233,9 +233,9 @@ $("#addPage").click(function(){
         fd.append("title",initial_title);
         fd.append("content",initial_content);
         fd.append("page_id",page_id);
-        fd.append("x",x.toString());
-        fd.append("y",y.toString());
-        fd.append("z",z.toString());
+        fd.append("x","0");
+        fd.append("y","0");
+        fd.append("z","0");
         $.ajax({
             type: 'post',
             url: '/panorama/addPanorama',
