@@ -32,6 +32,12 @@ window.onload=function(){
     });
 };
 
+$("#addPage_button").click(function(){
+    $("#addPage_mask").css("display","inline-block");
+    setDialogPosition("#addPage_dialog", "#addPage_mask");
+    $("#addPage_dialog").show();
+});
+
 $(".marker_input").blur(function(){
     var that = $(this);
     if(!that.val()){
@@ -197,10 +203,6 @@ function setMaskHeight(panorama_id){
     });
 }
 
-function setDialogPosition(){
-    $("#dialog").css("top", getCenter("#mask","#dialog").top+"px");
-    $("#dialog").css("left", getCenter("#mask","#dialog").left+"px");
-}
 
 function getCenter(out_id, inner_id){
     var out_width = parseFloat($(out_id).css("width"));
@@ -255,7 +257,7 @@ function loadingAllImg(ret_env){
         window.PSV.on('click', function(e) {
             resetMaskHeight();
             $("#mask").css("display","inline-block");
-            setDialogPosition();
+            setDialogPosition("#dialog", "#mask");
             $("#dialog").show();
             window.longitude = e.longitude;
             window.latitude = e.latitude;
@@ -296,7 +298,7 @@ function loadingAllImg(ret_env){
                 }
                 if(this.value == "null"){
                     $("#insert_mask").css("display","inline-block");
-                    setInsertPosition();
+                    setDialogPosition("#insert_dialog","#insert_mask");
                     $("#insert_dialog").show();
                     var new_position = getRelativePosition(window.position, this.id);
                     $("#insert_position").val(JSON.stringify(new_position));
@@ -357,9 +359,9 @@ function getRelativePosition(position, direction){
     }
 }
 
-function setInsertPosition(){
-    $("#insert_dialog").css("top", getCenter("#insert_mask","#insert_dialog").top+"px");
-    $("#insert_dialog").css("left", getCenter("#insert_mask","#insert_dialog").left+"px");
+function setDialogPosition(dialogName, maskName){
+    $(dialogName).css("top", getCenter(maskName,dialogName).top+"px");
+    $(dialogName).css("left", getCenter(maskName,dialogName).left+"px");
 }
 
 function disable_button_color(className){

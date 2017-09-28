@@ -175,6 +175,33 @@
     border-width: thick;
 }
 
+#addPage_mask{
+    display: none; /* 默认隐藏 */
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: #000000;
+    opacity: 0.5;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#addPage_dialog{
+    display: none; /* 默认隐藏 */
+    position:fixed;
+    width:300px;
+    height:186px;
+    background-color: #efefef;
+    opacity: 1;
+    z-index: 100;
+    text-align: center;
+    margin:0 auto;
+    border-radius: 5px;
+    border-style: outset;
+    border-width: thick;
+}
+
 .select_page{
     width: 64px;
     margin:2px;
