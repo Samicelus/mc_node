@@ -174,3 +174,12 @@
     border-style: outset;
     border-width: thick;
 }
+
+.select_page{
+    margin:2px;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    border: solid 1px #000;
+    padding-right: 14px;
+}
