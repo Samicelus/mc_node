@@ -226,3 +226,9 @@
     border-radius: 2px;
     box-shadow: 1px 1px 1px #888888;
 }
+
+#position_canvas{
+    width: 85px;
+    height: 85px;
+    border: 1px solid #000000;
+}
