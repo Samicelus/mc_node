@@ -304,8 +304,8 @@ function loadingAllImg(ret_env){
             }
         });
 
-        $("#select_page").click(function(event){
-            console.log("event:",event)
+        $("#select_page").change(function(event){
+            console.log("event:",event);
             // if(window.enable_control_button == "enable"){
             //     window.enable_control_button = "disable";
             //     disable_button_color("control-button");
