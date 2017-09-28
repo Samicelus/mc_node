@@ -47,11 +47,6 @@ service.addPanorama = function(req, res){
     var filename = page_id+"."+x+"."+y+"."+z+".jpg";
     var save_path = "./public/images/"+filename;
     var panorama_url = "../images/"+filename;
-
-    console.log("page_id:",page_id);
-    console.log("title:",title);
-    console.log("content:",content);
-    console.log("filename:",filename);
     fs.rename(panorama_pic.path, save_path, function(err, ret){
         if(err){
             console.error(err.stack || err);
@@ -67,7 +62,7 @@ service.addPanorama = function(req, res){
                 content: content
             };
             PanoramaSerie.schema(temp_pano).saveAsync().then(function(panoramaObj){
-                fs.unlink(panorama_pic.path);
+                //fs.unlink(panorama_pic.path);
                 service.restSuccess(res, panoramaObj);
             }).catch(function(e){
                 console.error(e.stack || e);

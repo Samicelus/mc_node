@@ -334,7 +334,7 @@ function disable_button_color(className){
 
 
 function changeTitle(ret_env){
-    console.log(ret_env);
+    $("#title").html(ret_env.origin.title);
     if(ret_env.front.title){
         $("#front").html("↑");
         $("#front").css("background-color","#dcdcdc");
