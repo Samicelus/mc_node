@@ -304,31 +304,30 @@ function loadingAllImg(ret_env){
             }
         });
 
-        $(".page_option").click(function(){
-            console.log("select page:"+this.id)
-            if(window.enable_control_button == "enable"){
-                window.enable_control_button = "disable";
-                disable_button_color("control-button");
-                var that = this;
-                var page_id = that.value;
-                window.page_id = page_id;
-                window.position = {x:0, y:0, z:0};
-                var sendData = {
-                    page_id: window.page_id
-                };
-                disable_button_color("control-button");
-                $.post("/panorama/getPanorama",sendData,function(data,status){
-                    var ret_env = data.data;
-                    renew_markers(ret_env.origin._id,function(){
-                        window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
-                            window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
-                            window.enable_control_button = "enable";
-                            changeTitle(ret_env);
-                        });
-                    });
-                });
-            }
-
+        $("#select_page").click(function(event){
+            console.log("event:",event)
+            // if(window.enable_control_button == "enable"){
+            //     window.enable_control_button = "disable";
+            //     disable_button_color("control-button");
+            //     var that = this;
+            //     var page_id = that.value;
+            //     window.page_id = page_id;
+            //     window.position = {x:0, y:0, z:0};
+            //     var sendData = {
+            //         page_id: window.page_id
+            //     };
+            //     disable_button_color("control-button");
+            //     $.post("/panorama/getPanorama",sendData,function(data,status){
+            //         var ret_env = data.data;
+            //         renew_markers(ret_env.origin._id,function(){
+            //             window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+            //                 window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+            //                 window.enable_control_button = "enable";
+            //                 changeTitle(ret_env);
+            //             });
+            //         });
+            //     });
+            // }
         });
 
 }
