@@ -27,7 +27,7 @@ window.onload=function(){
         var pages = data.data;
         $("#select_page option").remove();
         pages.map(function(page){
-            $("#select_page").append("<option value='"+page._id+"' class='page_option'>"+page.page_name+"</option>");
+            $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='page_option'>"+page.page_name+"</option>");
         });
     });
 };
@@ -305,7 +305,7 @@ function loadingAllImg(ret_env){
         });
 
         $(".page_option").click(function(){
-
+            console.log("select page:"+this.id)
             if(window.enable_control_button == "enable"){
                 window.enable_control_button = "disable";
                 disable_button_color("control-button");
