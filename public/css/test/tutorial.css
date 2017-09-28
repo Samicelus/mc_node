@@ -176,10 +176,13 @@
 }
 
 .select_page{
+    width: 64px;
     margin:2px;
+    padding-left: 5px;
     appearance:none;
     -moz-appearance:none;
     -webkit-appearance:none;
-    border: solid 1px #000;
     padding-right: 14px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px #888888;
 }

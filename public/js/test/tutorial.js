@@ -14,6 +14,7 @@ window.onload=function(){
     var sendData = {
         page_id: window.page_id
     };
+
     $.post("/panorama/getPanorama",sendData,function(data,status){
         var ret_env = data.data;
         changeTitle(ret_env);
@@ -21,11 +22,12 @@ window.onload=function(){
             loadingAllImg(ret_env);
         });
     });
+
     $.get("/panorama/getPages",function(data, status){
         var pages = data.data;
         $("#select_page option").remove();
         pages.map(function(page){
-            $("#select_page").append("<option value='"+page._id+"'>"+page.page_name+"</option>");
+            $("#select_page").append("<option value='"+page._id+"' class='page_option'>"+page.page_name+"</option>");
         });
     });
 };
@@ -187,13 +189,7 @@ function setMaskHeight(panorama_id){
                     };
                     $.post("/panorama/getPanorama",sendData,function(data,status){
                         var ret_env = data.data;
-                        renew_markers(ret_env.origin._id,function(){
-                            window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
-                                window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
-                                window.enable_control_button = "enable";
-                                changeTitle(ret_env);
-                            });
-                        });
+                        changeTitle(ret_env);
                     });
                 }
             });
@@ -283,8 +279,43 @@ function loadingAllImg(ret_env){
                 current_position:JSON.stringify(window.position),
                 move: this.id
             };
-            if(window.enable_control_button == "enable" && this.value == "true"){
+            if(window.enable_control_button == "enable"){
+                if(this.value == "true"){
+                    window.enable_control_button = "disable";
+                    disable_button_color("control-button");
+                    $.post("/panorama/getPanorama",sendData,function(data,status){
+                        var ret_env = data.data;
+                        renew_markers(ret_env.origin._id,function(){
+                            window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                                window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                                window.enable_control_button = "enable";
+                                changeTitle(ret_env);
+                            });
+                        });
+                    });
+                }
+                if(this.value == "null"){
+                    $("#insert_mask").css("display","inline-block");
+                    setInsertPosition();
+                    $("#insert_dialog").show();
+                    var new_position = getRelativePosition(window.position, this.id);
+                    $("#insert_position").val(JSON.stringify(new_position));
+                }
+            }
+        });
+
+        $(".page_option").click(function(){
+
+            if(window.enable_control_button == "enable"){
                 window.enable_control_button = "disable";
+                disable_button_color("control-button");
+                var that = this;
+                var page_id = that.value;
+                window.page_id = page_id;
+                window.position = {x:0, y:0, z:0};
+                var sendData = {
+                    page_id: window.page_id
+                };
                 disable_button_color("control-button");
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data;
@@ -297,14 +328,9 @@ function loadingAllImg(ret_env){
                     });
                 });
             }
-            if(this.value == "null"){
-                $("#insert_mask").css("display","inline-block");
-                setInsertPosition();
-                $("#insert_dialog").show();
-                var new_position = getRelativePosition(window.position, this.id);
-                $("#insert_position").val(JSON.stringify(new_position));
-            }
+
         });
+
 }
 
 function getRelativePosition(position, direction){
