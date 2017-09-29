@@ -210,6 +210,9 @@ function setMaskHeight(panorama_id){
                     };
                     $.post("/panorama/getPanorama",sendData,function(data,status){
                         var ret_env = data.data.ret_env;
+                        var current_position = data.data.current_position;
+                        var level_env = data.data.level_env;
+                        window.drawLevel(current_position, level_env);
                         changeTitle(ret_env);
                     });
                 }
@@ -342,6 +345,9 @@ function loadingAllImg(ret_env){
                     disable_button_color("control-button");
                     $.post("/panorama/getPanorama",sendData,function(data,status){
                         var ret_env = data.data.ret_env;
+                        var current_position = data.data.current_position;
+                        var level_env = data.data.level_env;
+                        window.drawLevel(current_position, level_env);
                         renew_markers(ret_env.origin._id,function(){
                             window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
                                 window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
@@ -374,6 +380,9 @@ function loadingAllImg(ret_env){
                 disable_button_color("control-button");
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data.ret_env;
+                    var current_position = data.data.current_position;
+                    var level_env = data.data.level_env;
+                    window.drawLevel(current_position, level_env);
                     console.log("ret_env:",ret_env);
                     renew_markers(ret_env.origin._id,function(){
                         window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
