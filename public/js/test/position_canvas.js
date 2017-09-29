@@ -28,4 +28,7 @@ function draw_pano_position(current_position, target_position){
 }
 
 draw_pano_position({x:0, y:0, z:0}, {x:0, y:0, z:0});
+draw_pano_position({x:0, y:0, z:0}, {x:1, y:0, z:0});
 draw_pano_position({x:0, y:0, z:0}, {x:1, y:1, z:0});
+draw_pano_position({x:0, y:0, z:0}, {x:0, y:1, z:0});
+draw_pano_position({x:0, y:0, z:0}, {x:0, y:2, z:0});
