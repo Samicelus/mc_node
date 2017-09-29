@@ -11,7 +11,7 @@ function draw_pano_position(current_position, target_position){
     if(relative_position.z === 0){
         if(relative_position.x === 0 && relative_position.y === 0){
             fill_color = "orange";
-            stroke_color = "oranged";
+            stroke_color = "red";
         }
         console.log("draw:",target_position);
         window.position_canvas.drawRect({
