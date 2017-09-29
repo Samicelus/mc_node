@@ -18,11 +18,11 @@ function draw_pano_position(current_position, target_position){
             fillStyle: fill_color?fill_color:"steelblue",
             strokeStyle: stroke_color?stroke_color:"blue",
             strokeWidth: 1,
-            x: 72 + relative_position.x * 20,
-            y: 72 - relative_position.y * 20,
+            x: 72 + relative_position.x * 40,
+            y: 72 - relative_position.y * 40,
             fromCenter: true,
-            width: 20,
-            height: 20,
+            width: 40,
+            height: 40,
             cornerRadius: 3
         });
     }
