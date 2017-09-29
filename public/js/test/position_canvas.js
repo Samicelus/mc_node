@@ -1,7 +1,6 @@
 window.position_canvas = $("#position_canvas");
 
 function draw_pano_position(current_position, target_position){
-    console.log("draw:",target_position);
     var relative_position = {
         x: target_position.x - current_position.x,
         y: target_position.y - current_position.y,
@@ -14,6 +13,7 @@ function draw_pano_position(current_position, target_position){
             fill_color = "orange";
             stroke_color = "oranged";
         }
+        console.log("draw:",target_position);
         window.position_canvas.drawRect({
             fillStyle: fill_color?fill_color:"steelblue",
             strokeStyle: stroke_color?stroke_color:"blue",
