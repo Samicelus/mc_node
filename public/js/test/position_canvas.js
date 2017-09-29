@@ -9,8 +9,8 @@ function draw_pano_position(current_position, target_position){
     }
     var fill_color;
     var stroke_color;
-    if(z != 0){
-        if(x === 0 && y === 0){
+    if(relative_position.z != 0){
+        if(relative_position.x === 0 && relative_position.y === 0){
             fill_color = "orange";
             stroke_color = "oranged";
         }
