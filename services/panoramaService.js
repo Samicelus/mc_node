@@ -202,7 +202,16 @@ service.getPanorama = function(req, res){
         }else{
             ret_env.back = {};
         }
-        service.restSuccess(res, ret_env);
+        var level_condition = {page_id:page_id, z:now_condition.z};
+        return PanoramaSerie.schema.find(level_condition,{_id:-1, x:1, y:1, z:1}).execAsync();
+    }).then(function(bars){
+        var list = JSON.parse(JSON.stringify(bars));
+        var current_position = {
+            x: now_condition.x,
+            y: now_condition.y,
+            z: now_condition.z
+        };
+        service.restSuccess(res, {ret_env:ret_env, current_position:current_position, level_env:list});
     }).catch(function(e){
         console.error(e.stack || e);
         service.restError(res, -1, e.stack);
