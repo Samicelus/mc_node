@@ -22,8 +22,7 @@ function draw_pano_position(current_position, target_position){
             y: 72 - relative_position.y * 20,
             fromCenter: true,
             width: 40,
-            height: 20,
-            draggable: true
+            height: 20
         });
     }
 }
