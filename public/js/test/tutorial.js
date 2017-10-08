@@ -9,6 +9,7 @@ window.position = {x:0, y:0, z:0};
 window.enable_control_button = "enable";
 window.page_id = "59c333a2fd52da73a0c32383";
 window.set_init = false;
+window.set_path = false;
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -31,7 +32,15 @@ window.onload=function(){
         var pages = data.data;
         $("#select_page option").remove();
         pages.map(function(page){
-            $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='page_option'>"+page.page_name+"</option>");
+            $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page option'>"+page.page_name+"</option>");
+        });
+    });
+
+    $.get("/panorama/getPanoramas?page_id="+window.page_id,function(data, status){
+        var panoramas = data.data;
+        $("#select_panorama option").remove();
+        panoramas.map(function(panorama){
+            $("#select_panorama").append("<option id='panorama_"+panorama._id+"' value='"+panorama._id+"' class='select_panorama option'>"+panorama.title+"</option>");
         });
     });
 };
@@ -70,6 +79,14 @@ $("#justify_init").click(function(){
    } else{
        window.set_init = true;
    }
+});
+
+$("#add_path").click(function(){
+    if(window.set_path){
+        window.set_path = false;
+    } else{
+        window.set_path = true;
+    }
 });
 
 //
@@ -346,6 +363,8 @@ function loadingAllImg(ret_env){
                     window.set_init = false;
                     toggle_button_style($("#justify_init"));
                 });
+            }else if(window.set_path){
+                toggle_button_style($("#add_path"));
             }else{
                 resetMaskHeight();
                 $("#mask").css("display","inline-block");

@@ -257,3 +257,30 @@
     background-color: #777777;
     position:absolute;
 }
+
+#insert_path_dialog{
+    display: none; /* 默认隐藏 */
+    position:fixed;
+    width:300px;
+    height:186px;
+    background-color: #efefef;
+    opacity: 1;
+    z-index: 100;
+    text-align: center;
+    margin:0 auto;
+    border-radius: 5px;
+    border-style: outset;
+    border-width: thick;
+}
+
+.select_panorama{
+    width: 120px;
+    margin:2px;
+    padding-left: 5px;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    padding-right: 14px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px #888888;
+}

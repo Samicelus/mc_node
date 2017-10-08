@@ -10,4 +10,5 @@ module.exports = function(app){
     app.route('/addPanorama').post(upload.single('panorama_pic'), handler.addPanorama);
     app.route('/getPanorama').post(handler.getPanorama);
     app.route('/setInitPosition').post(handler.setInitPosition);
+    app.route('/getPanoramas').get(handler.getPanoramas);
 };

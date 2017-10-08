@@ -237,4 +237,14 @@ service.setInitPosition = function(req, res){
     });
 };
 
+service.getPanoramas = function(req, res){
+    var query = {page_id:req.query.page_id};
+    PanoramaSerie.schema.find(query).execAsync().then(function(bars){
+        service.restSuccess(res, bars);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
+    })
+};
+
 module.exports = service;
