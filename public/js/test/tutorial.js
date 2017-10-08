@@ -383,9 +383,13 @@ function loadingAllImg(ret_env){
                             window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
                                 window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                                 window.enable_control_button = "enable";
-                                window.PSV.rotate({longitude:ret_env.longitude, latitude:ret_env.latitude},function(){
+                                if(ret_env.init_position){
+                                    window.PSV.rotate({longitude:ret_env.init_position.longitude, latitude:ret_env.init_position.latitude},function(){
+                                        changeTitle(ret_env);
+                                    });
+                                }else{
                                     changeTitle(ret_env);
-                                });
+                                }
                             });
                         });
                     });
