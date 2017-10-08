@@ -186,10 +186,9 @@ function setMaskHeight(panorama_id){
     });
 
     $("#addPath").click(function(){
-        var panorama_id = $("#select_panorama").val();
+        var selected_panorama = $("#select_panorama").val();
         var marker_icon = $("#select_marker_style").val();
         var content = $("#select_panorama option:selected").attr("content");
-
         $("#insert_mask").hide();
         $("#insert_path_dialog").hide();
         var marker = {
@@ -207,7 +206,8 @@ function setMaskHeight(panorama_id){
             tooltip: {
                 content: "移动到:" + content
             },
-            marker_type: "path"
+            marker_type: "path",
+            goto_panorama: selected_panorama
         };
         add_marker(panorama_id, JSON.stringify(marker),function(){
             window.PSV.clearMarkers();
@@ -417,14 +417,33 @@ function loadingAllImg(ret_env){
 
 
         window.PSV.on('select-marker', function(marker) {
-            console.log(marker);
-            remove_marker(ret_env.origin._id, marker.id, function(){
-                window.PSV.clearMarkers();
-                var markers = window.markers;
-                markers.forEach(function(marker){
-                    window.PSV.addMarker(marker);
+            if(marker.marker_type == "path"){
+                var goto_panorama = marker.goto_panorama;
+                var sendData = {panorama_id:goto_panorama};
+                $.post("/panorama/getPanoramaById",sendData,function(data,status){
+                    var ret_env = data.data.ret_env;
+                    var current_position = data.data.current_position;
+                    var level_env = data.data.level_env;
+                    window.drawLevel(current_position, level_env);
+                    console.log("init_position:");
+                    console.log(ret_env.origin.init_position);
+                    renew_markers(ret_env.origin._id,function(){
+                        window.PSV.setPanorama(ret_env.origin.panorama_url, ret_env.origin.init_position?ret_env.origin.init_position:window.PSV.getPosition(),true).then(function(){
+                            window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                            window.enable_control_button = "enable";
+                            changeTitle(ret_env);
+                        });
+                    });
                 });
-            })
+            }else{
+                remove_marker(ret_env.origin._id, marker.id, function(){
+                    window.PSV.clearMarkers();
+                    var markers = window.markers;
+                    markers.forEach(function(marker){
+                        window.PSV.addMarker(marker);
+                    });
+                });
+            }
         });
 
         $(".control-button").click(function(){

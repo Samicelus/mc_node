@@ -72,6 +72,110 @@ service.addPanorama = function(req, res){
     });
 };
 
+service.getPanoramaById = function(req, res){
+    var panorama_id = req.body.panorama_id;
+    var ret_env = {};
+    PanoramaSerie.schema.findById(panorama_id).execAsync().then(function(panoramaObj){
+        if(panoramaObj){
+            ret_env.origin = panoramaObj;
+            var up_condition = {
+                page_id: page_id,
+                x: ret_env.origin.x,
+                y: ret_env.origin.y,
+                z: ret_env.origin.z+1
+            };
+            return PanoramaSerie.schema.findOne(up_condition).execAsync();
+        }else{
+            throw new Error("未找到该全景图");
+        }
+    }).then(function(panoramaObj){
+        if(panoramaObj){
+            ret_env.up = panoramaObj;
+
+        }else{
+            ret_env.up = {};
+        }
+        var down_condition = {
+            page_id: page_id,
+            x: ret_env.origin.x,
+            y: ret_env.origin.y,
+            z: ret_env.origin.z-1
+        };
+        return PanoramaSerie.schema.findOne(down_condition).execAsync();
+    }).then(function(panoramaObj){
+        if(panoramaObj){
+            ret_env.down = panoramaObj;
+        }else{
+            ret_env.down = {};
+        }
+        var left_condition = {
+            page_id: page_id,
+            x: ret_env.origin.x-1,
+            y: ret_env.origin.y,
+            z: ret_env.origin.z
+        };
+        return PanoramaSerie.schema.findOne(left_condition).execAsync();
+    }).then(function(panoramaObj){
+        if(panoramaObj){
+            ret_env.left = panoramaObj;
+        }else{
+            ret_env.left = {};
+        }
+        var right_condition = {
+            page_id: page_id,
+            x: ret_env.origin.x+1,
+            y: ret_env.origin.y,
+            z: ret_env.origin.z
+        };
+        return PanoramaSerie.schema.findOne(right_condition).execAsync();
+    }).then(function(panoramaObj){
+        if(panoramaObj){
+            ret_env.right = panoramaObj;
+        }else{
+            ret_env.right = {};
+        }
+        var front_condition = {
+            page_id: page_id,
+            x: ret_env.origin.x,
+            y: ret_env.origin.y+1,
+            z: ret_env.origin.z
+        };
+        return PanoramaSerie.schema.findOne(front_condition).execAsync();
+    }).then(function(panoramaObj){
+        if(panoramaObj){
+            ret_env.front = panoramaObj;
+        }else{
+            ret_env.front = {};
+        }
+        var back_condition = {
+            page_id: page_id,
+            x: ret_env.origin.x,
+            y: ret_env.origin.y-1,
+            z: ret_env.origin.z
+        };
+        return PanoramaSerie.schema.findOne(back_condition).execAsync();
+    }).then(function(panoramaObj){
+        if(panoramaObj){
+            ret_env.back = panoramaObj;
+        }else{
+            ret_env.back = {};
+        }
+        var level_condition = {page_id:page_id, z:ret_env.origin.z};
+        return PanoramaSerie.schema.find(level_condition,{_id:-1, x:1, y:1, z:1}).execAsync();
+    }).then(function(bars){
+        var list = JSON.parse(JSON.stringify(bars));
+        var current_position = {
+            x: ret_env.origin.x,
+            y: ret_env.origin.y,
+            z: ret_env.origin.z
+        };
+        service.restSuccess(res, {ret_env:ret_env, current_position:current_position, level_env:list});
+    }).catch(function(e){
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
+    });
+};
+
 service.getPanorama = function(req, res){
     var page_id = req.body.page_id;
     var current_position = req.body.current_position?JSON.parse(req.body.current_position):{x:0, y:0, z:0};
