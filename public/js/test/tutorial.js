@@ -20,8 +20,8 @@ window.onload=function(){
 
     $.post("/panorama/getPanorama",sendData,function(data,status){
         var ret_env = data.data.ret_env;
-        console.log("change panorama_id:"+window.panorama_id+" when init page");
         window.panorama_id = ret_env.origin._id;
+        console.log("change panorama_id:"+window.panorama_id+" when init page");
         var current_position = data.data.current_position;
         var level_env = data.data.level_env;
         window.drawLevel(current_position, level_env);
@@ -427,8 +427,8 @@ function loadingAllImg(ret_env){
                 var sendData = {panorama_id:goto_panorama};
                 $.post("/panorama/getPanoramaById",sendData,function(data,status){
                     var ret_env = data.data.ret_env;
-                    console.log("change panorama_id:"+window.panorama_id+" when click marker");
                     window.panorama_id = ret_env.origin._id;
+                    console.log("change panorama_id:"+window.panorama_id+" when click marker");
                     var current_position = data.data.current_position;
                     var level_env = data.data.level_env;
                     window.drawLevel(current_position, level_env);
@@ -512,8 +512,8 @@ function loadingAllImg(ret_env){
                 disable_button_color("control-button");
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data.ret_env;
-                    console.log("change panorama_id:"+window.panorama_id+" when change page_id");
                     window.panorama_id = ret_env.origin._id;
+                    console.log("change panorama_id:"+window.panorama_id+" when change page_id");
                     var current_position = data.data.current_position;
                     var level_env = data.data.level_env;
                     window.drawLevel(current_position, level_env);
