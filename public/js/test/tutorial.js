@@ -98,11 +98,7 @@ function renew_markers(panorama_id, callback){
         ret_data.forEach(function(markerObj){
             temp_markers.push(markerObj.marker);
         });
-        window.PSV.clearMarkers();
         window.markers = temp_markers;
-        temp_markers.forEach(function(marker){
-            window.PSV.addMarker(marker);
-        });
         if(callback){
             callback();
         }
@@ -433,6 +429,10 @@ function loadingAllImg(ret_env){
                     console.log("init_position:");
                     console.log(ret_env.origin.init_position);
                     renew_markers(ret_env.origin._id,function(){
+                        window.PSV.clearMarkers();
+                        window.markers.forEach(function(marker){
+                            window.PSV.addMarker(marker);
+                        });
                         window.PSV.setPanorama(ret_env.origin.panorama_url, ret_env.origin.init_position?ret_env.origin.init_position:window.PSV.getPosition(),true).then(function(){
                             window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                             window.enable_control_button = "enable";
@@ -469,6 +469,10 @@ function loadingAllImg(ret_env){
                         console.log("init_position:");
                         console.log(ret_env.origin.init_position);
                         renew_markers(ret_env.origin._id,function(){
+                            window.PSV.clearMarkers();
+                            window.markers.forEach(function(marker){
+                                window.PSV.addMarker(marker);
+                            });
                             window.PSV.setPanorama(ret_env.origin.panorama_url, ret_env.origin.init_position?ret_env.origin.init_position:window.PSV.getPosition(),true).then(function(){
                                 window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                                 window.enable_control_button = "enable";
@@ -505,6 +509,10 @@ function loadingAllImg(ret_env){
                     window.drawLevel(current_position, level_env);
                     console.log("ret_env:",ret_env);
                     renew_markers(ret_env.origin._id,function(){
+                        window.PSV.clearMarkers();
+                        window.markers.forEach(function(marker){
+                            window.PSV.addMarker(marker);
+                        });
                         window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
                             window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                             window.enable_control_button = "enable";
