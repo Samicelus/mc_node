@@ -377,14 +377,16 @@ function loadingAllImg(ret_env){
                     window.enable_control_button = "disable";
                     disable_button_color("control-button");
                     $.post("/panorama/getPanorama",sendData,function(data,status){
-                        console.log("extendedPosition:");
-                        console.log(window.PSV.getPosition());
+                        //console.log("extendedPosition:");
+                        //console.log(window.PSV.getPosition());
                         var ret_env = data.data.ret_env;
                         var current_position = data.data.current_position;
                         var level_env = data.data.level_env;
                         window.drawLevel(current_position, level_env);
+                        console.log("init_position:");
+                        console.log(ret_env.origin.init_position);
                         renew_markers(ret_env.origin._id,function(){
-                            window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.getPosition(),true).then(function(){
+                            window.PSV.setPanorama(ret_env.origin.panorama_url, ret_env.origin.init_position?ret_env.origin.init_position:window.PSV.getPosition(),true).then(function(){
                                 window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                                 window.enable_control_button = "enable";
                                 if(ret_env.init_position){
