@@ -325,12 +325,11 @@ function loadingAllImg(ret_env){
             size: {
                 width: '80%',
                 height: 480
-            },
-            default_position:{
-                long: ret_env.origin.init_position.longitude,
-                lat: ret_env.origin.init_position.latitude
             }
         });
+
+        window.PSV.rotate(ret_env.origin.init_position);
+
         /**
          * Create a new marker when the user clicks somewhere
          */
