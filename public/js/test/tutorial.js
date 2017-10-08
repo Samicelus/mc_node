@@ -337,10 +337,8 @@ function loadingAllImg(ret_env){
                 var sendData = {
                     page_id: window.page_id,
                     current_position:JSON.stringify(window.position),
-                    init_position: {}
+                    init_position: JSON.stringify({longitude:window.longitude, latitude:window.latitude})
                 };
-                sendData.init_position.longitude = window.longitude;
-                sendData.init_position.latitude = window.latitude;
                 $.post("/panorama/setInitPosition",sendData,function(data,status){
                     window.set_init = false;
                     toggle_button_style($("#justify_init"));
