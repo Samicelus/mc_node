@@ -186,7 +186,7 @@ function setMaskHeight(panorama_id){
     });
 
     $("#addPath").click(function(){
-        console.log("current_panorma_id:",panorama_id);
+        console.log("add path for panorma_id:", panorama_id);
         var selected_panorama = $("#select_panorama").val();
         var marker_icon = $("#select_marker_style").val();
         var content = $("#select_panorama option:selected").attr("content");
