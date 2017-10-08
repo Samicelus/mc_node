@@ -28,6 +28,8 @@ service.getMarker = function(req, res){
         panorama_id: req.query.panorama_id
     }
     Marker.schema.find(query).execAsync().then(function(bars){
+        console.log("marker:");
+        console.log(bars);
         service.restSuccess(res, bars);
     }).catch(function (e) {
         console.error(e.stack || e);
