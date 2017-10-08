@@ -186,12 +186,10 @@ function setMaskHeight(panorama_id){
     });
 
     $("#addPath").click(function(){
-        var target_panorama = $("#select_panorama").val();
+        var panorama_id = $("#select_panorama").val();
         var marker_icon = $("#select_marker_style").val();
-        console.log(target_panorama);
-        console.log(marker_icon);
         var content = $("#select_panorama option:selected").attr("content");
-        console.log(content);
+
         $("#insert_mask").hide();
         $("#insert_path_dialog").hide();
         var marker = {
@@ -207,19 +205,17 @@ function setMaskHeight(panorama_id){
                 textAlign: 'center'
             },
             tooltip: {
-                content: "移动到:",
-            }
+                content: "移动到:" + content
+            },
+            marker_type: "path"
         };
-
-
-
-            // add_marker(panorama_id, JSON.stringify(marker),function(){
-            //     window.PSV.clearMarkers();
-            //     var markers = window.markers;
-            //     markers.forEach(function(marker){
-            //         window.PSV.addMarker(marker);
-            //     });
-            // });
+        add_marker(panorama_id, JSON.stringify(marker),function(){
+            window.PSV.clearMarkers();
+            var markers = window.markers;
+            markers.forEach(function(marker){
+                window.PSV.addMarker(marker);
+            });
+        });
     });
 
     $("#insert_mask").click(function(){
@@ -421,6 +417,7 @@ function loadingAllImg(ret_env){
 
 
         window.PSV.on('select-marker', function(marker) {
+            console.log(marker);
             remove_marker(ret_env.origin._id, marker.id, function(){
                 window.PSV.clearMarkers();
                 var markers = window.markers;
