@@ -30,17 +30,17 @@ window.onload=function(){
 
     $.get("/panorama/getPages",function(data, status){
         var pages = data.data;
-        $("#select_page option").remove();
+        $("#select_page_option").remove();
         pages.map(function(page){
-            $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page option'>"+page.page_name+"</option>");
+            $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page_option'>"+page.page_name+"</option>");
         });
     });
 
     $.get("/panorama/getPanoramas?page_id="+window.page_id,function(data, status){
         var panoramas = data.data;
-        $("#select_panorama option").remove();
+        $("#select_panorama_option").remove();
         panoramas.map(function(panorama){
-            $("#select_panorama").append("<option id='panorama_"+panorama._id+"' value='"+panorama._id+"' class='select_panorama option'>"+panorama.title+"</option>");
+            $("#select_panorama").append("<option id='panorama_"+panorama._id+"' value='"+panorama._id+"' class='select_panorama_option'>"+panorama.title+"</option>");
         });
     });
 };
@@ -187,15 +187,17 @@ function setMaskHeight(panorama_id){
 
     $("#addPath").click(function(){
         var target_panorama = $("#select_panorama").val();
+        var marker_icon = $("#select_marker_style").val();
         console.log(target_panorama);
+        console.log(marker_icon);
+        console.log($("#select_panorama"));
         $("#insert_mask").hide();
         $("#insert_path_dialog").hide();
-
         var marker = {
             id: 'path#' + Math.random(),
             longitude: window.longitude,
             latitude: window.latitude,
-            html: marker_name,
+            html: marker_icon,
             style: {
                 maxWidth: '100px',
                 color: '#efefef',
@@ -327,9 +329,9 @@ $("#addPage").click(function(){
             success: function(data) {
                 $.get("/panorama/getPages",function(data, status){
                     var pages = data.data;
-                    $("#select_page option").remove();
+                    $("#select_page_option").remove();
                     pages.map(function(page){
-                        $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page option'>"+page.page_name+"</option>");
+                        $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page_option'>"+page.page_name+"</option>");
                     });
                 });
             }
