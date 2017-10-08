@@ -421,6 +421,7 @@ function loadingAllImg(ret_env){
                 var goto_panorama = marker.goto_panorama;
                 var sendData = {panorama_id:goto_panorama};
                 $.post("/panorama/getPanoramaById",sendData,function(data,status){
+                    console.log(data);
                     var ret_env = data.data.ret_env;
                     var current_position = data.data.current_position;
                     var level_env = data.data.level_env;
