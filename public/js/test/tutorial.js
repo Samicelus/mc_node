@@ -40,7 +40,7 @@ window.onload=function(){
         var panoramas = data.data;
         $("#select_panorama_option").remove();
         panoramas.map(function(panorama){
-            $("#select_panorama").append("<option id='panorama_"+panorama._id+"' value='"+panorama._id+"' class='select_panorama_option'>"+panorama.title+"</option>");
+            $("#select_panorama").append("<option id='panorama_"+panorama._id+"' content='"+panorama.title+"' value='"+panorama._id+"' class='select_panorama_option'>"+panorama.title+"</option>");
         });
     });
 };
@@ -190,7 +190,8 @@ function setMaskHeight(panorama_id){
         var marker_icon = $("#select_marker_style").val();
         console.log(target_panorama);
         console.log(marker_icon);
-        console.log($("#select_panorama option:selected").attr("id"));
+        var content = $("#select_panorama option:selected").attr("content");
+        console.log(content);
         $("#insert_mask").hide();
         $("#insert_path_dialog").hide();
         var marker = {
