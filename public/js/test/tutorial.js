@@ -177,6 +177,7 @@ function setMaskHeight(panorama_id){
         if((!marker_name)||(!marker_content)){
             alert("输入内容不能为空")
         }else{
+            console.log("add marker for:"+window.panorama_id);
             add_marker(window.panorama_id, JSON.stringify(marker),function(){
                 window.PSV.clearMarkers();
                 var markers = window.markers;
@@ -211,6 +212,7 @@ function setMaskHeight(panorama_id){
             marker_type: "path",
             goto_panorama: selected_panorama
         };
+        console.log("add path for:"+window.panorama_id);
         add_marker(window.panorama_id, JSON.stringify(marker),function(){
             window.PSV.clearMarkers();
             var markers = window.markers;
@@ -353,7 +355,6 @@ function getCenter(out_id, inner_id){
 //全景图参数配置函数
 function loadingAllImg(ret_env){
     var div = document.getElementById('container');
-       console.log("now panorama_id:",ret_env.origin._id);
         setMaskHeight(ret_env.origin._id);
         window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
         window.PSV = new PhotoSphereViewer({
