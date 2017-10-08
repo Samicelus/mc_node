@@ -373,6 +373,8 @@ function loadingAllImg(ret_env){
                     window.enable_control_button = "disable";
                     disable_button_color("control-button");
                     $.post("/panorama/getPanorama",sendData,function(data,status){
+                        console.log("extendedPosition:");
+                        console.log(window.PSV.ExtendedPosition);
                         var ret_env = data.data.ret_env;
                         var current_position = data.data.current_position;
                         var level_env = data.data.level_env;
