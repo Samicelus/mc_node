@@ -8,6 +8,7 @@ window.PSV = {};
 window.position = {x:0, y:0, z:0};
 window.enable_control_button = "enable";
 window.page_id = "59c333a2fd52da73a0c32383";
+window.set_init = false;
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -63,6 +64,13 @@ function toggle_button_style(button){
     }
 }
 
+$("#justify_init").click(function(){
+   if(window.set_init){
+       window.set_init = false;
+   } else{
+       window.set_init = true;
+   }
+});
 
 //
 function renew_markers(panorama_id, callback){
@@ -195,10 +203,6 @@ function setMaskHeight(panorama_id){
         $("#insert_mask").hide();
         $("#insert_dialog").hide();
         if((!insert_title)||(!insert_content)||(!insert_position)||(!page_id)){
-            console.log(insert_title,!insert_title);
-            console.log(insert_content,!insert_content);
-            console.log(insert_position,!insert_position);
-            console.log(page_id,!page_id);
             alert("输入内容不能为空");
         }else{
             disable_button_color("control-button");
@@ -327,14 +331,25 @@ function loadingAllImg(ret_env){
          * Create a new marker when the user clicks somewhere
          */
         window.PSV.on('click', function(e) {
-            resetMaskHeight();
-            $("#mask").css("display","inline-block");
-            setDialogPosition("#dialog", "#mask");
-            $("#dialog").show();
             window.longitude = e.longitude;
             window.latitude = e.latitude;
+            if(window.set_init){
+                var sendData = {
+                    page_id: window.page_id,
+                    current_position:JSON.stringify(window.position),
+                    move: {longitude:window.longitude, latitude:window.latitude}
+                };
+                $.post("/panorama/setInitPosition",sendData,function(data,status){
+                    window.set_init = false;
+                    toggle_button_style($("#justify_init"));
+                });
+            }else{
+                resetMaskHeight();
+                $("#mask").css("display","inline-block");
+                setDialogPosition("#dialog", "#mask");
+                $("#dialog").show();
+            }
         });
-
 
 
         window.PSV.on('select-marker', function(marker) {
@@ -363,7 +378,7 @@ function loadingAllImg(ret_env){
                         var level_env = data.data.level_env;
                         window.drawLevel(current_position, level_env);
                         renew_markers(ret_env.origin._id,function(){
-                            window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                            window.PSV.setPanorama(ret_env.origin.panorama_url, (ret_env.init_position?ret_env.init_position:window.PSV.ExtendedPosition),true).then(function(){
                                 window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                                 window.enable_control_button = "enable";
                                 changeTitle(ret_env);

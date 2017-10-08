@@ -8,7 +8,8 @@ var _Schema = new model.Schema({
     page_id: String,
     panorama_url: String,
     title: String,
-    content: String
+    content: String,
+    init_position: Object
 },{versionKey: false});
 
 model.schema =  model.mongoose.model('panoram_series', _Schema);	//collection名

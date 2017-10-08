@@ -218,4 +218,23 @@ service.getPanorama = function(req, res){
     });
 };
 
+service.setInitPosition = function(req, res){
+    var page_id = req.body.page_id;
+    var current_position = req.body.current_position?JSON.parse(req.body.current_position):{x:0, y:0, z:0};
+    var init_position = JSON.parse(req.body.init_position);
+    var condition = {page_id:page_id, x:current_position.x, y:current_position.y, z:current_position.z};
+    PanoramaSerie.schema.findOne(condition).execAsync().then(function(panoramaObj){
+        if(panoramaObj){
+            panoramaObj.init_position = init_position;
+            panoramaObj.markModified("init_position");
+            return panoramaObj.saveAsync();
+        }
+    }).then(function(panoramaObj){
+        service.restSuccess(res, panoramaObj);
+    }).catch(function(e){
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
+    });
+};
+
 module.exports = service;
