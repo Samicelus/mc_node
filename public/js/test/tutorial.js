@@ -190,7 +190,7 @@ function setMaskHeight(panorama_id){
         var marker_icon = $("#select_marker_style").val();
         console.log(target_panorama);
         console.log(marker_icon);
-        console.log($("#select_panorama:selected").val());
+        console.log($("#select_panorama:selected"));
         $("#insert_mask").hide();
         $("#insert_path_dialog").hide();
         var marker = {
