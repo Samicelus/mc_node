@@ -10,6 +10,7 @@ window.enable_control_button = "enable";
 window.page_id = "59c333a2fd52da73a0c32383";
 window.set_init = false;
 window.set_path = false;
+window.panorama_id = "";
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -19,6 +20,7 @@ window.onload=function(){
 
     $.post("/panorama/getPanorama",sendData,function(data,status){
         var ret_env = data.data.ret_env;
+        window.panorama_id = ret_env.origin._id;
         var current_position = data.data.current_position;
         var level_env = data.data.level_env;
         window.drawLevel(current_position, level_env);
@@ -175,7 +177,7 @@ function setMaskHeight(panorama_id){
         if((!marker_name)||(!marker_content)){
             alert("输入内容不能为空")
         }else{
-            add_marker(panorama_id, JSON.stringify(marker),function(){
+            add_marker(window.panorama_id, JSON.stringify(marker),function(){
                 window.PSV.clearMarkers();
                 var markers = window.markers;
                 markers.forEach(function(marker){
@@ -186,7 +188,6 @@ function setMaskHeight(panorama_id){
     });
 
     $("#addPath").click(function(){
-        console.log("add path for panorma_id:", panorama_id);
         var selected_panorama = $("#select_panorama").val();
         var marker_icon = $("#select_marker_style").val();
         var content = $("#select_panorama option:selected").attr("content");
@@ -210,7 +211,7 @@ function setMaskHeight(panorama_id){
             marker_type: "path",
             goto_panorama: selected_panorama
         };
-        add_marker(panorama_id, JSON.stringify(marker),function(){
+        add_marker(window.panorama_id, JSON.stringify(marker),function(){
             window.PSV.clearMarkers();
             var markers = window.markers;
             markers.forEach(function(marker){
@@ -352,6 +353,7 @@ function getCenter(out_id, inner_id){
 //全景图参数配置函数
 function loadingAllImg(ret_env){
     var div = document.getElementById('container');
+       console.log("now panorama_id:",ret_env.origin._id);
         setMaskHeight(ret_env.origin._id);
         window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
         window.PSV = new PhotoSphereViewer({
@@ -422,8 +424,8 @@ function loadingAllImg(ret_env){
                 var goto_panorama = marker.goto_panorama;
                 var sendData = {panorama_id:goto_panorama};
                 $.post("/panorama/getPanoramaById",sendData,function(data,status){
-                    console.log(data);
                     var ret_env = data.data.ret_env;
+                    window.panorama_id = ret_env.origin._id;
                     var current_position = data.data.current_position;
                     var level_env = data.data.level_env;
                     window.drawLevel(current_position, level_env);
@@ -505,6 +507,7 @@ function loadingAllImg(ret_env){
                 disable_button_color("control-button");
                 $.post("/panorama/getPanorama",sendData,function(data,status){
                     var ret_env = data.data.ret_env;
+                    window.panorama_id = ret_env.origin._id;
                     var current_position = data.data.current_position;
                     var level_env = data.data.level_env;
                     window.drawLevel(current_position, level_env);
