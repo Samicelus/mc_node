@@ -97,8 +97,12 @@ function renew_markers(panorama_id, callback){
         console.log(ret_data);
         ret_data.forEach(function(markerObj){
             temp_markers.push(markerObj.marker);
-        })
+        });
+        window.PSV.clearMarkers();
         window.markers = temp_markers;
+        temp_markers.forEach(function(marker){
+            window.PSV.addMarker(marker);
+        });
         if(callback){
             callback();
         }
