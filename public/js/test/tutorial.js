@@ -325,6 +325,10 @@ function loadingAllImg(ret_env){
             size: {
                 width: '80%',
                 height: 480
+            },
+            default_position:{
+                long: ret_env.origin.init_position.longitude,
+                lat: ret_env.origin.init_position.latitude
             }
         });
         /**
@@ -374,17 +378,17 @@ function loadingAllImg(ret_env){
                     disable_button_color("control-button");
                     $.post("/panorama/getPanorama",sendData,function(data,status){
                         console.log("extendedPosition:");
-                        console.log(window.PSV.ExtendedPosition);
+                        console.log(window.PSV.getPosition());
                         var ret_env = data.data.ret_env;
                         var current_position = data.data.current_position;
                         var level_env = data.data.level_env;
                         window.drawLevel(current_position, level_env);
                         renew_markers(ret_env.origin._id,function(){
-                            window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.ExtendedPosition,true).then(function(){
+                            window.PSV.setPanorama(ret_env.origin.panorama_url, window.PSV.getPosition(),true).then(function(){
                                 window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
                                 window.enable_control_button = "enable";
                                 if(ret_env.init_position){
-                                    window.PSV.rotate({longitude:ret_env.init_position.longitude, latitude:ret_env.init_position.latitude},function(){
+                                    window.PSV.moveTo(ret_env.init_position.longitude, ret_env.init_position.latitude, function(){
                                         changeTitle(ret_env);
                                     });
                                 }else{
