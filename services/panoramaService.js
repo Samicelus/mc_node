@@ -75,9 +75,11 @@ service.addPanorama = function(req, res){
 service.getPanoramaById = function(req, res){
     var panorama_id = req.body.panorama_id;
     var ret_env = {};
+    var page_id = "";
     PanoramaSerie.schema.findById(panorama_id).execAsync().then(function(panoramaObj){
         if(panoramaObj){
             ret_env.origin = panoramaObj;
+            page_id = panoramaObj.page_id;
             var up_condition = {
                 page_id: page_id,
                 x: ret_env.origin.x,
