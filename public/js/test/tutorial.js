@@ -50,6 +50,20 @@ $(".marker_input").blur(function(){
     }
 });
 
+$(".functional_button").click(function(){
+    var that = $(this);
+    toggle_button_style(that);
+});
+
+function toggle_button_style(button){
+    if(button.css("border-style") == "groove"){
+        button.css("border-style","inset");
+    }else{
+        button.css("border-style","groove");
+    }
+}
+
+
 //
 function renew_markers(panorama_id, callback){
     $.get("/panorama/getMarker?panorama_id="+panorama_id,function(data,status){
