@@ -185,6 +185,40 @@ function setMaskHeight(panorama_id){
         }
     });
 
+    $("#addPath").click(function(){
+        var target_panorama = $("#select_panorama").val();
+        console.log(target_panorama);
+        $("#insert_mask").hide();
+        $("#insert_path_dialog").hide();
+
+        var marker = {
+            id: 'path#' + Math.random(),
+            longitude: window.longitude,
+            latitude: window.latitude,
+            html: marker_name,
+            style: {
+                maxWidth: '100px',
+                color: '#efefef',
+                fontSize: '20px',
+                fontFamily: 'Helvetica, sans-serif',
+                textAlign: 'center'
+            },
+            tooltip: {
+                content: "移动到:",
+            }
+        };
+
+
+
+            // add_marker(panorama_id, JSON.stringify(marker),function(){
+            //     window.PSV.clearMarkers();
+            //     var markers = window.markers;
+            //     markers.forEach(function(marker){
+            //         window.PSV.addMarker(marker);
+            //     });
+            // });
+    });
+
     $("#insert_mask").click(function(){
         $("#insert_mask").hide();
         $("#insert_dialog").hide();
@@ -194,7 +228,13 @@ function setMaskHeight(panorama_id){
     $("#cancel_add").click(function(){
         $("#insert_mask").hide();
         $("#insert_dialog").hide();
+        $("#insert_path_dialog").hide();
         clear_marker_input()
+    });
+
+    $("#cancel_addPath").click(function(){
+        $("#insert_mask").hide();
+        $("#insert_path_dialog").hide();
     });
 
     $("#addPage_mask").click(function(){
@@ -289,7 +329,7 @@ $("#addPage").click(function(){
                     var pages = data.data;
                     $("#select_page option").remove();
                     pages.map(function(page){
-                        $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='page_option'>"+page.page_name+"</option>");
+                        $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page option'>"+page.page_name+"</option>");
                     });
                 });
             }
@@ -364,6 +404,9 @@ function loadingAllImg(ret_env){
                     toggle_button_style($("#justify_init"));
                 });
             }else if(window.set_path){
+                $("#insert_mask").css("display","inline-block");
+                setDialogPosition("#insert_path_dialog","#insert_mask");
+                $("#insert_path_dialog").show();
                 toggle_button_style($("#add_path"));
             }else{
                 resetMaskHeight();
@@ -395,8 +438,6 @@ function loadingAllImg(ret_env){
                     window.enable_control_button = "disable";
                     disable_button_color("control-button");
                     $.post("/panorama/getPanorama",sendData,function(data,status){
-                        //console.log("extendedPosition:");
-                        //console.log(window.PSV.getPosition());
                         var ret_env = data.data.ret_env;
                         var current_position = data.data.current_position;
                         var level_env = data.data.level_env;
