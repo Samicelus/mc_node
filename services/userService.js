@@ -6,7 +6,7 @@ var utils = require('../libs/utils.js');
 var service = new BaseService();
 var User = require('../models/user.js');
 
-var mail = require('email').server.connect({
+var mail = require('emailjs').server.connect({
     host: 'smtp.qq.com',
     user: 'mc_360@qq.com',
     password: '123edsaqw',
