@@ -27,7 +27,10 @@ function encrypt_token(str){
 authme.comparePassword = function (password, hashedPassword, playerName) {
     let hash = authme.getHash(hashedPassword);
     let salt = authme.getSalt(hashedPassword);
-    return hash == authme.getHash(authme.computeHash(password, salt, ""));
+    let hashed = authme.getHash(authme.computeHash(password, salt, ""));
+    console.log("hash:"+hash);
+    console.log("hashed:"+hashed);
+    return hash == hashed;
 };
 
 authme.getHash = function (hashedPassword){
