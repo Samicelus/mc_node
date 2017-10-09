@@ -296,3 +296,25 @@
     border-radius: 2px;
     box-shadow: 1px 1px 1px #888888;
 }
+
+.login-button{
+    width: 120px;
+    height: 24px;
+    color: #535353;
+    text-align: center;
+    background-color: #dcdcdc;
+    display: inline-block;
+    border-radius: 3px;
+    border-style: groove;
+    border-width: thin;
+    margin:2px;
+}
+
+.marker_input{
+    width: 80%;
+    margin-top: 5px;
+    margin-left: 5%;
+    border-radius: 1px;
+    border-style: inset;
+    border-width: thin;
+}
