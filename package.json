@@ -16,6 +16,7 @@
     "connect-redis": "^3.3.0",
     "cookie-parser": "^1.4.3",
     "cron": "^1.2.1",
+    "emailjs": "^1.0.12",
     "express": "^4.15.3",
     "express-session": "^1.15.5",
     "mail": "^0.2.3",

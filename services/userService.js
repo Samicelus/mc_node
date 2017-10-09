@@ -6,10 +6,11 @@ var utils = require('../libs/utils.js');
 var service = new BaseService();
 var User = require('../models/user.js');
 
-var mail = require('mail').Mail({
+var mail = require('emailjs').server.connect({
     host: 'smtp.qq.com',
-    username: 'mc_360@qq.com',
-    password: '123edsaqw'
+    user: 'mc_360@qq.com',
+    password: '123edsaqw',
+    ssl: true
 });
 
 
@@ -22,15 +23,14 @@ service.registUser = function(req, res){
         if (userObj) {
         	return false;
         } else {
-            mail.message({
-                from: 'mc_360@qq.com',
-                to: [email],
-                subject: '欢迎注册mc360'
-            })
-			.body('激活账户')
-			.send(function (err) {
+            mail.send({
+                text:    "i hope this works",
+                from:    "you <mc_360@qq.com>",
+                to:      "someone <50893818@qq.com>",
+                subject: "test"
+            },function (err, message) {
 				if (err) throw err;
-				console.log('Sent!');
+				console.log(message);
 			});
             var temp = {
                 user_name: user_name,
