@@ -298,7 +298,8 @@
 }
 
 .login-button{
-    width: 120px;
+    width: 80%;
+    margin-left: 10%;
     height: 24px;
     color: #535353;
     text-align: center;
@@ -313,7 +314,7 @@
 .login_input{
     width: 80%;
     margin-top: 5px;
-    margin-left: 5%;
+    margin-left: 10%;
     border-radius: 1px;
     border-style: inset;
     border-width: thin;
