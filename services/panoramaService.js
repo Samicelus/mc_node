@@ -12,15 +12,26 @@ const Page = require('../models/page.js');
 
 service.addPage = function(req, res){
     var user_id = req.body.user.ip;
-    console.log("user_id:"+user_id);
+    var max_page = 0;
     if(!req.body.page){
         service.restError(res, -1, "未输入page名称");
-    }else{
-        var temp_page = {
-            page_name: req.body.page,
-            user_id: user_id
-        };
-        Page.schema(temp_page).saveAsync().then(function(pageObj){
+    }else {
+        User.schema.findById(user_id).execAsync().then(function(userObj) {
+            if (userObj) {
+                max_page = userObj.max_page;
+            }
+            return Page.schema.count({user_id: user_id}).execAsync();
+        }).then(function(count){
+            if(count < max_page){
+                var temp_page = {
+                    page_name: req.body.page,
+                    user_id: user_id
+                };
+                return Page.schema(temp_page).saveAsync();
+            }else{
+                throw new Error("已达到可创建场景上限:"+max_page);
+            }
+        }).then(function(pageObj){
             service.restSuccess(res, pageObj);
         }).catch(function (e) {
             console.error(e.stack || e);
@@ -31,7 +42,6 @@ service.addPage = function(req, res){
 
 service.getPages = function(req, res){
     var user_id = req.body.user.ip;
-    console.log("user_id:"+user_id);
     var query = {user_id: user_id};
     Page.schema.find(query).execAsync().then(function(bars){
         service.restSuccess(res, bars);
@@ -42,6 +52,7 @@ service.getPages = function(req, res){
 };
 
 service.addPanorama = function(req, res){
+    var user_id = req.body.user.ip;
     var panorama_pic = req.file;
     var page_id = req.body.page_id;
     var x = req.body.x;
@@ -52,22 +63,34 @@ service.addPanorama = function(req, res){
     var filename = page_id+"."+x+"."+y+"."+z+".jpg";
     var save_path = "./public/images/"+filename;
     var panorama_url = "../images/"+filename;
+    var max_panorama = 0;
     fs.rename(panorama_pic.path, save_path, function(err, ret){
         if(err){
             console.error(err.stack || err);
             service.restError(res, -1, err.toString());
         }else {
-            var temp_pano = {
-                x: Number(x),
-                y: Number(y),
-                z: Number(z),
-                page_id: page_id,
-                panorama_url: panorama_url,
-                title: title,
-                content: content
-            };
-            PanoramaSerie.schema(temp_pano).saveAsync().then(function(panoramaObj){
-                //fs.unlink(panorama_pic.path);
+            User.schema.findById(user_id).execAsync().then(function(userObj) {
+                if (userObj) {
+                    max_panorama = userObj.max_panorama;
+                }
+                return PanoramaSerie.schema.count({page_id: page_id}).execAsync();
+            }).then(function(count){
+                if(count < max_panorama){
+                    var temp_pano = {
+                        x: Number(x),
+                        y: Number(y),
+                        z: Number(z),
+                        page_id: page_id,
+                        panorama_url: panorama_url,
+                        title: title,
+                        content: content
+                    };
+                    return PanoramaSerie.schema(temp_pano).saveAsync()
+                }else{
+                    fs.unlink(save_path);
+                    throw new Error("已达到该场景容纳全景图上限:"+max_panorama);
+                }
+            }).then(function(panoramaObj){
                 service.restSuccess(res, panoramaObj);
             }).catch(function(e){
                 console.error(e.stack || e);
@@ -360,7 +383,6 @@ service.getPanoramas = function(req, res){
 
 service.getDefaultPage = function(req, res){
     var user_id = req.body.user.ip;
-    console.log("user_id:"+user_id);
     var query = {user_id: user_id};
     Page.schema.findOne(query).execAsync().then(function(pageObj){
         service.restSuccess(res, pageObj._id);
