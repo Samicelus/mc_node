@@ -94,6 +94,7 @@ $("#justify_init").click(function(){
    } else{
        window.functional.set_init = true;
    }
+   console.log(window.functional);
 });
 
 $("#add_path").click(function(){
@@ -103,6 +104,7 @@ $("#add_path").click(function(){
     } else{
         window.functional.set_path = true;
     }
+    console.log(window.functional);
 });
 
 //
