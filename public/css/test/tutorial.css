@@ -300,6 +300,7 @@
 .login-button{
     width: 80%;
     margin-left: 10%;
+    margin-top: 5px;
     height: 24px;
     color: #535353;
     text-align: center;
