@@ -7,7 +7,7 @@ module.exports = function(app){
 	app.route('/addPage').post(utils.authorize, handler.addPage);
     app.route('/getPages').get(utils.authorize, handler.getPages);
     var upload = multer({'dest': 'upload/'});
-    app.route('/addPanorama').post(utils.authorize, upload.single('panorama_pic'), handler.addPanorama);
+    app.route('/addPanorama').post(upload.single('panorama_pic'), utils.authorize, handler.addPanorama);
     app.route('/getPanoramaById').post(handler.getPanoramaById);
     app.route('/getPanorama').post(handler.getPanorama);
     app.route('/setInitPosition').post(handler.setInitPosition);
