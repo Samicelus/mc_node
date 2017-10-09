@@ -9,6 +9,7 @@ const mongodb = require('../libs/mongodb.js');
 const Marker = require('../models/marker.js');
 const PanoramaSerie = require('../models/panorama_serie.js');
 const Page = require('../models/page.js');
+const User = require('../models/user.js');
 
 service.addPage = function(req, res){
     var user_id = req.body.user.ip;
