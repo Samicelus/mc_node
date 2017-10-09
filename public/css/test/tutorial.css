@@ -298,8 +298,8 @@
 }
 
 .login-button{
-    width: 80%;
-    margin-left: 10%;
+    width: 80px;
+    margin-left: 5px;
     height: 24px;
     color: #535353;
     text-align: center;
@@ -313,8 +313,8 @@
 
 .login_input{
     width: 80%;
-    margin-top: 5px;
     margin-left: 10%;
+    margin-top: 5px;
     border-radius: 1px;
     border-style: inset;
     border-width: thin;
