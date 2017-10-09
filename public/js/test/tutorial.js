@@ -210,6 +210,7 @@ function setMaskHeight(panorama_id){
         var content = $("#select_panorama option:selected").attr("content");
         $("#insert_mask").hide();
         $("#insert_path_dialog").hide();
+        window.functional.set_path = false;
         var marker = {
             id: 'path#' + Math.random(),
             longitude: window.longitude,
@@ -413,17 +414,17 @@ function loadingAllImg(ret_env){
         window.PSV.on('click', function(e) {
             window.longitude = e.longitude;
             window.latitude = e.latitude;
-            if(window.set_init){
+            if(window.functional.set_init){
                 var sendData = {
                     page_id: window.page_id,
                     current_position:JSON.stringify(window.position),
                     init_position: JSON.stringify({longitude:window.longitude, latitude:window.latitude})
                 };
                 $.post("/panorama/setInitPosition",sendData,function(data,status){
-                    window.set_init = false;
+                    window.functional.set_init = false;
                     toggle_button_style($("#justify_init"));
                 });
-            }else if(window.set_path){
+            }else if(window.functional.set_path){
                 $("#insert_mask").css("display","inline-block");
                 setDialogPosition("#insert_path_dialog","#insert_mask");
                 $("#insert_path_dialog").show();
