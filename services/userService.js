@@ -5,6 +5,9 @@ var mongodb = require('../libs/mongodb.js');
 var utils = require('../libs/utils.js');
 var service = new BaseService();
 var User = require('../models/user.js');
+var authme = require('../libs/authme.js');
+var crypto = require('crypto');
+var redis = require('../libs/redis.js').redisClient;
 
 var mail = require('emailjs').server.connect({
     host: 'smtp.163.com',
@@ -23,8 +26,10 @@ service.registUser = function(req, res){
         if (userObj) {
         	return false;
         } else {
+            var salt = authme.generate16salt(user_name);
+            var crypt_pass = authme.computeHash(password, salt, user_name);
             mail.send({
-                text:    "请点击以下连接以激活账户:\n\t http://samicelus.cc/panorama/validUser?user_name="+user_name+"&code="+utils.md5(user_name+utils.md5(password)),
+                text:    "请点击以下连接以激活账户:\n\t http://samicelus.cc/panorama/validUser?user_name="+user_name+"&code="+utils.md5(user_name+crypt_pass),
                 from:    "you <18180780531@163.com>",
                 to:      "someone <50893818@qq.com>",
                 subject: "mc360账户激活通知"
@@ -35,8 +40,10 @@ service.registUser = function(req, res){
             var temp = {
                 user_name: user_name,
                 email: email,
-                password: utils.md5(password),
-                is_valid: false
+                password: crypt_pass,
+                is_valid: false,
+                max_page: 3,
+                max_panorama: 6
             };
             return User.schema(temp).saveAsync();
         }
@@ -75,5 +82,43 @@ service.validUser = function(req, res){
     });
 };
 
+service.login = function(req, res){
+    var ip = req.ip;
+    var user_name = req.body.user_name;
+    var password = req.body.password;
+    var retToken = "";
+    var expire_timestamp = "";
+    var hashedPassword = "";
+    var condition = {user_name: user_name};
+    User.schema.findOne(condition).execAsync().then(function(userObj){
+        if(userObj){
+            hashedPassword = userObj.password;
+        }
+        var auth = authme.comparePassword(password, hashedPassword, user_name);
+        if(auth){
+            if(!req.session.user_token){
+                var newTokenInfo = authme.generateToken(userObj.user_name, ip, req);
+                retToken = newTokenInfo.token;
+                expire_timestamp = newTokenInfo.expire_timestamp;
+            }else{
+                let nowTimestamp = new Date().getTime();
+                if(req.session.user_token_expire_timestamp > nowTimestamp){
+                    retToken = req.session.user_token;
+                    expire_timestamp = req.session.user_token_expire_timestamp;
+                }else{
+                    let newTokenInfo = authme.generateToken(user.username, ip, req);
+                    retToken = newTokenInfo.token;
+                    expire_timestamp = newTokenInfo.expire_timestamp;
+                }
+            }
+            service.restSuccess(res, {token:retToken, expire_timestamp:expire_timestamp, username:user.username});
+        }else{
+            throw new Error("login failed!")
+        }
+    }).catch(function(e){
+        console.error(e.stack || e);
+        service.restError(res, -1, e.toString());
+    });
+};
 
 module.exports = service;
