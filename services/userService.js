@@ -92,10 +92,9 @@ service.login = function(req, res){
     User.schema.findOne(condition).execAsync().then(function(userObj){
         if(userObj){
             hashedPassword = userObj.password;
-            console.log("hashedPassword:"+hashedPassword);
         }
         var auth = authme.comparePassword(password, hashedPassword, user_name);
-        if(auth){
+        if(auth&&userObj.is_valid){
             if(!req.session.user_token){
                 var newTokenInfo = authme.generateToken(userObj.user_name, userObj._id, req);
                 retToken = newTokenInfo.token;
