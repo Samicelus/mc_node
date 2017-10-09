@@ -12,42 +12,81 @@ window.functional = {};
 window.functional.set_init = false;
 window.functional.set_path = false;
 window.panorama_id = "";
+window.user_name = "";
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
-    var sendData = {
-        page_id: window.page_id
-    };
-
-    $.post("/panorama/getPanorama",sendData,function(data,status){
-        var ret_env = data.data.ret_env;
-        window.panorama_id = ret_env.origin._id;
-        console.log("change panorama_id:"+window.panorama_id+" when init page");
-        var current_position = data.data.current_position;
-        var level_env = data.data.level_env;
-        window.drawLevel(current_position, level_env);
-        changeTitle(ret_env);
-        renew_markers(ret_env.origin._id,function(){
-            loadingAllImg(ret_env);
-        });
-    });
-
-    $.get("/panorama/getPages",function(data, status){
-        var pages = data.data;
-        $("#select_page_option").remove();
-        pages.map(function(page){
-            $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page_option'>"+page.page_name+"</option>");
-        });
-    });
-
-    $.get("/panorama/getPanoramas?page_id="+window.page_id,function(data, status){
-        var panoramas = data.data;
-        $("#select_panorama_option").remove();
-        panoramas.map(function(panorama){
-            $("#select_panorama").append("<option id='panorama_"+panorama._id+"' content='"+panorama.title+"' value='"+panorama._id+"' class='select_panorama_option'>"+panorama.title+"</option>");
-        });
+    $.get('/panorama/checkLogin',function(data, status){
+        if(data.result == "TRUE"){
+            window.user_name = data.data;
+            $("#login_pad").css("display","none");
+            $("#control_pad").css("display","inline-block");
+            getDefaultPage()
+        }else{
+            $("#login_pad").css("display","inline-block");
+            $("#control_pad").css("display","none");
+        }
     });
 };
+
+$("#login").click(function(){
+    var user_name = $("#username").val();
+    var password = $("#password").val();
+    var sendData = {
+        user_name: user_name,
+        password: password
+    };
+    $.post("/panorama/loginUser", sendData, function(data, status){
+        if(data.result == "TRUE"){
+            window.user_name = data.data.username;
+            $("#login_pad").css("display","none");
+            $("#control_pad").css("display","inline-block");
+            getDefaultPage()
+        }else{
+            $("#login_pad").css("display","inline-block");
+            $("#control_pad").css("display","none");
+            alert("登录失败！");
+        }
+    })
+});
+
+function getDefaultPage(){
+    $.get("/panorama/getDefaultPage", function(data, status){
+        window.page_id = data.data;
+        var sendData = {
+            page_id: window.page_id
+        };
+        $.post("/panorama/getPanorama",sendData,function(data,status){
+            var ret_env = data.data.ret_env;
+            window.panorama_id = ret_env.origin._id;
+            console.log("change panorama_id:"+window.panorama_id+" when init page");
+            var current_position = data.data.current_position;
+            var level_env = data.data.level_env;
+            window.drawLevel(current_position, level_env);
+            changeTitle(ret_env);
+            renew_markers(ret_env.origin._id,function(){
+                loadingAllImg(ret_env);
+            });
+        });
+
+        $.get("/panorama/getPages",function(data, status){
+            var pages = data.data;
+            $("#select_page_option").remove();
+            pages.map(function(page){
+                $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page_option'>"+page.page_name+"</option>");
+            });
+        });
+
+        $.get("/panorama/getPanoramas?page_id="+window.page_id,function(data, status){
+            var panoramas = data.data;
+            $("#select_panorama_option").remove();
+            panoramas.map(function(panorama){
+                $("#select_panorama").append("<option id='panorama_"+panorama._id+"' content='"+panorama.title+"' value='"+panorama._id+"' class='select_panorama_option'>"+panorama.title+"</option>");
+            });
+        });
+    })
+}
+
 
 $("#addPage_button").click(function(){
     $("#addPage_mask").css("display","inline-block");

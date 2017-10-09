@@ -11,11 +11,13 @@ const PanoramaSerie = require('../models/panorama_serie.js');
 const Page = require('../models/page.js');
 
 service.addPage = function(req, res){
+    var user_id = req.body.user.ip;
     if(!req.body.page){
         service.restError(res, -1, "未输入page名称");
     }else{
         var temp_page = {
-            page_name: req.body.page
+            page_name: req.body.page,
+            user_id: user_id
         };
         Page.schema(temp_page).saveAsync().then(function(pageObj){
             service.restSuccess(res, pageObj);
@@ -27,7 +29,8 @@ service.addPage = function(req, res){
 };
 
 service.getPages = function(req, res){
-    var query = {};
+    var user_id = req.body.user.ip;
+    var query = {user_id: user_id};
     Page.schema.find(query).execAsync().then(function(bars){
         service.restSuccess(res, bars);
     }).catch(function (e) {
@@ -352,5 +355,16 @@ service.getPanoramas = function(req, res){
         service.restError(res, -1, e.stack);
     })
 };
+
+service.getDefaultPage = function(req, res){
+    var user_id = req.body.user.ip;
+    var query = {user_id: user_id};
+    Page.schema.findOne(query).execAsync().then(function(pageObj){
+        service.restSuccess(res, pageObj._id);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
+    })
+}
 
 module.exports = service;

@@ -91,9 +91,21 @@
 }
 
 #control_pad{
+    display: none;
     width: 96px;
     height: 480px;
+    background-color: #efefef;
+    border-radius: 5px;
+    border-style: outset;
+    border-width: thin;
+    float:right;
+    margin-right:10px;
+}
+
+#login_pad{
     display: inline-block;
+    width: 96px;
+    height: 480px;
     background-color: #efefef;
     border-radius: 5px;
     border-style: outset;

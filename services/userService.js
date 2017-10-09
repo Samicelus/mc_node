@@ -83,7 +83,6 @@ service.validUser = function(req, res){
 };
 
 service.login = function(req, res){
-    var ip = req.ip;
     var user_name = req.body.user_name;
     var password = req.body.password;
     var retToken = "";
@@ -97,7 +96,7 @@ service.login = function(req, res){
         var auth = authme.comparePassword(password, hashedPassword, user_name);
         if(auth){
             if(!req.session.user_token){
-                var newTokenInfo = authme.generateToken(userObj.user_name, ip, req);
+                var newTokenInfo = authme.generateToken(userObj.user_name, userObj._id, req);
                 retToken = newTokenInfo.token;
                 expire_timestamp = newTokenInfo.expire_timestamp;
             }else{
@@ -106,7 +105,7 @@ service.login = function(req, res){
                     retToken = req.session.user_token;
                     expire_timestamp = req.session.user_token_expire_timestamp;
                 }else{
-                    let newTokenInfo = authme.generateToken(user.username, ip, req);
+                    let newTokenInfo = authme.generateToken(user.username, userObj._id, req);
                     retToken = newTokenInfo.token;
                     expire_timestamp = newTokenInfo.expire_timestamp;
                 }
