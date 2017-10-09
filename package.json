@@ -18,6 +18,7 @@
     "cron": "^1.2.1",
     "express": "^4.15.3",
     "express-session": "^1.15.5",
+    "mail": "^0.2.3",
     "moment": "^2.18.1",
     "mongoose": "^4.11.0",
     "morgan": "^1.8.2",

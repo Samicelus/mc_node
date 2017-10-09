@@ -47,4 +47,8 @@ utils.authorize = function(req, res, next){
     }
 }
 
+utils.md5 = function (text) {
+    return crypto.createHash('md5').update(text, 'utf8').digest('hex');
+};
+
 module.exports = utils;
