@@ -218,7 +218,8 @@ function setMaskHeight(panorama_id){
                 color: '#efefef',
                 fontSize: '20px',
                 fontFamily: 'Helvetica, sans-serif',
-                textAlign: 'center'
+                textAlign: 'center',
+                textShadow: '#000 2px 0 0, #000 0 2px 0, #000 -2px 0 0, #000 0 -2px 0'
             },
             tooltip: {
                 content: "移动到:" + content
