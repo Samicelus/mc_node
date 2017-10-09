@@ -8,8 +8,9 @@ window.PSV = {};
 window.position = {x:0, y:0, z:0};
 window.enable_control_button = "enable";
 window.page_id = "59c333a2fd52da73a0c32383";
-window.set_init = false;
-window.set_path = false;
+window.functional = {};
+window.functional.set_init = false;
+window.functional.set_path = false;
 window.panorama_id = "";
 
 //必须在服务器上才能看到效果！
@@ -65,30 +66,42 @@ $(".marker_input").blur(function(){
 
 $(".functional_button").click(function(){
     var that = $(this);
-    toggle_button_style(that);
+    var original_style = that.css("border-style");
+    $(".functional_button").css("border-style","groove");
+    toggle_button_style(that, original_style);
 });
 
-function toggle_button_style(button){
-    if(button.css("border-style") == "groove"){
+function toggle_button_style(button, original_style){
+    if(original_style == "groove"){
         button.css("border-style","inset");
     }else{
         button.css("border-style","groove");
     }
 }
 
+function disable_all_other_functional(target_functional){
+    for(var i in window.functional){
+        if(target_functional != i){
+            window.functional[i] = false;
+        }
+    }
+}
+
 $("#justify_init").click(function(){
-   if(window.set_init){
-       window.set_init = false;
+   disable_all_other_functional("set_init");
+   if(window.functional.set_init){
+       window.functional.set_init = false;
    } else{
-       window.set_init = true;
+       window.functional.set_init = true;
    }
 });
 
 $("#add_path").click(function(){
-    if(window.set_path){
-        window.set_path = false;
+    disable_all_other_functional("set_path");
+    if(window.functional.set_path){
+        window.functional.set_path = false;
     } else{
-        window.set_path = true;
+        window.functional.set_path = true;
     }
 });
 
