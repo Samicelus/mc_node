@@ -11,7 +11,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
     $scope.verify_password = "";
     $http({
         method: 'GET',
-        url: 'http://119.23.73.86:8030/checkLogin'
+        url: 'http://www.samicelus.cc/panorama/checkLogin'
     }).then(function successCallback(response){
         if(response.data.result == "TRUE"){
             $scope.username = response.data.data;
@@ -29,7 +29,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
     $scope.getEmail = function(){
         $http({
             method: 'GET',
-            url: 'http://119.23.73.86:8030/getEmail'
+            url: 'http://www.samicelus.cc/panorama/getEmail'
         }).then(function successCallback(response) {
             console.log(response.data);
             if (response.data.result == "TRUE") {
@@ -44,7 +44,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
     $scope.getUserInfo = function(){
         $http({
             method: 'GET',
-            url: 'http://119.23.73.86:8030/getUserInfo'
+            url: 'http://www.samicelus.cc/panorama/getUserInfo'
         }).then(function successCallback(response) {
             console.log(response.data);
             if (response.data.result == "TRUE") {
@@ -60,7 +60,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
     $scope.login = function(){
         $http({
             method: 'POST',
-            url: 'http://119.23.73.86:8030/login',
+            url: 'http://www.samicelus.cc/panorama/login',
             data: {
                 name: $scope.username,
                 password: $scope.password
@@ -86,7 +86,7 @@ indexApp.controller('mainCtrl', function ($scope, $http) {
         }else {
             $http({
                 method: 'POST',
-                url: 'http://119.23.73.86:8030/changePassword',
+                url: 'http://www.samicelus.cc/panorama/changePassword',
                 data: {
                     old_password: $scope.old_password,
                     new_password: $scope.new_password
