@@ -106,12 +106,12 @@ service.login = function(req, res){
                     retToken = req.session.user_token;
                     expire_timestamp = req.session.user_token_expire_timestamp;
                 }else{
-                    let newTokenInfo = authme.generateToken(user.username, userObj._id, req);
+                    let newTokenInfo = authme.generateToken(userObj.user_name, userObj._id, req);
                     retToken = newTokenInfo.token;
                     expire_timestamp = newTokenInfo.expire_timestamp;
                 }
             }
-            service.restSuccess(res, {token:retToken, expire_timestamp:expire_timestamp, username:user.username});
+            service.restSuccess(res, {token:retToken, expire_timestamp:expire_timestamp, username:userObj.user_name});
         }else{
             throw new Error("login failed!")
         }
