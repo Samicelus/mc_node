@@ -92,6 +92,7 @@ service.login = function(req, res){
     User.schema.findOne(condition).execAsync().then(function(userObj){
         if(userObj){
             hashedPassword = userObj.password;
+            console.log("hashedPassword:"+hashedPassword);
         }
         var auth = authme.comparePassword(password, hashedPassword, user_name);
         if(auth){
