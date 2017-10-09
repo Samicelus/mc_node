@@ -7,9 +7,9 @@ var service = new BaseService();
 var User = require('../models/user.js');
 
 var mail = require('emailjs').server.connect({
-    host: 'smtp.qq.com',
-    user: '18180780531',
-    password: '123edsaqw',
+    host: 'smtp.163.com',
+    user: '18180780531@163.com',
+    password: '12e409i7',
     ssl: true
 });
 
@@ -25,7 +25,7 @@ service.registUser = function(req, res){
         } else {
             mail.send({
                 text:    "i hope this works",
-                from:    "you <mc_360@qq.com>",
+                from:    "you <18180780531@163.com>",
                 to:      "someone <50893818@qq.com>",
                 subject: "test"
             },function (err, message) {
