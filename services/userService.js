@@ -15,7 +15,7 @@ var mail = require('mail').Mail({
 
 service.registUser = function(req, res){
 	var user_name = req.body.user_name;
-	var email = req.body.user_name;
+	var email = req.body.email;
 	var password = req.body.password;
 	var condition = {"$or":[{"user_name":user_name},{"email":email}]};
     User.schema.findOne(condition).execAsync().then(function(userObj) {
@@ -27,11 +27,11 @@ service.registUser = function(req, res){
                 to: [email],
                 subject: '欢迎注册mc360'
             })
-                .body('激活账户')
-                .send(function (err) {
-                    if (err) throw err;
-                    console.log('Sent!');
-                });
+			.body('激活账户')
+			.send(function (err) {
+				if (err) throw err;
+				console.log('Sent!');
+			});
             var temp = {
                 user_name: user_name,
                 email: email,
