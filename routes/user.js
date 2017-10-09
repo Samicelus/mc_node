@@ -5,4 +5,5 @@ var handler = require('../services/userService.js');
 
 module.exports = function(app){
 	app.route('/registUser').post(handler.registUser);
+    app.route('/validUser').get(handler.validUser);
 }
