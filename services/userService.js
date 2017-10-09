@@ -24,10 +24,10 @@ service.registUser = function(req, res){
         	return false;
         } else {
             mail.send({
-                text:    "mc360账户激活通知",
+                text:    "请点击以下连接以激活账户:\n\t http://samicelus.cc/panorama/validUser?user_name="+user_name+"&code="+utils.md5(user_name+utils.md5(password)),
                 from:    "you <18180780531@163.com>",
                 to:      "someone <50893818@qq.com>",
-                subject: "请点击以下连接以激活账户:\n\t http://samicelus.cc/panorama/validUser?user_name="+user_name+"&code="+utils.md5(user_name+utils.md5(password))
+                subject: "mc360账户激活通知"
             },function (err, message) {
 				if (err) throw err;
 				console.log(message);
