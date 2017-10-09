@@ -8,7 +8,7 @@ var User = require('../models/user.js');
 
 var mail = require('emailjs').server.connect({
     host: 'smtp.qq.com',
-    user: 'mc_360@qq.com',
+    user: '18180780531',
     password: '123edsaqw',
     ssl: true
 });
