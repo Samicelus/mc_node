@@ -12,6 +12,7 @@ const Page = require('../models/page.js');
 
 service.addPage = function(req, res){
     var user_id = req.body.user.ip;
+    console.log("user_id:"+user_id);
     if(!req.body.page){
         service.restError(res, -1, "未输入page名称");
     }else{
@@ -30,6 +31,7 @@ service.addPage = function(req, res){
 
 service.getPages = function(req, res){
     var user_id = req.body.user.ip;
+    console.log("user_id:"+user_id);
     var query = {user_id: user_id};
     Page.schema.find(query).execAsync().then(function(bars){
         service.restSuccess(res, bars);
@@ -358,6 +360,7 @@ service.getPanoramas = function(req, res){
 
 service.getDefaultPage = function(req, res){
     var user_id = req.body.user.ip;
+    console.log("user_id:"+user_id);
     var query = {user_id: user_id};
     Page.schema.findOne(query).execAsync().then(function(pageObj){
         service.restSuccess(res, pageObj._id);
