@@ -13,8 +13,8 @@ const User = require('../models/user.js');
 let COS = require('cos-nodejs-sdk-v5');
 let params = {
     AppId: '1254462566', /* 必须 */
-    SecretId: 'AKID4CKQK2rsJakiU7DLlXNacXHpBMOMe1cw', /* 必须 */
-    SecretKey: 'OcfXIsuoX5TghkvvlPtBHCvY0LyZ3Rkw'
+    SecretId: 'AKIDWqwndEXlfKkwtcDWgfPuA9sLXTAaEwmM', /* 必须 */
+    SecretKey: 'VordBUXMvHPHtFLErDJ9j25sRkqjNluo'
 };
 let cos = Promise.promisifyAll(new COS(params));
 
