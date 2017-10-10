@@ -21,7 +21,7 @@ let cos = Promise.promisifyAll(new COS(params));
 service.getObj = function (req, res) {
     let file_name = req.params.filename;
     let options = {
-        Bucket : 'mcpanorama', /* 必须 */
+        Bucket : 'mcpanoram', /* 必须 */
         Region : 'ap-chengdu', /* 必须 */
         Key : file_name
     };
@@ -39,7 +39,7 @@ service.getObj = function (req, res) {
 function upload_one_file(path, name){
     return fs.readFileAsync(path).then(function(data) {
         let options = {
-            Bucket: 'mcpanorama', /* 必须 */
+            Bucket: 'mcpanoram', /* 必须 */
             Region: 'ap-chengdu', /* 必须 */
             Key: name, /* 必须 */
             contentLength: data.length,
