@@ -42,8 +42,8 @@ function restError(res,err_code, err_msg){
 }
 
 function rest(res, data){
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Headers","x-requested-with");
+	res.setHeader("Access-Control-Allow-Origin", "www.samicelus.cc");
+	res.setHeader("Access-Control-Allow-Headers","*");
     res.send(data);
 }
 
