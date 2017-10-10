@@ -27,8 +27,8 @@ service.getObj = function (req, res) {
     };
     cos.getObject(options, function(err, data){
         if(err){
-            console.error(e.stack || e);
-            service.restError(res, -1, e.stack);
+            console.error(err.stack || err);
+            service.restError(res, -1, err.stack);
         }else{
             res.end(data.Body);
         }
