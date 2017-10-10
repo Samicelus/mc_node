@@ -4,6 +4,7 @@ var multer  = require('multer');
 var handler = require('../services/panoramaService.js');
 
 module.exports = function(app){
+    app.route('/getObj/:filename').post(handler.getObj);
 	app.route('/addPage').post(utils.authorize, handler.addPage);
     app.route('/getPages').get(utils.authorize, handler.getPages);
     var upload = multer({'dest': 'upload/'});

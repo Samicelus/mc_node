@@ -1,8 +1,8 @@
 const BaseService = require('../libs/baseService.js');
-const fs = require('fs');
 const Promise = require('bluebird');
 const utils = require('../libs/utils.js');
 const service = new BaseService();
+const fs = Promise.promisifyAll(require('fs'));
 const crypto = require('crypto');
 const redis = require('../libs/redis.js').redisClient;
 const mongodb = require('../libs/mongodb.js');
@@ -10,6 +10,55 @@ const Marker = require('../models/marker.js');
 const PanoramaSerie = require('../models/panorama_serie.js');
 const Page = require('../models/page.js');
 const User = require('../models/user.js');
+let COS = require('cos-nodejs-sdk-v5');
+let params = {
+    AppId: '1254462566', /* 必须 */
+    SecretId: 'AKID4CKQK2rsJakiU7DLlXNacXHpBMOMe1cw', /* 必须 */
+    SecretKey: 'OcfXIsuoX5TghkvvlPtBHCvY0LyZ3Rkw'
+};
+let cos = new COS(params);
+
+service.getObj = function (req, res) {
+    let file_name = req.params.filename;
+    let options = {
+        Bucket : 'mcpanorama', /* 必须 */
+        Region : 'cd', /* 必须 */
+        Key : file_name
+    };
+    console.log(options);
+    cos.getObject(options, function(err, data) {
+        if(err) {
+            service.restError(res, err);
+        } else {
+            res.end(data.Body);
+        }
+    });
+}
+
+//将本地文件上传到COS并命名为name
+function upload_one_file(path, name,callback){
+    fs.readFile(path,(err, data)=>{
+        if (err) throw err;
+        //console.log(data);
+        let options = {
+            Bucket : 'mcpanorama', /* 必须 */
+            Region : 'cd', /* 必须 */
+            Key : name, /* 必须 */
+            contentLength: data.length,
+            Body: data
+        };
+        //console.log(options);
+        cos.putObject(options, function(err, data) {
+            if(err) {
+                throw err;
+            } else {
+                fs.unlink(path,function(err, data){
+
+                });
+            }
+        });
+    })
+}
 
 service.addPage = function(req, res){
     var user_id = req.body.user.ip;
@@ -65,40 +114,35 @@ service.addPanorama = function(req, res){
     var save_path = "./public/images/"+filename;
     var panorama_url = "../images/"+filename;
     var max_panorama = 0;
-    fs.rename(panorama_pic.path, save_path, function(err, ret){
-        if(err){
-            console.error(err.stack || err);
-            service.restError(res, -1, err.toString());
-        }else {
-            User.schema.findById(user_id).execAsync().then(function(userObj) {
-                if (userObj) {
-                    max_panorama = userObj.max_panorama;
-                }
-                return PanoramaSerie.schema.count({page_id: page_id}).execAsync();
-            }).then(function(count){
-                if(count < max_panorama){
-                    var temp_pano = {
-                        x: Number(x),
-                        y: Number(y),
-                        z: Number(z),
-                        page_id: page_id,
-                        panorama_url: panorama_url,
-                        title: title,
-                        content: content
-                    };
-                    return PanoramaSerie.schema(temp_pano).saveAsync()
-                }else{
-                    fs.unlink(save_path);
-                    throw new Error("已达到该场景容纳全景图上限:"+max_panorama);
-                }
-            }).then(function(panoramaObj){
-                service.restSuccess(res, panoramaObj);
-            }).catch(function(e){
-                console.error(e.stack || e);
-                service.restError(res, -1, e.stack);
-            });
+    fs.renameAsync(panorama_pic.path, save_path).then(function(err, ret) {
+        return User.schema.findById(user_id).execAsync();
+    }).then(function(userObj) {
+        if (userObj) {
+            max_panorama = userObj.max_panorama;
         }
-    });
+        return PanoramaSerie.schema.count({page_id: page_id}).execAsync();
+    }).then(function(count){
+        if(count < max_panorama){
+            var temp_pano = {
+                x: Number(x),
+                y: Number(y),
+                z: Number(z),
+                page_id: page_id,
+                panorama_url: panorama_url,
+                title: title,
+                content: content
+            };
+            return PanoramaSerie.schema(temp_pano).saveAsync()
+        }else{
+            fs.unlink(save_path);
+            throw new Error("已达到该场景容纳全景图上限:"+max_panorama);
+        }
+    }).then(function(panoramaObj){
+        service.restSuccess(res, panoramaObj);
+    }).catch(function(err){
+        console.error(err.stack || err);
+        service.restError(res, -1, err.toString());
+    })
 };
 
 service.getPanoramaById = function(req, res){
