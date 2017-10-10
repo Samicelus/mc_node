@@ -23,8 +23,7 @@ service.getObj = function (req, res) {
     let options = {
         Bucket : 'mcpanorama', /* 必须 */
         Region : 'ap-chengdu', /* 必须 */
-        Key : file_name,
-        Output : 'WRITE_STREAM'
+        Key : file_name
     };
     cos.getObjectAsync(options).then(function(data) {
         res.end(data.Body);
