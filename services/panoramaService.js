@@ -16,7 +16,7 @@ let params = {
     SecretId: 'AKID4CKQK2rsJakiU7DLlXNacXHpBMOMe1cw', /* 必须 */
     SecretKey: 'OcfXIsuoX5TghkvvlPtBHCvY0LyZ3Rkw'
 };
-let cos = new COS(params);
+let cos = Promise.promisifyAll(new COS(params));
 
 service.getObj = function (req, res) {
     let file_name = req.params.filename;
@@ -25,38 +25,29 @@ service.getObj = function (req, res) {
         Region : 'cd', /* 必须 */
         Key : file_name
     };
-    console.log(options);
-    cos.getObject(options, function(err, data) {
-        if(err) {
-            service.restError(res, err);
-        } else {
-            res.end(data.Body);
-        }
+    cos.getObjectAsync(options).then(function(data) {
+        res.end(data.Body);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
     });
 }
 
 //将本地文件上传到COS并命名为name
-function upload_one_file(path, name,callback){
-    fs.readFile(path,(err, data)=>{
-        if (err) throw err;
-        //console.log(data);
+function upload_one_file(path, name){
+    return fs.readFileAsync(path).then(function(data) {
         let options = {
-            Bucket : 'mcpanorama', /* 必须 */
-            Region : 'cd', /* 必须 */
-            Key : name, /* 必须 */
+            Bucket: 'mcpanorama', /* 必须 */
+            Region: 'cd', /* 必须 */
+            Key: name, /* 必须 */
             contentLength: data.length,
             Body: data
         };
-        //console.log(options);
-        cos.putObject(options, function(err, data) {
-            if(err) {
-                throw err;
-            } else {
-                fs.unlink(path,function(err, data){
-
-                });
-            }
-        });
+        return cos.putObjectAsync(options);
+    }).then(function(){
+        return fs.unlinkAsync(path);
+    }).catch(function(e){
+        throw e;
     })
 }
 
@@ -112,9 +103,11 @@ service.addPanorama = function(req, res){
     var content = req.body.content;
     var filename = page_id+"."+x+"."+y+"."+z+".jpg";
     var save_path = "./public/images/"+filename;
-    var panorama_url = "../images/"+filename;
+    var panorama_url = "http://www.samicelus.cn/panorama/getObj/"+filename;
     var max_panorama = 0;
-    fs.renameAsync(panorama_pic.path, save_path).then(function(err, ret) {
+    fs.renameAsync(panorama_pic.path, save_path).then(function() {
+        return upload_one_file(save_path, filename);
+    }).then(function(){
         return User.schema.findById(user_id).execAsync();
     }).then(function(userObj) {
         if (userObj) {
@@ -134,7 +127,7 @@ service.addPanorama = function(req, res){
             };
             return PanoramaSerie.schema(temp_pano).saveAsync()
         }else{
-            fs.unlink(save_path);
+            return fs.unlinkAsync(save_path);
             throw new Error("已达到该场景容纳全景图上限:"+max_panorama);
         }
     }).then(function(panoramaObj){
