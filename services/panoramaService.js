@@ -22,7 +22,7 @@ service.getObj = function (req, res) {
     let file_name = req.params.filename;
     let options = {
         Bucket : 'mcpanorama', /* 必须 */
-        Region : 'cn-southwest', /* 必须 */
+        Region : 'ap-chengdu', /* 必须 */
         Key : file_name
     };
     cos.getObject(options, function(err, data){
@@ -40,7 +40,7 @@ function upload_one_file(path, name){
     return fs.readFileAsync(path).then(function(data) {
         let options = {
             Bucket: 'mcpanorama', /* 必须 */
-            Region: 'cn-southwest', /* 必须 */
+            Region: 'ap-chengdu', /* 必须 */
             Key: name, /* 必须 */
             contentLength: data.length,
             Body: data
