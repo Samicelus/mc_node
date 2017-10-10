@@ -103,7 +103,7 @@ service.addPanorama = function(req, res){
     var content = req.body.content;
     var filename = page_id+"."+x+"."+y+"."+z+".jpg";
     var save_path = "./public/images/"+filename;
-    var panorama_url = "http://www.samicelus.cn/panorama/getObj/"+filename;
+    var panorama_url = "/panorama/getObj/"+filename;
     var max_panorama = 0;
     fs.renameAsync(panorama_pic.path, save_path).then(function() {
         return upload_one_file(save_path, filename);
