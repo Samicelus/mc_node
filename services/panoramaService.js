@@ -38,9 +38,8 @@ service.getObj = function (req, res) {
 //将本地文件上传到COS并命名为name
 function upload_one_file(path, name){
     return fs.readFileAsync(path).then(function(data) {
-        console.log("file size:"+data.length);
-        console.log("file size/1000:"+data.length/1000);
-        console.log("file size/1000000:"+data.length/1000000);
+        console.log("file size KB:"+data.length/1024);
+        console.log("file size MB:"+data.length/(1024*1024));
         let options = {
             Bucket: 'mcpanoram', /* 必须 */
             Region: 'ap-chengdu', /* 必须 */
