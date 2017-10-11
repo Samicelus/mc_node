@@ -10,6 +10,7 @@ const Marker = require('../models/marker.js');
 const PanoramaSerie = require('../models/panorama_serie.js');
 const Page = require('../models/page.js');
 const User = require('../models/user.js');
+const images =require('images');
 let COS = require('cos-nodejs-sdk-v5');
 let params = {
     AppId: '1254462566', /* 必须 */
@@ -36,10 +37,32 @@ service.getObj = function (req, res) {
 }
 
 //将本地文件上传到COS并命名为name
-function upload_one_file(path, name){
+function upload_one_file(path, name, quality){
+    var max_tail = 300;
+    switch (quality) {
+        case "high":
+            max_tail = 600;
+            break;
+        case "normal":
+            max_tail = 400;
+            break;
+        case "low":
+            max_tail = 300;
+            break;
+        default:
+            max_tail = 400;
+            break;
+    }
     return fs.readFileAsync(path).then(function(data) {
-        console.log("file size KB:"+data.length/1024);
-        console.log("file size MB:"+data.length/(1024*1024));
+        console.log("file size KB:" + data.length / 1024);
+        if (data.length / 1024 > max_tail) {
+            var nowTimestamp = new Date().getTime();
+            return reTailImage(path, 80, max_tail, nowTimestamp);
+        }
+    }).then(function(new_path) {
+        return fs.readFileAsync(new_path);
+    }).then(function(data){
+        console.log("file resize KB:" + data.length / 1024);
         let options = {
             Bucket: 'mcpanoram', /* 必须 */
             Region: 'ap-chengdu', /* 必须 */
@@ -53,6 +76,23 @@ function upload_one_file(path, name){
     }).catch(function(e){
         throw e;
     })
+}
+
+function reTailImage(path, quality, max_tail, timestamp){
+    var extract = images(path);
+    var temp_file = "temp_"+timestamp+".jpg";
+    if(extract.size().width > 2000){
+        extract.size(2000).save(temp_file, {quality :quality});
+    }else{
+        extract.save(temp_file,{quality :quality});
+    }
+    return fs.readFileAsync(temp_file).then(function(data) {
+        if(data.length/1024 > max_tail && quality > 10){
+            return reTailImage(path, quality-10, max_tail, timestamp);
+        }else{
+            return temp_file;
+        }
+    });
 }
 
 service.addPage = function(req, res){
@@ -105,12 +145,13 @@ service.addPanorama = function(req, res){
     var z = req.body.z;
     var title = req.body.title;
     var content = req.body.content;
+    var quality = req.body.quality?req.body.quality:"normal";
     var filename = page_id+"."+x+"."+y+"."+z+".jpg";
     var save_path = "./public/images/"+filename;
     var panorama_url = "/panorama/getObj/"+filename;
     var max_panorama = 0;
     fs.renameAsync(panorama_pic.path, save_path).then(function() {
-        return upload_one_file(save_path, filename);
+        return upload_one_file(save_path, filename, quality);
     }).then(function(){
         return User.schema.findById(user_id).execAsync();
     }).then(function(userObj) {

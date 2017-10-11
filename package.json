@@ -21,6 +21,7 @@
     "emailjs": "^1.0.12",
     "express": "^4.15.3",
     "express-session": "^1.15.5",
+    "images": "^3.0.1",
     "mail": "^0.2.3",
     "moment": "^2.18.1",
     "mongoose": "^4.11.0",
