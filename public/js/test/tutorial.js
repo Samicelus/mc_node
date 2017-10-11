@@ -444,8 +444,9 @@ function loadingAllImg(ret_env){
                 height: 480
             }
         });
-
-        window.PSV.rotate(ret_env.origin.init_position);
+        if(ret_env.origin.init_position){
+            window.PSV.rotate(ret_env.origin.init_position);
+        }
 
         /**
          * Create a new marker when the user clicks somewhere
