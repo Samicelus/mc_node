@@ -58,7 +58,7 @@ function upload_one_file(path, name, quality){
         console.log("file size KB:" + data.length / 1024);
         if (data.length / 1024 > max_tail) {
             var nowTimestamp = new Date().getTime();
-            return reTailImage(path, 80, max_tail, nowTimestamp);
+            return reTailImage(path, 85, max_tail, nowTimestamp, true);
         }
     }).then(function(new_path) {
         return fs.readFileAsync(new_path);
@@ -79,18 +79,19 @@ function upload_one_file(path, name, quality){
     })
 }
 
-function reTailImage(path, quality, max_tail, timestamp){
+function reTailImage(path, quality, max_tail, timestamp, first_resize){
     var extract = images(path);
     var temp_file = "temp_"+timestamp+".jpg";
-    if(extract.size().width > 2000){
+    if(extract.size().width > 2000 && !first_resize){
         extract.size(2000).save(temp_file, {quality :quality});
     }else{
         extract.save(temp_file,{quality :quality});
     }
     return fs.readFileAsync(temp_file).then(function(data) {
         if(data.length/1024 > max_tail && quality > 10){
-            return reTailImage(path, quality-10, max_tail, timestamp);
+            return reTailImage(path, quality-5, max_tail, timestamp, false);
         }else{
+            console.log("final quality:"+quality);
             return temp_file;
         }
     });
