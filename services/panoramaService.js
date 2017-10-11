@@ -26,11 +26,11 @@ service.getObj = function (req, res) {
         Region : 'ap-chengdu', /* 必须 */
         Key : file_name
     };
-    cos.getObjectAsync(options).then(function(err, data){
+    cos.getObjectAsync(options).then(function(data){
         res.end(data.Body);
     }).catch(function(e){
-        console.error(err.stack || err);
-        service.restError(res, -1, err.stack)
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack)
     })
 }
 
