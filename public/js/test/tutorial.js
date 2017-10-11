@@ -313,6 +313,7 @@ function setMaskHeight(panorama_id){
         var insert_title = $("#insert_title").val();
         var insert_content = $("#insert_content").val();
         var insert_position = JSON.parse($("#insert_position").val());
+        var quality = $("#insert_quality").val();
         var x = insert_position.x;
         var y = insert_position.y;
         var z = insert_position.z;
@@ -327,6 +328,7 @@ function setMaskHeight(panorama_id){
             fd.append("panorama_pic",$("#insert_file")[0].files[0]);
             fd.append("title",insert_title);
             fd.append("content",insert_content);
+            fd.append("quality",quality);
             fd.append("page_id",page_id);
             fd.append("x",x.toString());
             fd.append("y",y.toString());
@@ -360,6 +362,7 @@ $("#addPage").click(function(){
     var page_name = $("#addPage_title").val();
     var initial_title = $("#initial_title").val();
     var initial_content = $("#initial_content").val();
+    var quality = $("#add_quality").val();
     $("#addPage_mask").hide();
     $("#addPage_dialog").hide();
     var sendData = {
@@ -374,6 +377,7 @@ $("#addPage").click(function(){
         fd.append("title",initial_title);
         fd.append("content",initial_content);
         fd.append("page_id",page_id);
+        fd.append("quality",quality);
         fd.append("x","0");
         fd.append("y","0");
         fd.append("z","0");

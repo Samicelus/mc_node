@@ -71,6 +71,11 @@
         <div id="insert_dialog">
             <input type="text" id="insert_title" class="marker_input" placeholder="请输入标题" />
             <input type="text" id="insert_content" class="marker_input" placeholder="请输入内容" />
+            <select id="insert_quality">
+                <option value="high">画质优先</option>
+                <option value="normal">一般</option>
+                <option value="low">速度优先</option>
+            </select>
             <input type="file" id="insert_file" />
             <input type="text" hidden="hidden" id="insert_position"/>
             </br>
@@ -101,6 +106,11 @@
             </br>
             <input type="text" id="initial_title" class="marker_input" placeholder="初始标题" />
             <input type="text" id="initial_content" class="marker_input" placeholder="初始内容" />
+            <select id="add_quality">
+                <option value="high">画质优先</option>
+                <option value="normal">一般</option>
+                <option value="low">速度优先</option>
+            </select>
             <input type="file" id="addPage_file" />
             </br>
             <div id="addPage" class="dialog-button">添加</div><div id="cancel_addPage" class="dialog-button">取消</div>
