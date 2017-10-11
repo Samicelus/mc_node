@@ -53,6 +53,7 @@ function upload_one_file(path, name, quality){
             max_tail = 400;
             break;
     }
+    console.log("resize the image to < "+ max_tail);
     return fs.readFileAsync(path).then(function(data) {
         console.log("file size KB:" + data.length / 1024);
         if (data.length / 1024 > max_tail) {
