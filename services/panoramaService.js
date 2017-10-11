@@ -26,14 +26,12 @@ service.getObj = function (req, res) {
         Region : 'ap-chengdu', /* 必须 */
         Key : file_name
     };
-    cos.getObject(options, function(err, data){
-        if(err){
-            console.error(err.stack || err);
-            service.restError(res, -1, err.stack);
-        }else{
-            res.end(data.Body);
-        }
-    });
+    cos.getObjectAsync(options).then(function(err, data){
+        res.end(data.Body);
+    }).catch(function(e){
+        console.error(err.stack || err);
+        service.restError(res, -1, err.stack)
+    })
 }
 
 //将本地文件上传到COS并命名为name
