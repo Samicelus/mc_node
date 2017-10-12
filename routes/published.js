@@ -5,6 +5,7 @@ var handler = require('../services/panoramaService.js');
 
 module.exports = function(app){
     app.route('/panoramaPub/:page_id').get(function (req, res) {
+        console.log("page_id:",req.params.page_id);
         res.render('../public/published/published',{page_id:req.params.page_id});
     });
 };
