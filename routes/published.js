@@ -6,7 +6,7 @@ var html = require('html');
 
 module.exports = function(app){
     app.route('/panoramaPub/:page_id').get(function (req, res) {
-        res.render('../public/published/published.html',{page_id:req.params.page_id});
+        res.render('../public/published/published.ejs',{page_id:req.params.page_id});
     });
 };
 
