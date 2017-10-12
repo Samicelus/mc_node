@@ -58,54 +58,55 @@ function getCenter(out_id, inner_id){
 //全景图参数配置函数
 function loadingAllImg(ret_env){
     var div = document.getElementById('container');
-    $(div).css('width',window.screen.width+'px');
-        window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
-        window.PSV = new PhotoSphereViewer({
-            // 全景图的完整路径
-            panorama: ret_env.origin.panorama_url,
+    $(div).css('width',window.screen.window.screen.availWidth+'px');
+    $(div).css('height',window.screen.window.screen.availHeight +'px');
+    window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+    window.PSV = new PhotoSphereViewer({
+        // 全景图的完整路径
+        panorama: ret_env.origin.panorama_url,
 
-            markers: window.markers,
-            // 放全景图的元素
-            container: div,
+        markers: window.markers,
+        // 放全景图的元素
+        container: div,
 
-            // 可选，默认值为2000，全景图在time_anim毫秒后会自动进行动画。（设置为false禁用它）
-            time_anim: false,
+        // 可选，默认值为2000，全景图在time_anim毫秒后会自动进行动画。（设置为false禁用它）
+        time_anim: false,
 
-            // 可选值，默认为false。显示导航条。
-            navbar: [
-                'autorotate',
-                'markers',
-                'caption',
-                'gyroscope',
-                'fullscreen'
-            ],
+        // 可选值，默认为false。显示导航条。
+        navbar: [
+            'autorotate',
+            'markers',
+            'caption',
+            'gyroscope',
+            'fullscreen'
+        ],
 
-            //陀螺仪
-            gyroscope:true,
+        //陀螺仪
+        gyroscope:true,
 
-            // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
-            size: {
-                width: '90%',
-                height: window.screen.width
-            }
-        });
-        if(ret_env.origin.init_position){
-            window.PSV.rotate(ret_env.origin.init_position);
+        // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
+        size: {
+            width: window.screen.availHeight,
+            height: window.screen.availWidth
         }
+    });
+    if(ret_env.origin.init_position){
+        window.PSV.rotate(ret_env.origin.init_position);
+    }
 
-        /**
-         * Create a new marker when the user clicks somewhere
-         */
-        window.PSV.on('click', function(e) {
-            window.longitude = e.longitude;
-            window.latitude = e.latitude;
-            //点击事件
-        });
+    /**
+     * Create a new marker when the user clicks somewhere
+     */
+    window.PSV.on('click', function(e) {
+        window.longitude = e.longitude;
+        window.latitude = e.latitude;
+        //点击事件
+    });
 
-        window.PSV.on('select-marker', function(marker) {
-            var id = marker.id;
-            //点击marker事件
-        });
+    window.PSV.on('select-marker', function(marker) {
+        var id = marker.id;
+        //点击marker事件
+    });
 }
 
 
