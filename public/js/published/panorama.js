@@ -24,7 +24,6 @@ window.onload=function(){
 };
 
 function getDefaultPage(){
-    window.page_id = data.data;
     var sendData = {
         page_id: window.page_id
     };
