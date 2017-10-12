@@ -56,7 +56,7 @@ service.generateSignature = function (req, res) {
         return AccessToken.get_jsapi_ticket(mp_id);
     }).then(function (jsapi_ticket) {
         var data = {
-            noncestr: utils.md5(nowTime),
+            noncestr: utils.md5(nowTime.toString()),
             jsapi_ticket: jsapi_ticket,
             timestamp: parseInt(nowTime / 1000),
             url: url
