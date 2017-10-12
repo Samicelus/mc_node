@@ -27,8 +27,8 @@ window.onload=function(){
             $("#control_pad").css("display","none");
         }
     });
-    $.post('/panorama/wechat/accesstoken',{mp_id:"59df356fe9b5234c4d3835dc"},function(data, status){
-        console.log("accessToken:",data.data);
+    $.post('/panorama/wechat/signature/generate',{mp_id:"59df356fe9b5234c4d3835dc","url":"http://www.samicelus.cc/panorama/test/test.html"},function(data, status){
+        console.log("signature:",data.data);
     })
 };
 
