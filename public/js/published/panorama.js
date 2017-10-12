@@ -58,6 +58,7 @@ function getCenter(out_id, inner_id){
 //全景图参数配置函数
 function loadingAllImg(ret_env){
     var div = document.getElementById('container');
+    div.css('width',window.screen.width+'px');
         window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
         window.PSV = new PhotoSphereViewer({
             // 全景图的完整路径
@@ -85,7 +86,7 @@ function loadingAllImg(ret_env){
             // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
             size: {
                 width: '90%',
-                height: 640
+                height: window.screen.width
             }
         });
         if(ret_env.origin.init_position){
