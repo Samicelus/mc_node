@@ -13,7 +13,7 @@ var app = express();
 process.setMaxListeners(0);
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 //var partials = require('express-partials');
 //app.use(partials());
 
