@@ -86,8 +86,8 @@ function loadingAllImg(ret_env){
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
-            width: window.screen.availHeight,
-            height: window.screen.availWidth
+            width: window.screen.availWidth,
+            height: window.screen.availHeight
         }
     });
     if(ret_env.origin.init_position){
