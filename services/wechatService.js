@@ -18,10 +18,10 @@ service.getAccessToken = function (req, res) {
         return res.send({result: 'FALSE', code: -1, message: 'mp_id 无效：' + mp_id, data: {}});
     }
     AccessToken.get(mp_id).then(function (accessToken) {
-        res.send({result: 'TRUE', code: 0, message: 'success', data: accessToken});
+        service.restSuccess(res, accessToken);
     }).catch(function (e) {
-        error(utils.datetimeFormat() + e.stack || e);
-        res.send({result: 'FALSE', code: -1, message: '操作失败，系统出错', data: {}});
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
     });
 };
 
@@ -33,10 +33,10 @@ service.getJSAPI_ticket = function (req, res) {
         return res.send({result: 'FALSE', code: -1, message: 'mp_id 无效：' + mp_id, data: {}});
     }
     AccessToken.get_jsapi_ticket(mp_id).then(function (jsapi_ticket) {
-        res.send({result: 'TRUE', code: 0, message: 'success', data: jsapi_ticket});
+        service.restSuccess(res, jsapi_ticket);
     }).catch(function (e) {
-        error(utils.datetimeFormat() + e.stack || e);
-        res.send({result: 'FALSE', code: -1, message: '操作失败，系统出错', data: {}});
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
     });
 }
 
@@ -46,11 +46,11 @@ service.generateSignature = function (req, res) {
     var url = req.body.url;
     var mp_id = req.headers.mp_id;
     if (!mp_id || mp_id.length !== 24) {
-        return res.send({result: 'FALSE', code: -1, message: 'mp_id 无效：' + mp_id, data: {}});
+        throw new Error('mp_id 无效：' + mp_id);
     }
     var conf = {};
-    AccessToken.getWeixin(mp_id).then(function (weixinqy) {
-        conf = weixinqy;
+    AccessToken.getWeixin(mp_id).then(function (weixin) {
+        conf = weixin;
     }).then(function () {
         return AccessToken.get_jsapi_ticket(mp_id);
     }).then(function (jsapi_ticket) {
@@ -69,10 +69,10 @@ service.generateSignature = function (req, res) {
         data.appId = conf.appId;
         data.signature = utils.sha1(p_str);
         delete data.jsapi_ticket;
-        res.send({result: 'TRUE', code: 0, message: 'success', data: data});
+        service.restSuccess(res, data);
     }).catch(function (e) {
-        error(utils.datetimeFormat() + e.stack || e);
-        res.send({result: 'FALSE', code: -1, message: '操作失败，系统出错', data: {}});
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
     });
 };
 
