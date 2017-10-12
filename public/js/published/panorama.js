@@ -16,10 +16,11 @@ function getQueryStringByName(name){
     }
     return result[1];
 }
-window.page_id = getQueryStringByName(page_id);
+
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
+    window.page_id = getQueryStringByName(page_id);
     getDefaultPage();
 };
 
