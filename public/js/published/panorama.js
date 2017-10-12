@@ -6,6 +6,7 @@ window.longitude = 0;
 window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
+window.page_id = !{page_id};
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
