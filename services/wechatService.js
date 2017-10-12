@@ -45,6 +45,7 @@ service.getJSAPI_ticket = function (req, res) {
 service.generateSignature = function (req, res) {
     var url = req.body.url;
     var mp_id = req.body.mp_id;
+    var nowTime = new Date().getTime();
     if (!mp_id || mp_id.length !== 24) {
         throw new Error('mp_id 无效：' + mp_id);
     }
@@ -55,9 +56,9 @@ service.generateSignature = function (req, res) {
         return AccessToken.get_jsapi_ticket(mp_id);
     }).then(function (jsapi_ticket) {
         var data = {
-            noncestr: utils.md5(Date.now()),
+            noncestr: utils.md5(nowTime),
             jsapi_ticket: jsapi_ticket,
-            timestamp: parseInt(Date.now() / 1000),
+            timestamp: parseInt(nowTime / 1000),
             url: url
         }
         var sortObj = utils.sortByAscii(data);
