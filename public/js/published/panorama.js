@@ -13,6 +13,7 @@ window.onload=function(){
 };
 
 function getDefaultPage(){
+    console.log("page_id:",window.page_id);
     var sendData = {
         page_id: window.page_id
     };
