@@ -79,4 +79,38 @@ utils.md5 = function (text) {
     return crypto.createHash('md5').update(text, 'utf8').digest('hex');
 };
 
+//按照字段名的ASCII码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串string1
+utils.sortByAscii = function(obj){
+    var param_keys = [];
+    for(var i in obj){
+        param_keys.push(i);
+    }
+    //递归比较单词字母顺序
+    function compare(w0, w1, i){
+        if(w0.charCodeAt(i) === w1.charCodeAt(i)){
+            return compare(w0, w1, ++i);
+        }else if(isNaN(w0.charCodeAt(i)) && !isNaN(w1.charCodeAt(i))){
+            return 0 - w1.charCodeAt(i);
+        }else if(!isNaN(w0.charCodeAt(i)) && isNaN(w1.charCodeAt(i))){
+            return w0.charCodeAt(i) - 0;
+        }else{
+            return w0.charCodeAt(i) - w1.charCodeAt(i);
+        }
+    }
+    //排序后的键
+    var new_param_keys = param_keys.sort(function(a, b){
+        return compare(a, b, 0);
+    });
+    var new_obj = {};
+    for(var i in new_param_keys){
+        for(var j in obj){
+            if(obj[j] != null && obj[j] !== '' && new_param_keys[i] == j){   //参数的值为空不参与签名
+                // log(new_param_keys[i] + '\t' + j + '\t' + package[j]);
+                new_obj[j] = obj[j];
+            }
+        }
+    }
+    return new_obj;
+}
+
 module.exports = utils;
