@@ -6,11 +6,20 @@ window.longitude = 0;
 window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
+window.canvasHeight;
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
+    getTitleHeight();
     getDefaultPage();
 };
+
+function getTitleHeight(){
+    var title=document.getElementById('title');
+    var titleHeight=parseFloat(getComputedStyle(title).height);
+    var maxHeight=window.innerHeight;
+    window.canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
+}
 
 function getDefaultPage(){
     console.log("page_id:",window.page_id);
@@ -58,8 +67,6 @@ function getCenter(out_id, inner_id){
 //全景图参数配置函数
 function loadingAllImg(ret_env){
     var div = document.getElementById('container');
-    $(div).css('width',window.screen.availWidth+'px');
-    $(div).css('height',window.screen.availHeight +'px');
     window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
     window.PSV = new PhotoSphereViewer({
         // 全景图的完整路径
@@ -86,8 +93,8 @@ function loadingAllImg(ret_env){
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
-            width: window.screen.availWidth,
-            height: window.screen.availHeight
+            width: window.innerWidth,
+            height: window.canvasHeight
         }
     });
     if(ret_env.origin.init_position){
