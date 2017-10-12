@@ -258,8 +258,8 @@ function setMaskHeight(panorama_id){
             style: {
                 maxWidth: '100px',
                 color: '#efefef',
-                fontSize: '20px',
-                fontFamily: 'Helvetica, sans-serif',
+                fontSize: '52px',
+                fontFamily: 'Webdings',
                 textAlign: 'center',
                 textShadow: '#000 2px 0 0, #000 0 2px 0, #000 -2px 0 0, #000 0 -2px 0'
             },
