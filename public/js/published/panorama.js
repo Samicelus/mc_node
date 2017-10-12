@@ -58,8 +58,8 @@ function getCenter(out_id, inner_id){
 //全景图参数配置函数
 function loadingAllImg(ret_env){
     var div = document.getElementById('container');
-    $(div).css('width',window.screen.window.screen.availWidth+'px');
-    $(div).css('height',window.screen.window.screen.availHeight +'px');
+    $(div).css('width',window.screen.availWidth+'px');
+    $(div).css('height',window.screen.availHeight +'px');
     window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
     window.PSV = new PhotoSphereViewer({
         // 全景图的完整路径
