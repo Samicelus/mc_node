@@ -6,28 +6,10 @@ window.longitude = 0;
 window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
-window.page_id = "";
-window.panorama_id = "";
-
-function getQueryStringByName(name){
-    var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
-    console.log("result:",result);
-    if(result == null || result.length < 1){
-        return "";
-    }
-    return result[1];
-}
-
-
-//必须在服务器上才能看到效果！
-window.onload=function(){
-    window.page_id = getQueryStringByName(page_id);
-    getDefaultPage();
-};
 
 function getDefaultPage(){
     var sendData = {
-        page_id: window.page_id
+        page_id: page_id
     };
     $.post("/panorama/getPanorama",sendData,function(data,status){
         var ret_env = data.data.ret_env;
