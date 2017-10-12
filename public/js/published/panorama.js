@@ -7,6 +7,7 @@ window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
 window.canvasHeight;
+window.panorama_id;
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -84,8 +85,7 @@ function loadingAllImg(ret_env){
             'autorotate',
             'markers',
             'caption',
-            'gyroscope',
-            'fullscreen'
+            'gyroscope'
         ],
 
         //陀螺仪
@@ -123,6 +123,25 @@ function loadingAllImg(ret_env){
     window.PSV.on('select-marker', function(marker) {
         var id = marker.id;
         //点击marker事件
+        if(marker.marker_type == "path"){
+            var goto_panorama = marker.goto_panorama;
+            var sendData = {panorama_id:goto_panorama};
+            $.post("/panorama/getPanoramaById",sendData,function(data,status){
+                var ret_env = data.data.ret_env;
+                window.panorama_id = ret_env.origin._id;
+                renew_markers(ret_env.origin._id,function(){
+                    window.PSV.clearMarkers();
+                    window.markers.forEach(function(marker){
+                        window.PSV.addMarker(marker);
+                    });
+                    window.PSV.setPanorama(ret_env.origin.panorama_url, ret_env.origin.init_position?ret_env.origin.init_position:window.PSV.getPosition(),true).then(function(){
+                        window.position = {x: ret_env.origin.x,y: ret_env.origin.y,z: ret_env.origin.z};
+                        window.enable_control_button = "enable";
+                        changeTitle(ret_env);
+                    });
+                });
+            });
+        }
     });
 }
 
