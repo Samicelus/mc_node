@@ -22,6 +22,10 @@
     <script src="../js/libs/uevent.min.js"></script>
     <script src="../js/libs/doT.min.js"></script>
     <script src="../js/libs/photo-sphere-viewer.js"></script>
+    <!-- 处理后端render 的 ejs 所传入view 的数据 -->
+    <script>
+        window.page_id = '<%=page_id%>';
+    </script>
 </head>
 <body>
     <div class="main" id="main_div">
