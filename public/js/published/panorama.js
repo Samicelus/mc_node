@@ -11,6 +11,7 @@ window.panorama_id = "";
 
 function getQueryStringByName(name){
     var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
+    console.log("result:",result);
     if(result == null || result.length < 1){
         return "";
     }
