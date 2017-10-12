@@ -13,7 +13,7 @@ var AccessToken = require('../libs/accessToken.js')(redis);
  * 获取mp_id对应的accessToken
  */
 service.getAccessToken = function (req, res) {
-    var mp_id = req.headers.mp_id;
+    var mp_id = req.body.mp_id;
     if (!mp_id || mp_id.length !== 24) {
         return res.send({result: 'FALSE', code: -1, message: 'mp_id 无效：' + mp_id, data: {}});
     }
@@ -28,7 +28,7 @@ service.getAccessToken = function (req, res) {
 
 //获取jsapi_ticket
 service.getJSAPI_ticket = function (req, res) {
-    var mp_id = req.headers.mp_id;
+    var mp_id = req.body.mp_id;
     if (!mp_id || mp_id.length !== 24) {
         return res.send({result: 'FALSE', code: -1, message: 'mp_id 无效：' + mp_id, data: {}});
     }
@@ -44,7 +44,7 @@ service.getJSAPI_ticket = function (req, res) {
 //生成JS-SDK所需signature
 service.generateSignature = function (req, res) {
     var url = req.body.url;
-    var mp_id = req.headers.mp_id;
+    var mp_id = req.body.mp_id;
     if (!mp_id || mp_id.length !== 24) {
         throw new Error('mp_id 无效：' + mp_id);
     }

@@ -27,6 +27,9 @@ window.onload=function(){
             $("#control_pad").css("display","none");
         }
     });
+    $.post('/panorama/wechat/accesstoken',{mp_id:"59df356fe9b5234c4d3835dc"},function(data, status){
+        console.log("accessToken:",data.data);
+    })
 };
 
 $("#login").click(function(){
