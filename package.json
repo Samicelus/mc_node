@@ -20,6 +20,7 @@
     "cron": "^1.2.1",
     "emailjs": "^1.0.12",
     "express": "^4.15.3",
+    "express-partials": "^0.3.0",
     "express-session": "^1.15.5",
     "images": "^3.0.1",
     "mail": "^0.2.3",
