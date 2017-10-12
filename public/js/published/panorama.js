@@ -9,6 +9,7 @@ window.position = {x:0, y:0, z:0};
 window.canvasHeight;
 window.panorama_id;
 
+
 //必须在服务器上才能看到效果！
 window.onload=function(){
     getTitleHeight();

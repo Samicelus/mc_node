@@ -1,6 +1,8 @@
 const moment = require('moment');
 const crypto = require('crypto');
+const https = require('https');
 let utils = {};
+
 
 utils.datetimeFormat = function (time) {
     let res = moment(time).format('YYYY-MM-DD HH:mm:ss');
@@ -45,6 +47,32 @@ utils.authorize = function(req, res, next){
             res.send({result: 'FALSE', errorcode: 1, message: 'user_token过期，请重新登录。'});
         }
     }
+}
+
+utils.https = function(options, data, cb){
+    var req = https.request(options, function(res) {
+        if (res.statusCode == 200) {
+            var thunk = '';
+            res.on('data', function(d) {
+                thunk += d;
+            });
+            res.on('end', function(d) {
+                cb(null, thunk.toString('utf8'));
+            });
+        } else {
+            cb('http statusCode error: ' + res.statusCode, null);
+        }
+    }).on('error', function(e) {
+        cb(e, null);
+    });
+    if(data != null){
+        if(typeof data == 'string'){
+            req.write(data + '\n');
+        }else{
+            req.write(data);
+        }
+    }
+    req.end();
 }
 
 utils.md5 = function (text) {
