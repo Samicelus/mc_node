@@ -72,7 +72,7 @@ AccessToken.prototype.get = function(mp_id){
             }
         });
     }).catch(function(err){
-        error(utils.datetimeFormat() + '\t获取accessToken失败：' + err.stack || err);
+        throw new Error(utils.datetimeFormat() + '\t获取accessToken失败：' + err.stack || err);
     });
 };
 
@@ -126,7 +126,7 @@ AccessToken.prototype.get_jsapi_ticket = function(mp_id){
             }
         });
     }).catch(function(err){
-        error(utils.datetimeFormat() + '\t获取jsapi_ticket失败：' + err.stack || err);
+        throw new Error(utils.datetimeFormat() + '\t获取jsapi_ticket失败：' + err.stack || err);
     });
 }
 
