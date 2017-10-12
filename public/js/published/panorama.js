@@ -90,12 +90,22 @@ function loadingAllImg(ret_env){
 
         //陀螺仪
         gyroscope:true,
+        min_fov: 1,
+        max_fov: 179,
+        default_fov: 70,
+        fisheye: true,
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
             width: window.innerWidth,
             height: window.canvasHeight
+        },
+
+        transition:{
+          duration: 1000,
+          loader: true
         }
+
     });
     if(ret_env.origin.init_position){
         window.PSV.rotate(ret_env.origin.init_position);
