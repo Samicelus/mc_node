@@ -14,7 +14,7 @@ window.onload=function(){
 
 function getDefaultPage(){
     var sendData = {
-        page_id: page_id
+        page_id: window.page_id
     };
     $.post("/panorama/getPanorama",sendData,function(data,status){
         var ret_env = data.data.ret_env;
