@@ -25,7 +25,7 @@ AccessToken.prototype.getWeixin = function(mp_id){
                 throw e;
             }
         }else{
-            log('查询mongodb，mp_id：' + mp_id + '\t' + typeof mp_id);
+            console.log('查询mongodb，mp_id：' + mp_id + '\t' + typeof mp_id);
             var temp = null;
             return Mp.schema.findByIdAsync(mp_id).then(function(result){
                 if(!result){
