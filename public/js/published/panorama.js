@@ -78,14 +78,16 @@ function loadingAllImg(ret_env){
         container: div,
 
         // 可选，默认值为2000，全景图在time_anim毫秒后会自动进行动画。（设置为false禁用它）
-        time_anim: false,
+        time_anim: 2000,
 
         // 可选值，默认为false。显示导航条。
         navbar: [
             'autorotate',
+            'zoom',
             'markers',
             'caption',
-            'gyroscope'
+            'gyroscope',
+            'fullscreen'
         ],
 
         //陀螺仪

@@ -38,10 +38,14 @@
 }
 
 #tip_tag{
-    display: none; /* 默认隐藏 */
-    width: 120px;
-    height: 36px;
-    z-index: 99;
-    background-color: #777777;
-    position:absolute;
+     display: none; /* 默认隐藏 */
+     width: 120px;
+     height: 36px;
+     z-index: 99;
+     background-color: #777777;
+     position:absolute;
+ }
+
+#title{
+    width: auto;
 }
