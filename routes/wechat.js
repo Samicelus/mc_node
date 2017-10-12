@@ -1,6 +1,5 @@
 'use strict';
 var utils = require('../libs/utils.js');
-var message = require('../services/wechat_message');
 var handler = require('../services/wechatService.js');
 
 module.exports = function (app) {
