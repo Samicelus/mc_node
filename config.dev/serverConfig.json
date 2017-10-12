@@ -2,6 +2,5 @@
 	"port":8030,
 	"use_mongo": true,
 	"token_expire_time": 7200000,
-	"cipher_secret": "e8la3rqw",
-	"AppSecret": "c986b6ac15366e24d65c008c3d2308e9"
+	"cipher_secret": "e8la3rqw"
 }

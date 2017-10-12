@@ -5,7 +5,7 @@ var Promise = require('bluebird');
 var fs = Promise.promisifyAll(require('fs'));
 var path = require('path');
 var superagent = Promise.promisifyAll(require('superagent'));
-var redis = service.redis;
+var redis = require('../libs/redis.js').redisClient;
 var AccessToken = require('../libs/accessToken.js')(redis);
 
 
