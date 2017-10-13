@@ -444,6 +444,8 @@ $("#addPage").click(function(){
 
 $("#addPageSound").click(function(){
     console.log("add sound for "+window.page_id);
+    $("#insert_mask").hide();
+    $("#add_page_sound_dialog").hide();
     var page_id = window.page_id;
     var fd = new FormData();
     fd.append("page_sound",$("#added_sound")[0].files[0]);
