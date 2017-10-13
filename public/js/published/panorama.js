@@ -20,9 +20,12 @@ function getTitleHeight(){
     var title=document.getElementById('title');
     var titleHeight=parseFloat(getComputedStyle(title).height);
     var maxHeight=window.innerHeight;
+    var margin = titleHeight*0.1;
     window.canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
-    $(".btn-audio").css('top',parseFloat(titleHeight-10)+'px');
-    $(".btn-audio").css('right',parseFloat(titleHeight-10)+'px');
+    $(".btn-audio").css('top',margin+'px');
+    $(".btn-audio").css('right',margin+'px');
+    $(".btn-audio").css('width',parseFloat(titleHeight-margin*2)+'px');
+    $(".btn-audio").css('height',parseFloat(titleHeight-margin*2)+'px');
 }
 
 function getDefaultPage(){
