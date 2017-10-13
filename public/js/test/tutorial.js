@@ -164,23 +164,29 @@ $("#add_path").click(function(){
     console.log(window.functional);
 });
 
-$("#share_weixin").click(function(){
-    var url = "http://www.samicelus.cc/panorama/panoramaPub/" +window.page_id;
-    wx.onMenuShareAppMessage({
-        title: window.user_name+'分享了一个360全景地图', // 分享标题
-        desc: window.page_name, // 分享描述
-        link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: 'http://www.samicelus.cc/panorama/images/short_'+window.page_id+'.jpg', // 分享图标
-        type: 'link', // 分享类型,music、video或link，不填默认为link
-        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-        success: function () {
-            // 用户确认分享后执行的回调函数
-        },
-        cancel: function () {
-            // 用户取消分享后执行的回调函数
-        }
-    });
+$("#add_page_sound").click(function(){
+    $("#insert_mask").css("display","inline-block");
+    setDialogPosition("#add_page_sound_dialog","#insert_mask");
+    $("#add_page_sound_dialog").show();
 });
+
+// $("#share_weixin").click(function(){
+//     var url = "http://www.samicelus.cc/panorama/panoramaPub/" +window.page_id;
+//     wx.onMenuShareAppMessage({
+//         title: window.user_name+'分享了一个360全景地图', // 分享标题
+//         desc: window.page_name, // 分享描述
+//         link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+//         imgUrl: 'http://www.samicelus.cc/panorama/images/short_'+window.page_id+'.jpg', // 分享图标
+//         type: 'link', // 分享类型,music、video或link，不填默认为link
+//         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+//         success: function () {
+//             // 用户确认分享后执行的回调函数
+//         },
+//         cancel: function () {
+//             // 用户取消分享后执行的回调函数
+//         }
+//     });
+// });
 //
 function renew_markers(panorama_id, callback){
     $.get("/panorama/getMarker?panorama_id="+panorama_id,function(data,status){
@@ -435,6 +441,25 @@ $("#addPage").click(function(){
         });
     });
 });
+
+$("#addPageSound").click(function(){
+    var page_id = window.page_id;
+    var fd = new FormData();
+    fd.append("page_sound",$("#added_sound")[0].files[0]);
+    fd.append("page_id",page_id);
+    $.ajax({
+        type: 'post',
+        url: '/panorama/modPageSound',
+        data: fd,
+        cache: false,
+        contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
+        processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
+        success: function(data) {
+            console.log("添加声音成功")
+        }
+    });
+});
+
 
 function getCenter(out_id, inner_id){
     var out_width = parseFloat($(out_id).css("width"));

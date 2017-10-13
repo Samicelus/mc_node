@@ -486,4 +486,40 @@ service.getDefaultPage = function(req, res){
     })
 };
 
+service.modPageSound = function(req, res){
+    var page_id = req.body.page_id;
+    var page_sound = req.file;
+    var page_sound_path = "";
+    save_one_sound(page_sound.path, page_id).then(function(saved_path) {
+        page_sound_path = saved_path;
+        return Page.schema.findById(page_id).execAsync();
+    }).then(function(pageObj){
+        pageObj.page_sound = page_sound_path;
+        return pageObj.saveAsync();
+    }).then(function(pageObj){
+        service.restSuccess(res, pageObj);
+    }).catch(function (e) {
+        console.error(e.stack || e);
+        service.restError(res, -1, e.stack);
+    })
+};
+
+function save_one_sound(path, page_id){
+    var name = "sound_"+page_id+".mp3"
+    return fs.readFileAsync(path).then(function(data){
+        let options = {
+            Bucket: 'mcpanoram', /* 必须 */
+            Region: 'ap-chengdu', /* 必须 */
+            Key: name, /* 必须 */
+            contentLength: data.length,
+            Body: data
+        };
+        return cos.putObjectAsync(options);
+    }).then(function(){
+        return "/panorama/getObj/"+name;
+    }).catch(function(e){
+        throw e;
+    });
+}
+
 module.exports = service;

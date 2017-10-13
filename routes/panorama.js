@@ -14,4 +14,5 @@ module.exports = function(app){
     app.route('/setInitPosition').post(handler.setInitPosition);
     app.route('/getPanoramas').get(handler.getPanoramas);
     app.route('/getDefaultPage').get(utils.authorize, handler.getDefaultPage);
+    app.route('/modPageSound').post(upload.single('page_sound'), utils.authorize, handler.modPageSound);
 };

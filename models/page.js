@@ -3,7 +3,8 @@ var model  = new BaseModel();
 
 var _Schema = new model.Schema({
     page_name: String,
-    user_id: String
+    user_id: String,
+    page_sound: String
 },{versionKey: false});
 
 model.schema =  model.mongoose.model('pages', _Schema);	//collection名
