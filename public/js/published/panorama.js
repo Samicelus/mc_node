@@ -163,11 +163,11 @@ audio.volume = .3;
 $('.btn-audio').click(function() {
     event.stopPropagation();//防止冒泡
     if(audio.paused){ //如果当前是暂停状态
-        $('.btn-audio').css({'background':'url(../../images/music.png) no-repeat center bottom','background-size':'cover'});
+        $('.btn-audio').css({'background':'url(../images/music.png) no-repeat center bottom','background-size':'cover'});
         audio.play(); //播放
         return;
     }else{//当前是播放状态
-        $('.btn-audio').css({'background':'url(../../images/music.png) no-repeat center bottom','background-size':'cover'});
+        $('.btn-audio').css({'background':'url(../images/music.png) no-repeat center bottom','background-size':'cover'});
         audio.pause(); //暂停
     }
 });
