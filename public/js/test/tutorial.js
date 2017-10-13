@@ -7,12 +7,14 @@ window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
 window.enable_control_button = "enable";
-window.page_id = "59c333a2fd52da73a0c32383";
+window.page_id = "";
 window.functional = {};
 window.functional.set_init = false;
 window.functional.set_path = false;
 window.panorama_id = "";
 window.user_name = "";
+window.page_name = "";
+window.appId = "";
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
@@ -28,8 +30,20 @@ window.onload=function(){
         }
     });
     $.post('/panorama/wechat/signature/generate',{mp_id:"59df356fe9b5234c4d3835dc","url":"http://www.samicelus.cc/panorama/test/test.html"},function(data, status){
-        console.log("signature:",data.data);
-    })
+        var signature_ret = data.data;
+        window.appId = signature_ret.appId;
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: signature_ret.appId, // 必填，公众号的唯一标识
+            timestamp: signature_ret.timestamp, // 必填，生成签名的时间戳
+            nonceStr: signature_ret.noncestr, // 必填，生成签名的随机串
+            signature: signature_ret.signature,// 必填，签名，见附录1
+            jsApiList: ["onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function(){
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        });
+    });
 };
 
 $("#login").click(function(){
@@ -55,7 +69,8 @@ $("#login").click(function(){
 
 function getDefaultPage(){
     $.get("/panorama/getDefaultPage", function(data, status){
-        window.page_id = data.data;
+        window.page_id = data.data._id;
+        window.page_name = data.data.page_name;
         var sendData = {
             page_id: window.page_id
         };
@@ -149,6 +164,23 @@ $("#add_path").click(function(){
     console.log(window.functional);
 });
 
+$("#share_weixin").click(function(){
+    var encoded_url = encodeURI('http://www.samicelus.cc/panorama/panoramaPub/'+window.page_id);
+    wx.onMenuShareAppMessage({
+        title: window.user_name+'分享了一个360全景地图', // 分享标题
+        desc: window.page_name, // 分享描述
+        link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+window.appId+'&redirect_uri='+encoded_url+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: 'http://www.samicelus.cc/panorama/images/short_'+window.page_id+'.jpg', // 分享图标
+        type: 'link', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () {
+            // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+            // 用户取消分享后执行的回调函数
+        }
+    });
+});
 //
 function renew_markers(panorama_id, callback){
     $.get("/panorama/getMarker?panorama_id="+panorama_id,function(data,status){

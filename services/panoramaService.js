@@ -35,7 +35,7 @@ service.getObj = function (req, res) {
 }
 
 //将本地文件上传到COS并命名为name
-function upload_one_file(path, name, quality){
+function upload_one_file(path, name, quality, page_id, position){
     var max_tail = 300;
     switch (quality) {
         case "high":
@@ -71,10 +71,20 @@ function upload_one_file(path, name, quality){
         };
         return cos.putObjectAsync(options);
     }).then(function(){
+        return generate_short_cut(path, page_id, position);
+    }).then(function(){
         return fs.unlinkAsync(path);
     }).catch(function(e){
         throw e;
     })
+}
+
+function generate_short_cut(path, page_id, position){
+    if(position.x == 0 && position.y == 0 && position.z == 0){
+        return images(path).size(300).save('./public/images/short_'+page_id+'.jpg');
+    }else{
+        return false;
+    }
 }
 
 function reTailImage(path, quality, max_tail, timestamp, times){
@@ -152,7 +162,7 @@ service.addPanorama = function(req, res){
     var panorama_url = "/panorama/getObj/"+filename;
     var max_panorama = 0;
     fs.renameAsync(panorama_pic.path, save_path).then(function() {
-        return upload_one_file(save_path, filename, quality);
+        return upload_one_file(save_path, filename, quality, page_id, {x:x, y:y, z:z});
     }).then(function(){
         return User.schema.findById(user_id).execAsync();
     }).then(function(userObj) {
@@ -469,11 +479,11 @@ service.getDefaultPage = function(req, res){
     var user_id = req.body.user.ip;
     var query = {user_id: user_id};
     Page.schema.findOne(query).execAsync().then(function(pageObj){
-        service.restSuccess(res, pageObj._id);
+        service.restSuccess(res, pageObj);
     }).catch(function (e) {
         console.error(e.stack || e);
         service.restError(res, -1, e.stack);
     })
-}
+};
 
 module.exports = service;
