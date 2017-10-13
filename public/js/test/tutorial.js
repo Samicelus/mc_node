@@ -458,6 +458,7 @@ $("#addPageSound").click(function(){
         contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
         processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
         success: function(data) {
+            toggle_button_style($("#add_page_sound"));
             console.log("添加声音成功")
         }
     });
