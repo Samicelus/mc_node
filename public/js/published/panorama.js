@@ -151,4 +151,5 @@ function loadingAllImg(ret_env){
 
 function changeTitle(ret_env){
     $("#title").html(ret_env.origin.title);
+    $("#the_title").html(ret_env.origin.title);
 }
