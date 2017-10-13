@@ -318,3 +318,7 @@
     border-style: inset;
     border-width: thin;
 }
+
+#share_weixin{
+    background-image: url("../images/weixin.jpg");
+}
