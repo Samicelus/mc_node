@@ -157,6 +157,7 @@ $('#page_audio').on('ended', function() {
     console.log("音频已播放完成");
     $('.btn-audio').css({'background':'url(../../images/music.png) no-repeat center bottom','background-size':'cover'});
 })
+
 //播放器控制
 var audio = document.getElementById('page_audio');
 audio.volume = .3;
