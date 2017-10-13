@@ -21,6 +21,8 @@ function getTitleHeight(){
     var titleHeight=parseFloat(getComputedStyle(title).height);
     var maxHeight=window.innerHeight;
     window.canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
+    $(".btn-audio").css('top',parseFloat(titleHeight-5)+'px');
+    $(".btn-audio").css('right',parseFloat(titleHeight-5)+'px');
 }
 
 function getDefaultPage(){
