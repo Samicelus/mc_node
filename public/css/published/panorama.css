@@ -56,9 +56,9 @@
 }
 
 .btn-audio{
-    margin: 90px auto;
-    width: 186px;
-    height: 186px;
+    width: 24px;
+    height: 24px;
     background:url(../../images/music.png) no-repeat center bottom;
     background-size:cover;
+    float:right;
 }

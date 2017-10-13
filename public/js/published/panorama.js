@@ -171,4 +171,3 @@ $('.btn-audio').click(function() {
         audio.pause(); //暂停
     }
 });
-})
