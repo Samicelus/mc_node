@@ -7,7 +7,7 @@ const Page = require('../models/page.js');
 module.exports = function(app){
     app.route('/panoramaPub/:page_id').get(function (req, res) {
         Page.schema.findById(req.params.page_id).execAsync().then(function(pageObj){
-            res.render('../public/published/published',{page_id:req.params.page_id, page_name:pageObj.page_name});
+            res.render('../public/published/published',{page_id:req.params.page_id, page_name:pageObj.page_name, page_sound:pageObj.page_sound});
         }).catch(function(e){
             res.setHeader("Access-Control-Allow-Origin", "www.samicelus.cc");
             res.setHeader("Access-Control-Allow-Headers","*");

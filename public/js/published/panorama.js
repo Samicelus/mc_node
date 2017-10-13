@@ -152,3 +152,23 @@ function loadingAllImg(ret_env){
 function changeTitle(ret_env){
     $("#title").html(ret_env.origin.title);
 }
+
+$('#page_audio').on('ended', function() {
+    console.log("音频已播放完成");
+    $('.btn-audio').css({'background':'url(images/music.png) no-repeat center bottom','background-size':'cover'});
+})
+//播放器控制
+var audio = document.getElementById('page_audio');
+audio.volume = .3;
+$('.btn-audio').click(function() {
+    event.stopPropagation();//防止冒泡
+    if(audio.paused){ //如果当前是暂停状态
+        $('.btn-audio').css({'background':'url(images/music.png) no-repeat center bottom','background-size':'cover'});
+        audio.play(); //播放
+        return;
+    }else{//当前是播放状态
+        $('.btn-audio').css({'background':'url(images/music.png) no-repeat center bottom','background-size':'cover'});
+        audio.pause(); //暂停
+    }
+});
+})
