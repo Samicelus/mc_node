@@ -60,5 +60,7 @@
     height: 24px;
     background:url(../../images/music.png) no-repeat center bottom;
     background-size:cover;
-    float:right;
+    position: fixed;
+    top: 5px;
+    right: 5px;
 }
