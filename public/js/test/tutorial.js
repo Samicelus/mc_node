@@ -52,6 +52,12 @@ $("#logout").click(function(){
     });
 });
 
+$("#regist").click(function(){
+    $.post('/panorama/logoutUser',{},function(data, status){
+        window.location.reload();
+    });
+});
+
 $("#login").click(function(){
     var user_name = $("#username").val();
     var password = $("#password").val();
@@ -62,6 +68,7 @@ $("#login").click(function(){
     $.post("/panorama/loginUser", sendData, function(data, status){
         if(data.result == "TRUE"){
             window.user_name = data.data.username;
+            $("#welcome").html(window.user_name);
             $("#login_pad").css("display","none");
             $("#control_pad").css("display","inline-block");
             getDefaultPage()
