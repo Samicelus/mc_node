@@ -57,6 +57,8 @@ function upload_one_file(path, name, quality, page_id, position){
         if (data.length / 1024 > max_tail) {
             var nowTimestamp = new Date().getTime();
             return reTailImage(path, 85, max_tail, nowTimestamp, 1);
+        }else{
+            return path;
         }
     }).then(function(new_path) {
         console.log("new_path",new_path)
@@ -96,6 +98,7 @@ function reTailImage(path, quality, max_tail, timestamp, times){
     }else{
         extract.save(temp_file,{quality :quality});
     }
+    console.log("temp_file",temp_file);
     return fs.readFileAsync(temp_file).then(function(data) {
         if(data.length/1024 > max_tail && quality > 10){
             console.log(times+ "th resize result:"+ data.length/1024);
