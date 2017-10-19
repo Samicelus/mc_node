@@ -20,7 +20,7 @@ function getTitleHeight(){
     var title=document.getElementById('title');
     var titleHeight=parseFloat(getComputedStyle(title).height);
     var titleWidth=parseFloat(getComputedStyle(title).width);
-    $("#container").css("width",titleWidth+"px");
+    $("#container").css("width",parseFloat(titleWidth)+"px");
     var maxHeight=window.innerHeight;
     var margin = titleHeight*0.1;
     window.canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
