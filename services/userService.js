@@ -120,4 +120,9 @@ service.login = function(req, res){
     });
 };
 
+service.logoutUser = function(req, res){
+    authme.delete_user_token(req);
+    service.restSuccess(res, "success");
+}
+
 module.exports = service;

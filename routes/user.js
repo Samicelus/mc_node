@@ -7,4 +7,5 @@ module.exports = function(app){
 	app.route('/registUser').post(handler.registUser);
     app.route('/validUser').get(handler.validUser);
     app.route('/loginUser').post(handler.login);
+    app.route('/logoutUser').post(handler.logoutUser);
 }
