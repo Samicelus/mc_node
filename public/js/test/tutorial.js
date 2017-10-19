@@ -47,7 +47,7 @@ window.onload=function(){
 };
 
 $("#logout").click(function(){
-    alert($.cookie());
+    alert($.cookie('connect.sid'));
 });
 
 $("#login").click(function(){
