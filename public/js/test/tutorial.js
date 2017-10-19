@@ -155,6 +155,13 @@ $("#justify_init").click(function(){
 });
 
 $("#add_path").click(function(){
+    $.get("/panorama/getPanoramas?page_id="+window.page_id,function(data, status){
+        var panoramas = data.data;
+        $("#select_panorama_option").remove();
+        panoramas.map(function(panorama){
+            $("#select_panorama").append("<option id='panorama_"+panorama._id+"' content='"+panorama.title+"' value='"+panorama._id+"' class='select_panorama_option'>"+panorama.title+"</option>");
+        });
+    });
     disable_all_other_functional("set_path");
     if(window.functional.set_path){
         window.functional.set_path = false;
