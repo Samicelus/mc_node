@@ -54,6 +54,46 @@ $("#logout").click(function(){
 
 $("#regist").click(function(){
     $("#repassword").show();
+    $("#confirm_reg").show();
+    $("#login").hide();
+    $("#regist").hide();
+    $("#tolog").show();
+    $("#mail").show();
+});
+
+$("#tolog").click(function(){
+    $("#repassword").hide();
+    $("#confirm_reg").hide();
+    $("#login").show();
+    $("#tolog").hide();
+    $("#regist").show();
+    $("#mail").hide();
+});
+
+$("#confirm_reg").click(function(){
+    var user_name = $("#username").val();
+    var password = $("#password").val();
+    var repassword = $("#repassword").val();
+    var mail = $("#mail").val();
+    if(password != repassword){
+        alert("两次输入的密码不一致");
+        $("#password").val() = "";
+        $("#repassword").val() = "";
+    }
+    var sendData = {
+        user_name:user_name,
+        password:password,
+        email:mail
+    };
+    $.post('/panorama/registUser',sendData,function(data, status){
+        if(data.result == "TRUE"){
+            if(data.data && !data.data.result){
+                alert(data.data.msg);
+            }else{
+                alert(data.data.msg);
+            }
+        }
+    })
 });
 
 $("#login").click(function(){
