@@ -46,6 +46,10 @@ window.onload=function(){
     });
 };
 
+$("#logout").click(function(){
+   alert(document.cookie);
+});
+
 $("#login").click(function(){
     var user_name = $("#username").val();
     var password = $("#password").val();
