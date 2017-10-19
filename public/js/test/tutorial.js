@@ -105,6 +105,9 @@ function getDefaultPage(){
     })
 }
 
+$("#get_published_url").click(function(){
+    alert("http://samicelus.cc/panorama/panoramaPub/"+window.page_id);
+});
 
 $("#addPage_button").click(function(){
     $("#addPage_mask").css("display","inline-block");
