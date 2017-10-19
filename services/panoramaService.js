@@ -58,6 +58,7 @@ function upload_one_file(path, name, quality, page_id, position){
             var nowTimestamp = new Date().getTime();
             return reTailImage(path, 85, max_tail, nowTimestamp, 1);
         }else{
+            console("file size is valid:"+path);
             return path;
         }
     }).then(function(new_path) {
