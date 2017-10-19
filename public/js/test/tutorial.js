@@ -47,7 +47,7 @@ window.onload=function(){
 };
 
 $("#logout").click(function(){
-    $.post('/panorama/user/logout',{},function(data, status){
+    $.post('/panorama/logout',{},function(data, status){
         console.log(data);
     });
 });
