@@ -68,7 +68,7 @@ $("#login").click(function(){
     $.post("/panorama/loginUser", sendData, function(data, status){
         if(data.result == "TRUE"){
             window.user_name = data.data.username;
-            $("#welcome").html(window.user_name);
+            $("#welcome").html("欢迎你 "+window.user_name+"!");
             $("#login_pad").css("display","none");
             $("#control_pad").css("display","inline-block");
             getDefaultPage()
