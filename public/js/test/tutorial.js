@@ -47,7 +47,9 @@ window.onload=function(){
 };
 
 $("#logout").click(function(){
-    $.removeCookie({path:'/',domain:'www.samicelus.cc',});
+    $.post('/panorama/logout',{},function(data, status){
+        console.log(data);
+    });
 });
 
 $("#login").click(function(){
