@@ -48,7 +48,7 @@ window.onload=function(){
 
 $("#logout").click(function(){
     $.post('/panorama/logoutUser',{},function(data, status){
-        console.log(data);
+        window.location.reload();
     });
 });
 
