@@ -53,9 +53,7 @@ $("#logout").click(function(){
 });
 
 $("#regist").click(function(){
-    $.post('/panorama/logoutUser',{},function(data, status){
-        window.location.reload();
-    });
+    $("#repassword").show();
 });
 
 $("#login").click(function(){
