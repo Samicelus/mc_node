@@ -59,6 +59,7 @@ function upload_one_file(path, name, quality, page_id, position){
             return reTailImage(path, 85, max_tail, nowTimestamp, 1);
         }
     }).then(function(new_path) {
+        console.log("new_path",new_path)
         return fs.readFileAsync(new_path);
     }).then(function(data){
         console.log("file resize KB:" + data.length / 1024);
