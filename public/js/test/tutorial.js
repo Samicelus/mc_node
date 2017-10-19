@@ -47,7 +47,7 @@ window.onload=function(){
 };
 
 $("#logout").click(function(){
-    $.cookie('abc', 'abc');
+    console.log($.cookie());
 });
 
 $("#login").click(function(){
