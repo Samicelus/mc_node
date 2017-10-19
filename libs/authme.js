@@ -63,7 +63,7 @@ function renew_user_token(username, token, expire_timestamp, req){
     req.session.user_token_expire_timestamp = expire_timestamp;
 }
 
-authme.delete_user_token(req){
+authme.delete_user_token =function(req){
     req.session.user_token = "";
     req.session.user_token_expire_timestamp = "";
 }
