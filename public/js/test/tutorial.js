@@ -47,7 +47,7 @@ window.onload=function(){
 };
 
 $("#logout").click(function(){
-    $.removeCookie('connect.sid', { path: '/' });
+    $.removeCookie('connect.sid', { path: '/',domain: 'http://www.samicelus.cc' });
 });
 
 $("#login").click(function(){
