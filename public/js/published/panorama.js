@@ -7,6 +7,7 @@ window.latitude = 0;
 window.PSV = {};
 window.position = {x:0, y:0, z:0};
 window.canvasHeight;
+window.canvasWidth;
 window.panorama_id;
 
 
@@ -19,11 +20,12 @@ window.onload=function(){
 function getTitleHeight(){
     var title=document.getElementById('title');
     var titleHeight=parseFloat(getComputedStyle(title).height);
+    var titleWidth=parseFloat(getComputedStyle(title).width);
     window.addEventListener( 'resize', onWindowResize, false );
-    $("#container").css('width',$("#headers").css('width'));
     var maxHeight=window.innerHeight;
     var margin = titleHeight*0.1;
     window.canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
+    window.canvasWidth=parseFloat(titleWidth)+'px';
     $(".btn-audio").css('top',margin+'px');
     $(".btn-audio").css('right',margin+'px');
     $(".btn-audio").css('width',parseFloat(titleHeight-margin*2)+'px');
@@ -111,7 +113,7 @@ function loadingAllImg(ret_env){
 
         // 可选，默认值null，全景图容器的最终尺寸。例如：{width: 500, height: 300}。
         size: {
-            width: window.innerWidth,
+            width: window.canvasWidth,
             height: window.canvasHeight
         },
 
