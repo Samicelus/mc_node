@@ -21,7 +21,8 @@ function getTitleHeight(){
     var titleHeight=parseFloat(getComputedStyle(title).height);
     var titleWidth=parseFloat(getComputedStyle(title).width);
     console.log(titleWidth);
-    $("#container").css("width",parseFloat(titleWidth)+"px");
+    window.addEventListener( 'resize', onWindowResize, false );
+
     var maxHeight=window.innerHeight;
     var margin = titleHeight*0.1;
     window.canvasHeight=parseFloat(maxHeight-titleHeight)+'px';
@@ -29,6 +30,10 @@ function getTitleHeight(){
     $(".btn-audio").css('right',margin+'px');
     $(".btn-audio").css('width',parseFloat(titleHeight-margin*2)+'px');
     $(".btn-audio").css('height',parseFloat(titleHeight-margin*2)+'px');
+}
+
+function onWindowResize(){
+    $("#container").css('width',$("#headers").css('width'));
 }
 
 function getDefaultPage(){
