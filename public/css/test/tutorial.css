@@ -333,3 +333,8 @@
     border-style: outset;
     border-width: thick;
 }
+
+#pub_url{
+    margin-left:5%;
+    width:90%;
+}
