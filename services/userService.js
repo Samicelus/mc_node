@@ -31,7 +31,7 @@ service.registUser = function(req, res){
             mail.send({
                 text:    "请点击以下连接以激活账户:\n\t http://samicelus.cc/panorama/validUser?user_name="+user_name+"&code="+utils.md5(user_name+crypt_pass),
                 from:    "you <18180780531@163.com>",
-                to:      "someone <50893818@qq.com>",
+                to:      user_name+" <"+email+">",
                 subject: "mc360账户激活通知"
             },function (err, message) {
 				if (err) throw err;
