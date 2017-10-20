@@ -156,7 +156,7 @@ function getDefaultPage(){
     })
 }
 
-$("#get_published_url").zclip({
+$("#copy-link-wrap").zclip({
     copy: "http://samicelus.cc/panorama/panoramaPub/"+window.page_id,
     afterCopy:function(){
         alert("链接: http://samicelus.cc/panorama/panoramaPub/"+window.page_id+" 已复制到剪切板");
