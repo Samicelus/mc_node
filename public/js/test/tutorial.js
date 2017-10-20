@@ -90,7 +90,7 @@ $("#confirm_reg").click(function(){
             if(data.data && !data.data.result){
                 alert(data.data.msg);
             }else{
-                alert(data.data.msg);
+                alert("注册成功,请去邮箱验证！");
             }
         }
     })

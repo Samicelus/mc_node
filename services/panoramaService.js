@@ -101,7 +101,7 @@ function reTailImage(path, quality, max_tail, timestamp, times){
     }
     console.log("temp_file",temp_file);
     return fs.readFileAsync(temp_file).then(function(data) {
-        if(data.length/1024 > max_tail && quality > 10){
+        if(data.length/1024 > max_tail && quality > 10 && times < 25){
             console.log(times+ "th resize result:"+ data.length/1024);
             return reTailImage(path, times>1?quality:quality-5, max_tail, timestamp, ++times);
         }else{

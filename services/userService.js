@@ -49,7 +49,7 @@ service.registUser = function(req, res){
         }
     }).then(function(rst){
     	if(rst){
-            service.restSuccess(res, rst);
+            service.restSuccess(res, {result: true, msg:"注册成功,请去邮箱验证！"});
 		}else{
             service.restSuccess(res, {result: false, msg: "用户名或邮箱已经注册"});
 		}
