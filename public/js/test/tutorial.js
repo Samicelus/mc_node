@@ -156,8 +156,11 @@ function getDefaultPage(){
     })
 }
 
-$("#get_published_url").click(function(){
-    alert("http://samicelus.cc/panorama/panoramaPub/"+window.page_id);
+$("#get_published_url").zclip({
+    copy: "http://samicelus.cc/panorama/panoramaPub/"+window.page_id,
+    afterCopy:function(){
+        alert("链接: http://samicelus.cc/panorama/panoramaPub/"+window.page_id+" 已复制到剪切板");
+    }
 });
 
 $("#addPage_button").click(function(){
