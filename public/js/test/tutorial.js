@@ -156,11 +156,8 @@ function getDefaultPage(){
     })
 }
 
-$("#copy-link-wrap").zclip({
-    copy: "http://samicelus.cc/panorama/panoramaPub/"+window.page_id,
-    afterCopy:function(){
-        alert("链接: http://samicelus.cc/panorama/panoramaPub/"+window.page_id+" 已复制到剪切板");
-    }
+$("#copy-get_published_url-wrap").click(function(){
+    $("#pub_url").html("http://samicelus.cc/panorama/panoramaPub/"+window.page_id);
 });
 
 $("#addPage_button").click(function(){
@@ -494,13 +491,14 @@ $("#addPage").click(function(){
             contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
             processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
             success: function(data) {
-                $.get("/panorama/getPages",function(data, status){
-                    var pages = data.data;
-                    $("#select_page_option").remove();
-                    pages.map(function(page){
-                        $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page_option'>"+page.page_name+"</option>");
-                    });
-                });
+                window.location.reload();
+                // $.get("/panorama/getPages",function(data, status){
+                //     var pages = data.data;
+                //     $("#select_page_option").remove();
+                //     pages.map(function(page){
+                //         $("#select_page").append("<option id='page_"+page._id+"' value='"+page._id+"' class='select_page_option'>"+page.page_name+"</option>");
+                //     });
+                // });
             }
         });
     });
