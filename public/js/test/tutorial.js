@@ -157,7 +157,7 @@ function getDefaultPage(){
 }
 
 $("#get_published_url").click(function(){
-    $("#pub_url").html("http://samicelus.cc/panorama/panoramaPub/"+window.page_id);
+    $("#pub_url").val("http://samicelus.cc/panorama/panoramaPub/"+window.page_id);
 });
 
 $("#addPage_button").click(function(){
