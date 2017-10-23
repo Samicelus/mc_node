@@ -47,12 +47,10 @@
  }
 
 #title{
-    background-color: #555555;
-    color: #FFFFFF;
     text-shadow: 3px 3px 5px #888888;
-    border-style: ridge;
-    border-width: medium;
     font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2), 0 0 0 12px rgba(0, 0, 0, 0.2), 0 0 0 18px rgba(0, 0, 0, 0.2), 0 0 0 24px rgba(0, 0, 0, 0.2);
+    height: 64px;
 }
 
 .btn-audio{
