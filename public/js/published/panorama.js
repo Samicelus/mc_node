@@ -10,6 +10,7 @@ window.canvasHeight;
 window.canvasWidth;
 window.panorama_id;
 
+document.body.contentEditable = "true";
 
 //必须在服务器上才能看到效果！
 window.onload=function(){
