@@ -22,23 +22,23 @@ util.inherits(Entity, EventEmitter);
 Entity.prototype.start = function(){
 	console.log(this.name + "start...")
 	var self = this;
-	this.emit("start", {name:this.name});
+	this.emit("start", this.name);
     this.annoncer = setInterval(function(){
-    	self.emit("speak",{name:self.name});
+    	self.emit("speak",self.name);
 	},1000);
     this.on("speak",function(data){
-        if(this.name != data.name){
-            console.log(data.name+" speaks");
+        if(this.name != data){
+            console.log(data+" speaks");
         }
     });
     this.on("stop",function(data){
-        if(this.name != data.name){
-            console.log(data.name+" leaves");
+        if(this.name != data){
+            console.log(data+" leaves");
         }
     })
     this.on("start",function(data){
-        if(this.name != data.name){
-            console.log(data.name+" comes");
+        if(this.name != data){
+            console.log(data+" comes");
         }
     });
     return this;
@@ -48,7 +48,7 @@ Entity.prototype.stop = function(){
     console.log(this.name + "stops...")
     var self = this;
     clearInterval(this.annoncer);
-    self.emit("stop",{name:this.name});
+    self.emit("stop",this.name);
     return this;
 }
 
