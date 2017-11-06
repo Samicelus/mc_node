@@ -79,7 +79,7 @@ service.testEntity = function(req, res){
 	var id = Number(req.body.id);
 	switch(action){
 		case "create":
-            entity_arr.push(new Entity({name:name}).start.on("speak",function(data){
+            entity_arr.push(new Entity({name:name}).start().on("speak",function(data){
             	if(this.name != data.name){
                     console.log(data.name+" speaks");
 				}
