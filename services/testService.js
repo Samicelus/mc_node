@@ -20,6 +20,7 @@ function Entity(opt){
 util.inherits(Entity, EventEmitter);
 
 Entity.prototype.start = function(){
+	console.log(this.name + "start...")
 	var self = this;
 	this.emit("start", {name:this.name});
     this.annoncer = setInterval(function(){
@@ -44,6 +45,7 @@ Entity.prototype.start = function(){
 }
 
 Entity.prototype.stop = function(){
+    console.log(this.name + "stops...")
     var self = this;
     clearInterval(this.annoncer);
     self.emit("stop",{name:this.name});
