@@ -79,19 +79,24 @@ service.testEntity = function(req, res){
 	var id = Number(req.body.id);
 	switch(action){
 		case "create":
-            entity_arr.push(new Entity({name:name}).start().on("speak",function(data){
+            entity_arr.push(new Entity({name:name}))
+            var current_entity = entity_arr[entity_arr.length-1];
+            current_entity.start()
+            current_entity.on("speak",function(data){
             	if(this.name != data.name){
                     console.log(data.name+" speaks");
 				}
-			}).on("stop",function(data){
+			});
+            current_entity.on("stop",function(data){
                 if(this.name != data.name){
                     console.log(data.name+" leaves");
                 }
-			}).on("start",function(data){
+			})
+            current_entity.on("start",function(data){
                 if(this.name != data.name){
                     console.log(data.name+" comes");
                 }
-            }));
+            });
 			break;
 		case "delete":
             entity_arr[id].stop();
