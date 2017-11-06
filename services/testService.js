@@ -94,7 +94,7 @@ service.testEntity = function(req, res){
             }));
 			break;
 		case "delete":
-            entity_arr[id].stop;
+            entity_arr[id].stop();
             entity_arr.splice(id,1);
             break;
 		default:
