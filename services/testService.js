@@ -17,7 +17,7 @@ function Entity(opt){
     this.annoncer;
 }
 
-utils.inherits(Entity, EventEmitter);
+util.inherits(Entity, EventEmitter);
 
 Entity.prototype.start = function(){
 	var self = this;
