@@ -4,9 +4,36 @@ var Promise = require('bluebird');
 var mongodb = require('../libs/mongodb.js');
 var utils = require('../libs/utils.js');
 var service = new BaseService();
-
 var Test_model = require('../models/test_model.js');
+var EventEmitter = require('events').EventEmitter;
+var util = require('util');
+var id = 0;
+var entity_arr = [];
 
+function Entity(opt){
+    EventEmitter.call(this);
+    this.id = id++;
+    this.name = opt.name;
+    this.annoncer;
+}
+
+utils.inherits(Entity, EventEmitter);
+
+Entity.prototype.start = function(){
+	var self = this;
+	this.emit("start", {name:this.name});
+    this.annoncer = setInterval(function(){
+    	self.emit("speak",{name:self.name});
+	},1000);
+    return this;
+}
+
+Entity.prototype.stop = function(){
+    var self = this;
+    clearInterval(this.annoncer);
+    self.emit("stop",{name:this.name});
+    return this;
+}
 
 service.uploadFile = function(req, res){
 	var uploaded_file = req.file;
@@ -45,5 +72,39 @@ service.testSave = function(req, res){
 	    service.restError(res, -1, e.toString());
 	});
 }
+
+service.testEntity = function(req, res){
+    var name = req.body.name;
+	var action = req.body.action;
+	var id = Number(req.body.id);
+	switch(action){
+		case "create":
+            entity_arr.push(new Entity({name:name}).start.on("speak",function(data){
+            	if(this.name != data.name){
+                    console.log(data.name+" speaks");
+				}
+			})).on("stop",function(data){
+                if(this.name != data.name){
+                    console.log(data.name+" leaves");
+                }
+			}).on("start",function(data){
+                if(this.name != data.name){
+                    console.log(data.name+" comes");
+                }
+            });
+			break;
+		case "delete":
+            entity_arr[id].stop;
+            entity_arr.splice(id,1);
+            break;
+		default:
+			console.log("unknown command");
+			break
+	}
+	var log = "command: "+action+ "executed";
+    service.restSuccess(res, log);
+}
+
+
 
 module.exports = service;

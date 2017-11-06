@@ -8,4 +8,5 @@ module.exports = function(app){
 	app.route('/testSave').post(handler.testSave);
 	var upload = multer({'dest': 'upload/'});
 	app.route('/uploadFile').post(upload.single('uploaded_file'), handler.uploadFile);
+    app.route('/testEntity').post(handler.testEntity);
 }
