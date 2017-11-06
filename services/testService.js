@@ -25,6 +25,21 @@ Entity.prototype.start = function(){
     this.annoncer = setInterval(function(){
     	self.emit("speak",{name:self.name});
 	},1000);
+    this.on("speak",function(data){
+        if(this.name != data.name){
+            console.log(data.name+" speaks");
+        }
+    });
+    this.on("stop",function(data){
+        if(this.name != data.name){
+            console.log(data.name+" leaves");
+        }
+    })
+    this.on("start",function(data){
+        if(this.name != data.name){
+            console.log(data.name+" comes");
+        }
+    });
     return this;
 }
 
@@ -79,24 +94,7 @@ service.testEntity = function(req, res){
 	var id = Number(req.body.id);
 	switch(action){
 		case "create":
-            entity_arr.push(new Entity({name:name}))
-            var current_entity = entity_arr[entity_arr.length-1];
-            current_entity.start()
-            current_entity.on("speak",function(data){
-            	if(this.name != data.name){
-                    console.log(data.name+" speaks");
-				}
-			});
-            current_entity.on("stop",function(data){
-                if(this.name != data.name){
-                    console.log(data.name+" leaves");
-                }
-			})
-            current_entity.on("start",function(data){
-                if(this.name != data.name){
-                    console.log(data.name+" comes");
-                }
-            });
+            entity_arr.push(new Entity({name:name}).start());
 			break;
 		case "delete":
             entity_arr[id].stop();
