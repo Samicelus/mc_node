@@ -83,7 +83,7 @@ service.testEntity = function(req, res){
             	if(this.name != data.name){
                     console.log(data.name+" speaks");
 				}
-			})).on("stop",function(data){
+			}).on("stop",function(data){
                 if(this.name != data.name){
                     console.log(data.name+" leaves");
                 }
@@ -91,7 +91,7 @@ service.testEntity = function(req, res){
                 if(this.name != data.name){
                     console.log(data.name+" comes");
                 }
-            });
+            }));
 			break;
 		case "delete":
             entity_arr[id].stop;
