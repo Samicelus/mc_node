@@ -8,7 +8,7 @@ var Test_model = require('../models/test_model.js');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 var id = 0;
-var entity_arr = [];
+global.entity_group = {};
 
 function Entity(opt){
     EventEmitter.call(this);
@@ -94,11 +94,13 @@ service.testEntity = function(req, res){
 	var id = Number(req.body.id);
 	switch(action){
 		case "create":
-            entity_arr.push(new Entity({name:name}).start());
+            global.entity_group[name] = new Entity({name:name});
+            global.entity_group[name].start();
 			break;
-		case "delete":
-            entity_arr[id].stop();
-            entity_arr.splice(id,1);
+		case "stop":
+			if(global.entity_group[name]){
+                global.entity_group[name].stop();
+			}
             break;
 		default:
 			console.log("unknown command");
