@@ -1,6 +1,5 @@
 'use strict';
-var Promise = require('bluebird');
-var mongoose = Promise.promisifyAll(require("mongoose"));
+var mongoose = require("./mongodb.js");
 class BaseModel{
     constructor() {
         this.mongoose = mongoose;
