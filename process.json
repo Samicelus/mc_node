@@ -6,7 +6,7 @@
       "watch": false,
       "error_file": "/data/logs/nodes/mc_node-error.log",
       "out_file": "/data/logs/nodes/mc_node-out.log",
-      "env": "dev"
+      "NODE_ENV": "dev"
     }
   ]
 }

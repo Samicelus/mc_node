@@ -10,7 +10,7 @@ const Marker = require('../models/marker.js');
 const PanoramaSerie = require('../models/panorama_serie.js');
 const Page = require('../models/page.js');
 const User = require('../models/user.js');
-const images =require('images');
+//const images =require('images');
 let COS = require('cos-nodejs-sdk-v5');
 let params = {
     AppId: '1254462566', /* 必须 */
@@ -54,13 +54,13 @@ function upload_one_file(path, name, quality, page_id, position){
     console.log("resize the image to < "+ max_tail);
     return fs.readFileAsync(path).then(function(data) {
         console.log("file size KB:" + data.length / 1024);
-        if (data.length / 1024 > max_tail) {
-            var nowTimestamp = new Date().getTime();
-            return reTailImage(path, 85, max_tail, nowTimestamp, 1);
-        }else{
-            console.log("file size is valid:"+path);
+        // if (data.length / 1024 > max_tail) {
+        //     var nowTimestamp = new Date().getTime();
+        //     return reTailImage(path, 85, max_tail, nowTimestamp, 1);
+        // }else{
+        //     console.log("file size is valid:"+path);
             return path;
-        }
+        // }
     }).then(function(new_path) {
         console.log("new_path",new_path)
         return fs.readFileAsync(new_path);
@@ -75,8 +75,8 @@ function upload_one_file(path, name, quality, page_id, position){
         };
         return cos.putObjectAsync(options);
     }).then(function(){
-        return generate_short_cut(path, page_id, position);
-    }).then(function(){
+    //     return generate_short_cut(path, page_id, position);
+    // }).then(function(){
         return fs.unlinkAsync(path);
     }).catch(function(e){
         throw e;
