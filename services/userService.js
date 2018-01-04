@@ -12,6 +12,7 @@ var redis = require('../libs/redis.js').redisClient;
 var mail = require('emailjs').server.connect({
     host: 'smtp.163.com',
     user: '18180780531@163.com',
+    
     password: '12e409i7',
     ssl: true
 });
